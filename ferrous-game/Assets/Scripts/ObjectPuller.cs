@@ -7,9 +7,11 @@ using UnityEngine.Pool;
 public class ObjectPuller : MonoBehaviour
 {
     private bool isPulling = false;
+    private bool isPushing = false;
+
     private Rigidbody rb;
     private Camera mainCamera;
-    private Transform pulledObject;
+    private Transform interactableObject;
 
     public float pullForce = 10f;
 
@@ -21,7 +23,7 @@ public class ObjectPuller : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0)) // Change this to your desired input method
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1)) // Change this to your desired input method
         {
             RaycastHit hit;
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -30,24 +32,29 @@ public class ObjectPuller : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 Debug.Log("Hit");
-                if (hit.collider.CompareTag("metal"))
+                if (hit.collider.CompareTag("Metal"))
                 {
-                    isPulling = true;
-                    pulledObject = hit.transform;
+                    if (Input.GetMouseButton(0)) { isPulling = true; }
+                    else if (Input.GetMouseButton(1)) { isPushing = true;  }
+                    interactableObject = hit.transform;
                 }
             }
         }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            isPulling = false;
-        }
+        if (Input.GetMouseButtonUp(0)) { isPulling = false; }
+        if (Input.GetMouseButtonUp(1)) { isPushing = false; }
 
         if (isPulling)
         {
             Debug.Log("Pulling");
-            Vector3 pullDirection = (mainCamera.transform.position - pulledObject.position).normalized;
-            pulledObject.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce);
+            Vector3 pullDirection = (mainCamera.transform.position - interactableObject.position).normalized;
+            interactableObject.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce);
+        }   
+        else if (isPushing)
+        {
+            Debug.Log("Pushing");
+            Vector3 pullDirection = -(mainCamera.transform.position - interactableObject.position).normalized;
+            interactableObject.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce);
         }
     }
 }
