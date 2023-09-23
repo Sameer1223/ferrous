@@ -31,7 +31,6 @@ public class ObjectPuller : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("Hit");
                 if (hit.collider.CompareTag("Metal"))
                 {
                     if (Input.GetMouseButton(0)) { isPulling = true; }

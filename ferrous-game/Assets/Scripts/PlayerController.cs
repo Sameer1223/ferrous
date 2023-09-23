@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float movementSpeed = 5.0f;
+    public float moveSpeed = 5f;
+    public float jumpForce = 10f;
     public float mouseSensitivity = 2.0f;
-    private float jumpForce = 5f;
 
+    private Rigidbody rb;
     private float verticalRotation = 0;
 
-    //Input
-    private bool jumpPressed;
-    private bool isGrounded;
-
     private Camera playerCamera;
-    private Rigidbody rb;
+
+    private bool isGrounded;
 
     void Start()
     {
@@ -29,17 +27,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Player Movement
-        float horizontalMovement = Input.GetAxis("Horizontal");
-        float verticalMovement = Input.GetAxis("Vertical");
-        jumpPressed = Input.GetButton("Jump");
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical) * moveSpeed * Time.deltaTime;
+        rb.MovePosition(transform.position + movement);
 
-        Vector3 movementDirection = new Vector3(horizontalMovement, 0, verticalMovement);
-        movementDirection = transform.TransformDirection(movementDirection);
-        movementDirection *= movementSpeed;
-        movementDirection.y = 0;
-
-        CharacterController characterController = GetComponent<CharacterController>();
-        characterController.SimpleMove(movementDirection);
+        Debug.Log(isGrounded);
+        // Jumping
+        if (isGrounded && Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("Jump");
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
 
         // Player Look (Mouse)
         float horizontalRotation = Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -49,4 +48,12 @@ public class PlayerController : MonoBehaviour
         verticalRotation = Mathf.Clamp(verticalRotation, -90, 90);
         playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }   
 }
