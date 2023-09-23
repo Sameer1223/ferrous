@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     public float mouseSensitivity = 2.0f;
 
+    [Header("Sound Effects")] 
+    public AudioSource jumpSfx;
+
+    public AudioSource walkSfx;
+    
+
     private Rigidbody rb;
     private bool isGrounded;
     private Camera camera;
@@ -31,13 +37,17 @@ public class PlayerController : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
         Vector3 movement = (camera.transform.right * moveHorizontal + camera.transform.forward * moveVertical).normalized
                            * moveSpeed * Time.deltaTime;
+        if (movement != Vector3.zero && !walkSfx.isPlaying)
+        {
+            walkSfx.Play();
+        }
         rb.MovePosition(transform.position + movement);
 
         Debug.Log(isGrounded);
         // Jumping
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            Debug.Log("Jump");
+            jumpSfx.Play();            
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }

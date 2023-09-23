@@ -8,10 +8,12 @@ public class ObjectPuller : MonoBehaviour
 {
     private bool isPulling = false;
     private bool isPushing = false;
+    public AudioSource GunActiveSFX;
 
     private Rigidbody rb;
     private Camera mainCamera;
     private Transform interactableObject;
+    private bool soundPlayed;
 
     public float pullForce = 10f;
 
@@ -25,6 +27,11 @@ public class ObjectPuller : MonoBehaviour
     {
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1)) // Change this to your desired input method
         {
+            if (!soundPlayed)
+            {
+                GunActiveSFX.Play();
+                soundPlayed = true;
+            }
             RaycastHit hit;
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(transform.position, transform.forward, Color.green);
@@ -40,8 +47,12 @@ public class ObjectPuller : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonUp(0)) { isPulling = false; }
-        if (Input.GetMouseButtonUp(1)) { isPushing = false; }
+        if (Input.GetMouseButtonUp(0)) { isPulling = false;
+            soundPlayed = false;
+        }
+        if (Input.GetMouseButtonUp(1)) { isPushing = false;
+            soundPlayed = false;
+        }
 
         if (isPulling)
         {
