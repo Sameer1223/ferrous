@@ -6,15 +6,23 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 5.0f;
     public float mouseSensitivity = 2.0f;
+    private float jumpForce = 5f;
 
     private float verticalRotation = 0;
+
+    //Input
+    private bool jumpPressed;
+    private bool isGrounded;
+
     private Camera playerCamera;
+    private Rigidbody rb;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the center of the screen
         Cursor.visible = false; // Hide the cursor
 
+        rb = gameObject.GetComponent<Rigidbody>();
         playerCamera = GetComponentInChildren<Camera>();
     }
 
@@ -23,6 +31,7 @@ public class PlayerController : MonoBehaviour
         // Player Movement
         float horizontalMovement = Input.GetAxis("Horizontal");
         float verticalMovement = Input.GetAxis("Vertical");
+        jumpPressed = Input.GetButton("Jump");
 
         Vector3 movementDirection = new Vector3(horizontalMovement, 0, verticalMovement);
         movementDirection = transform.TransformDirection(movementDirection);
