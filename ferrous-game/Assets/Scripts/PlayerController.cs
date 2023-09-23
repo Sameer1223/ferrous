@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private bool isGrounded;
+    private Camera camera;
 
     void Start()
     {
@@ -17,14 +18,19 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false; // Hide the cursor
 
         rb = gameObject.GetComponent<Rigidbody>();
+        camera = gameObject.GetComponentInChildren<Camera>();
     }
 
     void Update()
     {
+        transform.rotation = camera.transform.rotation;
+        Debug.Log(transform.forward.z + " " + camera.transform.forward.z);
+        
         // Player Movement
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical) * moveSpeed * Time.deltaTime;
+        Vector3 movement = (camera.transform.right * moveHorizontal + camera.transform.forward * moveVertical).normalized
+                           * moveSpeed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
 
         Debug.Log(isGrounded);
