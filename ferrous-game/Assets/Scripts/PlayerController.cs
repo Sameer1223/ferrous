@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         transform.rotation = camera.transform.rotation;
-        Debug.Log(transform.forward.z + " " + camera.transform.forward.z);
         
         // Player Movement
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -42,8 +41,7 @@ public class PlayerController : MonoBehaviour
             walkSfx.Play();
         }
         rb.MovePosition(transform.position + movement);
-
-        Debug.Log(isGrounded);
+        
         // Jumping
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
@@ -55,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Metal")
         {
             isGrounded = true;
         }
