@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Jump");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
         }
     }
 
