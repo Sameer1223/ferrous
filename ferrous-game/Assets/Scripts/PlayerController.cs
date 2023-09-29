@@ -1,22 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float jumpForce = 10f;
-    public float mouseSensitivity = 2.0f;
+    // Inputs
+    private float moveHorizontal;
+    private float moveVertical;
+    private bool jumpInput;
 
+    // Game Objects
+    private Rigidbody rb;
+    private Camera camera;
+
+    // Movement variables
+    [Header("Movement")]
+    public float moveSpeed;
+    public float jumpForce;
+    public float jumpCooldown;
+    public float airMultiplier;
+    public float groundDrag;
+    private bool canJump;
+
+    // Ground check variables
+    [Header("Ground Check")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    private bool isGrounded;
+
+    // Audio
     [Header("Sound Effects")] 
     public AudioSource jumpSfx;
-
     public AudioSource walkSfx;
-    
 
-    private Rigidbody rb;
-    private bool isGrounded;
-    private Camera camera;
+    // [TESTING]
+    Vector3 lastPosition;
 
     void Start()
     {
@@ -25,37 +44,94 @@ public class PlayerController : MonoBehaviour
 
         rb = gameObject.GetComponent<Rigidbody>();
         camera = gameObject.GetComponentInChildren<Camera>();
+
+        canJump = true;
+        lastPosition = transform.position;
     }
 
     void Update()
     {
-        transform.rotation = camera.transform.rotation;
-        
-        // Player Movement
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector3 movement = (camera.transform.right * moveHorizontal + camera.transform.forward * moveVertical).normalized
-                           * moveSpeed * Time.deltaTime;
-        if (movement != Vector3.zero && !walkSfx.isPlaying)
+        PlayerInput();
+        SpeedLimiter();
+        IsGrounded();
+
+        // Drag
+        if (isGrounded)
+            rb.drag = groundDrag;
+        else
+            rb.drag = 0;
+    }
+
+    void FixedUpdate()
+    {
+        // Player movement
+        MovePlayer();
+    }
+    
+    // User input
+    private void PlayerInput()
+    {
+        moveHorizontal = Input.GetAxis("Horizontal");
+        moveVertical = Input.GetAxis("Vertical");
+
+        if (Input.GetButton("Jump") && canJump && isGrounded)
         {
-            walkSfx.Play();
-        }
-        rb.MovePosition(transform.position + movement);
-        
-        // Jumping
-        if (isGrounded && Input.GetButtonDown("Jump"))
-        {
-            jumpSfx.Play();            
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
+            canJump = false;
+            Jump();
+            Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+    // Player movement
+    private void MovePlayer()
     {
-        if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Metal")
+        Vector3 moveDirection = transform.forward * moveVertical + transform.right * moveHorizontal;
+
+        if (isGrounded)
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+        else if (!isGrounded)
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+
+        // Music
+        if (moveDirection != Vector3.zero && !walkSfx.isPlaying)
         {
-            isGrounded = true;
+            walkSfx.Play();
         }
-    }   
+    }
+
+    // Limiting function for speed
+    private void SpeedLimiter()
+    {
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if(flatVel.magnitude > moveSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
+    }
+
+    // Jump handler
+    private void Jump()
+    {
+        // Set rb y velocity to 0 so jump remains consistent
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        
+        jumpSfx.Play();
+    }
+
+    private void ResetJump()
+    {
+        canJump = true;
+    }
+
+    // Ground check
+    private void IsGrounded()
+    {
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+    }
+    
 }
