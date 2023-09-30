@@ -25,6 +25,24 @@ public class ObjectPuller : MonoBehaviour
 
     void Update()
     {
+
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            RaycastHit hit;
+            // generates a ray in the look direction
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            // instead of origin -> destination, use the defined ray
+            if (Physics.Raycast(ray, out hit, rayDist)) 
+            {
+                if (hit.collider.CompareTag("Metal"))
+                {
+                    Debug.Log("Selected Metal");
+                }
+            }
+        }
+
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1)) // Change this to your desired input method
         if (Input.GetButton("Fire1") || Input.GetAxisRaw("Fire1") > 0 || Input.GetButton("Fire2") || Input.GetAxisRaw("Fire2") > 0)
         {
             if (!soundPlayed)
