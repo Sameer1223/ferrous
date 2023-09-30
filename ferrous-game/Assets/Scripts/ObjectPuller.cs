@@ -25,7 +25,7 @@ public class ObjectPuller : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1)) // Change this to your desired input method
+        if (Input.GetButton("Fire1") || Input.GetAxisRaw("Fire1") > 0 || Input.GetButton("Fire2") || Input.GetAxisRaw("Fire2") > 0)
         {
             if (!soundPlayed)
             {
@@ -40,17 +40,22 @@ public class ObjectPuller : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Metal"))
                 {
-                    if (Input.GetMouseButton(0)) { isPulling = true; }
-                    else if (Input.GetMouseButton(1)) { isPushing = true;  }
+                    Debug.Log(Input.GetMouseButton(0));
+                    if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) { isPulling = true; }
+                    else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) { isPushing = true; }
                     interactableObject = hit.transform;
                 }
             }
         }
 
-        if (Input.GetMouseButtonUp(0)) { isPulling = false;
+        if (Input.GetAxisRaw("Fire1") < 0.1f && !Input.GetMouseButton(0)) 
+        { 
+            isPulling = false;
             soundPlayed = false;
-        }
-        if (Input.GetMouseButtonUp(1)) { isPushing = false;
+        } 
+        if (Input.GetAxisRaw("Fire2") < 0.1f && !Input.GetMouseButton(1)) 
+        { 
+            isPushing = false;
             soundPlayed = false;
         }
 
