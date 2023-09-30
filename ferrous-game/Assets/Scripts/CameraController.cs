@@ -44,13 +44,13 @@ public class CameraController : MonoBehaviour
         var angle = CameraTarget.transform.localEulerAngles.x;
 
         //Clamp the Up/Down rotation of the camera so it doesn't flip
-        if (angle > 180 && angle < 340)
+        if (angle > 180 && angle < 300)
         {
-            angles.x = 340;
+            angles.x = 300;
         }
-        else if(angle < 180 && angle > 40)
+        else if (angle < 180 && angle > 75)
         {
-            angles.x = 40;
+            angles.x = 75;
         }
         // set the camera target to our clamped thing
         CameraTarget.transform.localEulerAngles = angles;
