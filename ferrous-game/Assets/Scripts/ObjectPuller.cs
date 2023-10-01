@@ -15,6 +15,8 @@ public class ObjectPuller : MonoBehaviour
     private Transform _playerTransform;
     private bool soundPlayed;
 
+    public bool useSelect = false; // bool that lets us choose which system we want to use when pushing / pulling
+
     [Header("Select")]
     public float rayDist;
 
@@ -32,8 +34,12 @@ public class ObjectPuller : MonoBehaviour
 
     void Update()
     {
-        selectObject();
-        if (isSelected)
+        if (useSelect)
+        {
+            selectObject();
+
+        }
+        if (isSelected || !useSelect)
         {
             getPushPullInput();
         }
@@ -41,22 +47,23 @@ public class ObjectPuller : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (isPulling && isSelected)
+        if ((useSelect && isSelected) || !useSelect)
         {
-            Debug.Log("Pulling");
-            Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
-            pullDirection = new Vector3(pullDirection.x, 0f, pullDirection.z);
-            selectedObject.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce);
+            if (isPulling)
+            {
+                Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
+                pullDirection = new Vector3(pullDirection.x, 0f, pullDirection.z);
+                selectedObject.AddForce(pullDirection * pullForce);
+            }
+            else if (isPushing)
+            {
+                Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
+                Debug.DrawRay(mainCamera.transform.position, pushDirection, Color.red);
+                pushDirection = new Vector3(pushDirection.x, 0f, pushDirection.z);
+                selectedObject.AddForce(pushDirection * pullForce);
+            }
         }
-        else if (isPushing && isSelected)
-        {
-            Debug.Log("Pushing");
-            Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
-            Debug.Log(pushDirection);
-            Debug.DrawRay(mainCamera.transform.position, pushDirection, Color.red);
-            pushDirection = new Vector3(pushDirection.x, 0f, pushDirection.z);
-            selectedObject.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce);
-        }
+        
     }
     private void selectObject()
     {
@@ -112,12 +119,33 @@ public class ObjectPuller : MonoBehaviour
     {
         if (Input.GetButton("Fire1") || Input.GetAxisRaw("Fire1") > 0 || Input.GetButton("Fire2") || Input.GetAxisRaw("Fire2") > 0)
         {
-            if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) { isPulling = true; Debug.Log("pulling"); }
-            else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) { isPushing = true; }
+            // if using look to push / pull then do the raycast logic
+            if (!useSelect)
+            {
+                RaycastHit hit;
+                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                Debug.DrawRay(transform.position, transform.forward, Color.green);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.CompareTag("Metal"))
+                    {
+                        Debug.Log(Input.GetMouseButton(0));
+                        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) { isPulling = true; }
+                        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) { isPushing = true; }
+                        selectedObject = hit.rigidbody;
+                    }
+                }
+            }
+            else
+            {
+                if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) { isPulling = true;}
+                else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) { isPushing = true; }
+            }
 
             
         }
-
+        // determine if no longer inputting
         if (Input.GetAxisRaw("Fire1") < 0.1f && !Input.GetMouseButton(0))
         {
             Debug.Log("not pulling");
