@@ -7,17 +7,21 @@ using UnityEngine.SceneManagement;
 public class CanvasControl : MonoBehaviour
 {
     [SerializeField] private GameObject Settingmenu;
+    [SerializeField] private GameObject Helpmenu;
     [SerializeField] private GameObject MusicSlider;
     [SerializeField] private float alphaSpeed = 1.0f;
     private bool isFade = false;
-    private CanvasGroup canvasGroup;
+    private bool isFadeHelp = false;
+    private CanvasGroup canvasGroupSetting;
+    private CanvasGroup canvasGroupHelp;
     private CanvasGroup canvasGroup2;
     public AudioSource button;
     // Start is called before the first frame update
     void Start()
     {
-        canvasGroup = Settingmenu.GetComponent<CanvasGroup>();
+        canvasGroupSetting = Settingmenu.GetComponent<CanvasGroup>();
         canvasGroup2 = MusicSlider.GetComponent<CanvasGroup>();
+        canvasGroupHelp = Helpmenu.GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
@@ -31,14 +35,22 @@ public class CanvasControl : MonoBehaviour
         {
             FadeOut();
         }
-        
+        if (isFadeHelp)
+        {
+            FadeInHelp();
+        }
+        else
+        {
+            FadeOutHelp();
+        }
+
 
     }
     private void FadeOut()
     {
-        canvasGroup.alpha -= alphaSpeed * Time.deltaTime;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        canvasGroupSetting.alpha -= alphaSpeed * Time.deltaTime;
+        canvasGroupSetting.interactable = false;
+        canvasGroupSetting.blocksRaycasts = false;
         canvasGroup2.alpha -= alphaSpeed * Time.deltaTime;
         canvasGroup2.interactable = false;
         canvasGroup2.blocksRaycasts = false;
@@ -46,17 +58,36 @@ public class CanvasControl : MonoBehaviour
 
     private void FadeIn()
     {
-        canvasGroup.alpha += alphaSpeed * Time.deltaTime;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
+        canvasGroupSetting.alpha += alphaSpeed * Time.deltaTime;
+        canvasGroupSetting.interactable = true;
+        canvasGroupSetting.blocksRaycasts = true;
         canvasGroup2.alpha += alphaSpeed * Time.deltaTime;
         canvasGroup2.interactable = true;
         canvasGroup2.blocksRaycasts = true;
+    }
+    private void FadeOutHelp()
+    {
+        canvasGroupHelp.alpha -= alphaSpeed * Time.deltaTime;
+        canvasGroupHelp.interactable = false;
+        canvasGroupHelp.blocksRaycasts = false;
+    }
+
+    private void FadeInHelp()
+    {
+        canvasGroupHelp.alpha += alphaSpeed * Time.deltaTime;
+        canvasGroupHelp.interactable = true;
+        canvasGroupHelp.blocksRaycasts = true;
     }
     public void OnClickBtnActiveSetting()
     {
         //button.Play();
         isFade = !isFade;
+    }
+
+    public void OnClickBtnActiveHelp()
+    {
+        //button.Play();
+        isFadeHelp = !isFadeHelp;
     }
 
     public void OnClickBtnNextScene()
