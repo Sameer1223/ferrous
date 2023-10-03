@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -21,9 +22,12 @@ public class ObjectPuller : MonoBehaviour
     public float rayDist;
 
     [Header("Push/Pull")]
-    public float pullForce = 10f;
+    private float maxDist = 40f;
+    private float minDist = 3.0f;
+    public float pullForce = 50.0f;
     private Rigidbody selectedObject;
     private bool isSelected;
+    private float distToPlayer;
 
     void Start()
     {
@@ -37,7 +41,6 @@ public class ObjectPuller : MonoBehaviour
         if (useSelect)
         {
             selectObject();
-
         }
         if (isSelected || !useSelect)
         {
@@ -49,21 +52,27 @@ public class ObjectPuller : MonoBehaviour
     {
         if ((useSelect && isSelected) || !useSelect)
         {
-            if (isPulling)
+            // calculate a multipler based on how far away the selected object is from the player
+            float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
+            float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
+
+            if (distToPlayer <= 4.0f && !isPushing)
+            {
+                selectedObject.velocity = Vector3.zero;
+            }
+            if (isPulling && distToPlayer > 4.0f)
             {
                 Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                 pullDirection = new Vector3(pullDirection.x, 0f, pullDirection.z);
-                selectedObject.AddForce(pullDirection * pullForce);
+                selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
             }
             else if (isPushing)
             {
                 Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
-                Debug.DrawRay(mainCamera.transform.position, pushDirection, Color.red);
                 pushDirection = new Vector3(pushDirection.x, 0f, pushDirection.z);
-                selectedObject.AddForce(pushDirection * pullForce);
+                selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
             }
         }
-        
     }
     private void selectObject()
     {
@@ -84,7 +93,7 @@ public class ObjectPuller : MonoBehaviour
                         // compare prev and new selected
                         prevSelectedObject = selectedObject.gameObject;
                         selectedObject = hit.rigidbody;
-                        if (Object.ReferenceEquals(prevSelectedObject, selectedObject.gameObject))
+                        if (GameObject.ReferenceEquals(prevSelectedObject, selectedObject.gameObject))
                         {
                             // de-select the object
                             selectedObject.useGravity = true;
@@ -119,6 +128,13 @@ public class ObjectPuller : MonoBehaviour
     {
         if (Input.GetButton("Fire1") || Input.GetAxisRaw("Fire1") > 0 || Input.GetButton("Fire2") || Input.GetAxisRaw("Fire2") > 0)
         {
+            // get the distance between the player and the selected object
+            if (selectedObject)
+            {
+                distToPlayer = Vector3.Distance(_playerTransform.position, selectedObject.position);
+                distToPlayer = Mathf.Clamp(distToPlayer, minDist, maxDist);
+                Debug.Log(distToPlayer);
+            }
             // if using look to push / pull then do the raycast logic
             if (!useSelect)
             {
