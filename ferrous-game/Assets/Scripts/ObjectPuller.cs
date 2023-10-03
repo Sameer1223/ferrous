@@ -52,11 +52,13 @@ public class ObjectPuller : MonoBehaviour
         { 
             isPulling = false;
             soundPlayed = false;
+            SetWhite();
         } 
         if (Input.GetAxisRaw("Fire2") < 0.1f && !Input.GetMouseButton(1)) 
         { 
             isPushing = false;
             soundPlayed = false;
+            SetWhite();
         }
 
         if (isPulling)
@@ -64,12 +66,72 @@ public class ObjectPuller : MonoBehaviour
             Debug.Log("Pulling");
             Vector3 pullDirection = (mainCamera.transform.position - interactableObject.position).normalized;
             interactableObject.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce);
+            SetBlue();
         }   
         else if (isPushing)
         {
             Debug.Log("Pushing");
             Vector3 pullDirection = -(mainCamera.transform.position - interactableObject.position).normalized;
             interactableObject.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce);
+            SetRed();
         }
+    }
+    public void SetBlue()
+    {
+        GameObject body = GameObject.FindGameObjectWithTag("body");
+        GameObject face = GameObject.FindGameObjectWithTag("face");
+        GameObject hand = GameObject.FindGameObjectWithTag("hand");
+        GameObject helmet = GameObject.FindGameObjectWithTag("helmet");
+        Renderer faceRend = face.GetComponent<Renderer>();
+        faceRend.material.SetColor("_EmissionColor", Color.cyan);
+        
+        Renderer handRend = hand.GetComponent<Renderer>();
+        handRend.material.SetColor("_EmissionColor", Color.cyan);
+        
+        Renderer bodyRend = body.GetComponent<Renderer>();
+        bodyRend.material.SetColor("_EmissionColor", Color.cyan);
+        
+        Renderer helmetRend = helmet.GetComponent<Renderer>();
+        helmetRend.material.SetColor("_EmissionColor", Color.cyan);
+    }
+    
+    public void SetRed()
+    {
+        GameObject body = GameObject.FindGameObjectWithTag("body");
+        GameObject face = GameObject.FindGameObjectWithTag("face");
+        GameObject hand = GameObject.FindGameObjectWithTag("hand");
+        GameObject helmet = GameObject.FindGameObjectWithTag("helmet");
+        
+        Renderer faceRend = face.GetComponent<Renderer>();
+        faceRend.material.SetColor("_EmissionColor", Color.red);
+        
+        Renderer handRend = hand.GetComponent<Renderer>();
+        handRend.material.SetColor("_EmissionColor", Color.red);
+        
+        Renderer bodyRend = body.GetComponent<Renderer>();
+        bodyRend.material.SetColor("_EmissionColor", Color.red);
+        
+        Renderer helmetRend = helmet.GetComponent<Renderer>();
+        helmetRend.material.SetColor("_EmissionColor", Color.red);
+    }
+    
+    public void SetWhite()
+    {
+        GameObject body = GameObject.FindGameObjectWithTag("body");
+        GameObject face = GameObject.FindGameObjectWithTag("face");
+        GameObject hand = GameObject.FindGameObjectWithTag("hand");
+        GameObject helmet = GameObject.FindGameObjectWithTag("helmet");
+        
+        Renderer faceRend = face.GetComponent<Renderer>();
+        faceRend.material.SetColor("_EmissionColor", Color.white);
+        
+        Renderer handRend = hand.GetComponent<Renderer>();
+        handRend.material.SetColor("_EmissionColor", Color.white);
+        
+        Renderer bodyRend = body.GetComponent<Renderer>();
+        bodyRend.material.SetColor("_EmissionColor", Color.white);
+        
+        Renderer helmetRend = helmet.GetComponent<Renderer>();
+        helmetRend.material.SetColor("_EmissionColor", Color.white);
     }
 }
