@@ -35,14 +35,16 @@ public class Rays : MonoBehaviour
         magnetRay.enabled = true;
 
         // Show outline on target object
-        //ShowOutline(obj, force);
+        ShowOutline(obj, force);
     }
 
     // Turn off magnetic ray
     private void Deactivate(GameObject obj)
     {
+        if (obj == null) return;
+
         // Hide outline on target object
-        //HideOutline(obj);
+        HideOutline(obj);
 
         magnetRay.enabled = false;
         magnetRay.SetPosition(0, raySpawnPoint.position);
@@ -52,17 +54,22 @@ public class Rays : MonoBehaviour
     // Outline logic for objects
     private void ShowOutline(GameObject obj, int force)
     {
+        if(obj == null) return;
+
         outlinedGameObj = obj;
         Outline outline = obj.GetComponent<Outline>();
         if (force == 0) outline.OutlineColor = blueColour; else outline.OutlineColor = redColour;
-        outline.enabled = true;
+        //outline.enabled = true;
     }
 
     // Hiding outline after being deselected
     private void HideOutline(GameObject obj)
     {
+        if (obj == null) return;
+
         Outline outline = obj.GetComponent<Outline>();
-        outline.enabled = false;
+        outline.OutlineColor = Color.white;
+        //outline.enabled = false;
     }
 
     // Update is called once per frame
@@ -80,6 +87,11 @@ public class Rays : MonoBehaviour
         bool cast = Physics.Raycast(ray, out RaycastHit hit, maxLength);
         Vector3 hitPosition = cast ? hit.point : raySpawnPoint.position + raySpawnPoint.forward * maxLength;
 
+        if (!hit.collider.gameObject.CompareTag("Metal"))
+        {
+            Deactivate(outlinedGameObj);
+            return;
+        }
 
         Activate(force, hit.collider.gameObject);
 

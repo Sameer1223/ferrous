@@ -40,7 +40,6 @@ public class ObjectPuller : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Metal"))
                 {
-                    Debug.Log(Input.GetMouseButton(0));
                     if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) { isPulling = true; }
                     else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) { isPushing = true; }
                     interactableObject = hit.transform;
