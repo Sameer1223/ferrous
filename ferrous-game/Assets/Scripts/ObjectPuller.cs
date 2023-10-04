@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 public class ObjectPuller : MonoBehaviour
 {
@@ -32,8 +33,11 @@ public class ObjectPuller : MonoBehaviour
     [Header("Stasis")]
     private GameObject frozenObject;
 
+    private Scene scene;
+
     void Start()
     {
+        scene = SceneManager.GetActiveScene();
         rb = GetComponent<Rigidbody>();
         mainCamera = Camera.main;
         _playerTransform = GameObject.Find("Player").transform;
@@ -69,14 +73,16 @@ public class ObjectPuller : MonoBehaviour
                 if (isPulling && distToPlayer > 4.0f)
                 {
                     Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
-                    pullDirection = new Vector3(pullDirection.x, 0f, pullDirection.z);
+                    pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
                     selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
+                    SetBlue();
                 }
                 else if (isPushing)
                 {
                     Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
-                    pushDirection = new Vector3(pushDirection.x, 0f, pushDirection.z);
+                    pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
                     selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
+                    SetRed();
                 }
             }
         }
@@ -101,16 +107,32 @@ public class ObjectPuller : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("Metal"))
                     {
-                        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) { isPulling = true; }
-                        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) { isPushing = true; }
+                        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f)
+                        {
+                            isPulling = true;
+                            SetBlue();
+                        }
+                        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f)
+                        {
+                            isPushing = true; 
+                            SetRed();
+                        }
                         selectedObject = hit.rigidbody;
                     }
                 }
             }
             else
             {
-                if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) { isPulling = true;}
-                else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) { isPushing = true; }
+                if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f)
+                {
+                    isPulling = true;
+                    SetBlue();
+                }
+                else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f)
+                {
+                    isPushing = true; 
+                    SetRed();
+                }
             }
 
             
@@ -120,11 +142,13 @@ public class ObjectPuller : MonoBehaviour
         {
             isPulling = false;
             soundPlayed = false;
+            SetWhite();
         }
         if (Input.GetAxisRaw("Fire2") < 0.1f && !Input.GetMouseButton(1))
         {
             isPushing = false;
             soundPlayed = false;
+            SetWhite();
         }
     }
 
@@ -132,6 +156,7 @@ public class ObjectPuller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            Debug.Log("AIJDLKASJDLKAJLDKAJLKDJALKEDJS");
             RaycastHit hit;
             // generates a ray in the look direction
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -140,6 +165,7 @@ public class ObjectPuller : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Metal"))
                 {
+                    Debug.Log("Hit metal");
                     GameObject prevFrozenObject;
                     if (frozenObject != null)
                     {
@@ -176,8 +202,13 @@ public class ObjectPuller : MonoBehaviour
 
     private IEnumerator UnFreeze(GameObject toUnfreeze)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.3f);
         toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        Debug.Log(scene.name);
+        if (scene.name == "Varun Level")
+        {
+            toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ |  RigidbodyConstraints.FreezePositionX;
+        }
 
     }
 
@@ -230,6 +261,65 @@ public class ObjectPuller : MonoBehaviour
                 }
             }
         }
+    }
+    
+    public void SetBlue()
+    {
+        GameObject body = GameObject.FindGameObjectWithTag("body");
+        GameObject face = GameObject.FindGameObjectWithTag("face");
+        GameObject hand = GameObject.FindGameObjectWithTag("hand");
+        GameObject helmet = GameObject.FindGameObjectWithTag("helmet");
+        Renderer faceRend = face.GetComponent<Renderer>();
+        faceRend.material.SetColor("_EmissionColor", Color.cyan);
+        
+        Renderer handRend = hand.GetComponent<Renderer>();
+        handRend.material.SetColor("_EmissionColor", Color.cyan);
+        
+        Renderer bodyRend = body.GetComponent<Renderer>();
+        bodyRend.material.SetColor("_EmissionColor", Color.cyan);
+        
+        Renderer helmetRend = helmet.GetComponent<Renderer>();
+        helmetRend.material.SetColor("_EmissionColor", Color.cyan);
+    }
+    
+    public void SetRed()
+    {
+        GameObject body = GameObject.FindGameObjectWithTag("body");
+        GameObject face = GameObject.FindGameObjectWithTag("face");
+        GameObject hand = GameObject.FindGameObjectWithTag("hand");
+        GameObject helmet = GameObject.FindGameObjectWithTag("helmet");
+        
+        Renderer faceRend = face.GetComponent<Renderer>();
+        faceRend.material.SetColor("_EmissionColor", Color.red);
+        
+        Renderer handRend = hand.GetComponent<Renderer>();
+        handRend.material.SetColor("_EmissionColor", Color.red);
+        
+        Renderer bodyRend = body.GetComponent<Renderer>();
+        bodyRend.material.SetColor("_EmissionColor", Color.red);
+        
+        Renderer helmetRend = helmet.GetComponent<Renderer>();
+        helmetRend.material.SetColor("_EmissionColor", Color.red);
+    }
+    
+    public void SetWhite()
+    {
+        GameObject body = GameObject.FindGameObjectWithTag("body");
+        GameObject face = GameObject.FindGameObjectWithTag("face");
+        GameObject hand = GameObject.FindGameObjectWithTag("hand");
+        GameObject helmet = GameObject.FindGameObjectWithTag("helmet");
+        
+        Renderer faceRend = face.GetComponent<Renderer>();
+        faceRend.material.SetColor("_EmissionColor", Color.white);
+        
+        Renderer handRend = hand.GetComponent<Renderer>();
+        handRend.material.SetColor("_EmissionColor", Color.white);
+        
+        Renderer bodyRend = body.GetComponent<Renderer>();
+        bodyRend.material.SetColor("_EmissionColor", Color.white);
+        
+        Renderer helmetRend = helmet.GetComponent<Renderer>();
+        helmetRend.material.SetColor("_EmissionColor", Color.white);
     }
 
 }
