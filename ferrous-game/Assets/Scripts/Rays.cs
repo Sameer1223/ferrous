@@ -75,6 +75,7 @@ public class Rays : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Integer to track force push or pull. Pull = 0, Push = 1, No Force = -1
         force = -1;
 
         if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) force = 0;
@@ -93,6 +94,7 @@ public class Rays : MonoBehaviour
             return;
         }
 
+        // Activate ray with force integer (either push or pull)
         Activate(force, hit.collider.gameObject);
 
         if (!magnetRay.enabled) return;
