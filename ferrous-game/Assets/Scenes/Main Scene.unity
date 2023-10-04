@@ -2453,9 +2453,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784e5db2570e04b4fb072924a85295b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EngTrigger: {fileID: 0}
-  BackPanel: {fileID: 0}
-  Player: {fileID: 0}
+  EngTrigger: {fileID: 1037873635}
+  BackPanel: {fileID: 1010291924}
+  Player: {fileID: 1374921688}
 --- !u!65 &1037873638
 BoxCollider:
   m_ObjectHideFlags: 0

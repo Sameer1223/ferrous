@@ -5,7 +5,7 @@ using UnityEngine;
 public class GamePanelControl : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject EngTrigger;
+    public GameObject EndTrigger;
     public GameObject BackPanel;
     public GameObject Player;
     void Start()
