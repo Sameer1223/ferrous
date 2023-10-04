@@ -88,7 +88,7 @@ public class Rays : MonoBehaviour
         bool cast = Physics.Raycast(ray, out RaycastHit hit, maxLength);
         Vector3 hitPosition = cast ? hit.point : raySpawnPoint.position + raySpawnPoint.forward * maxLength;
 
-        if (hit.collider.gameObject != null & !hit.collider.gameObject.CompareTag("Metal"))
+        if (hit.collider.gameObject != null && !hit.collider.gameObject.CompareTag("Metal"))
         {
             Deactivate(outlinedGameObj);
             return;
