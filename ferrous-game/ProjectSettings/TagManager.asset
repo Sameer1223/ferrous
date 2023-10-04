@@ -7,6 +7,10 @@ TagManager:
   - metal
   - Ground
   - Metal
+  - body
+  - hand
+  - face
+  - helmet
   layers:
   - Default
   - TransparentFX
