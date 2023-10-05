@@ -14,11 +14,22 @@ public class Rays : MonoBehaviour
 
     private Camera cam;
     private GameObject outlinedGameObj;
-    private int force;
+    
+    // Keeps track of force being applied to object
+    private Force force;
 
     // Constants
     private Color blueColour = new Color(0, 191, 156); 
     private Color redColour = new Color(191, 0, 0);
+
+    // Force enum to keep track of force modes
+    public enum Force
+    {
+        Pull, //0
+        Push, //1
+        Stasis, //2
+        None //3
+    }
 
     private void Awake()
     {
@@ -28,10 +39,10 @@ public class Rays : MonoBehaviour
     }
 
     // Turn on magnetic ray
-    private void Activate(int force, GameObject obj)
+    private void Activate(Force force, GameObject obj)
     {
-        if (force == -1) return;
-        magnetRay.material = rayMaterials[force];
+        if (force == Force.None) return;
+        magnetRay.material = rayMaterials[(int) force];
         magnetRay.enabled = true;
 
         // Show outline on target object
@@ -52,14 +63,13 @@ public class Rays : MonoBehaviour
     }
 
     // Outline logic for objects
-    private void ShowOutline(GameObject obj, int force)
+    private void ShowOutline(GameObject obj, Force force)
     {
         if(obj == null) return;
 
         outlinedGameObj = obj;
         Outline outline = obj.GetComponent<Outline>();
-        if (force == 0) outline.OutlineColor = blueColour; else outline.OutlineColor = redColour;
-        //outline.enabled = true;
+        if (force == Force.Pull) outline.OutlineColor = blueColour; else outline.OutlineColor = redColour;
     }
 
     // Hiding outline after being deselected
@@ -69,17 +79,16 @@ public class Rays : MonoBehaviour
 
         Outline outline = obj.GetComponent<Outline>();
         outline.OutlineColor = Color.white;
-        //outline.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Integer to track force push or pull. Pull = 0, Push = 1, No Force = -1
-        force = -1;
+        force = Force.None;
 
-        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) force = 0;
-        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) force = 1;
+        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) force = Force.Pull;
+        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) force = Force.Push;
         else if (!Input.GetMouseButton(0) && Input.GetAxisRaw("Fire1") < 0.1f || !Input.GetMouseButton(1) && Input.GetAxisRaw("Fire2") < 0.1f) Deactivate(outlinedGameObj);
         
 
