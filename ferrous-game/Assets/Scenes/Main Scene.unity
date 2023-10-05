@@ -4741,11 +4741,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1cc46839339a1194e8608f4829f83427, type: 2}
     - target: {fileID: -4819223349682164798, guid: e0105ee697b4d114dac7d63035019937, type: 3}
       propertyPath: m_TagString
-      value: body
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -2884639134055194704, guid: e0105ee697b4d114dac7d63035019937, type: 3}
       propertyPath: m_TagString
-      value: hand
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -2511954419471665940, guid: e0105ee697b4d114dac7d63035019937, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4757,7 +4757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5375565966456680603, guid: e0105ee697b4d114dac7d63035019937, type: 3}
       propertyPath: m_TagString
-      value: helmet
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8449996119470504636, guid: e0105ee697b4d114dac7d63035019937, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4765,7 +4765,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1cc46839339a1194e8608f4829f83427, type: 2}
     - target: {fileID: 8540762849855351454, guid: e0105ee697b4d114dac7d63035019937, type: 3}
       propertyPath: m_TagString
-      value: face
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8843841459950393060, guid: e0105ee697b4d114dac7d63035019937, type: 3}
       propertyPath: m_Materials.Array.data[0]

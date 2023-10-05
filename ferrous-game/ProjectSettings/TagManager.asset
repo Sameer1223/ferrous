@@ -4,13 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - metal
   - Ground
   - Metal
-  - body
-  - hand
-  - face
-  - helmet
   layers:
   - Default
   - TransparentFX
