@@ -177,7 +177,6 @@ public class ObjectPuller : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Metal"))
                 {
-                    Debug.Log("Hit metal");
                     GameObject prevFrozenObject;
                     if (frozenObject != null)
                     {
@@ -216,7 +215,6 @@ public class ObjectPuller : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
         toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-        Debug.Log(scene.name);
         if (scene.name == "Varun Level")
         {
             toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
