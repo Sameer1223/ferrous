@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/GameStart.unity
     guid: fd53cb00ec7d2ee4197af8ab53890da0
   - enabled: 1
-    path: Assets/Scenes/Physics Scene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Main Scene.unity
+    guid: 5012b5e4f7b81d54091e07f35186e164
   m_configObjects: {}

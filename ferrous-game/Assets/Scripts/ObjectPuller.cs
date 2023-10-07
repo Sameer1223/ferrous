@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 public class ObjectPuller : MonoBehaviour
 {
@@ -32,8 +33,24 @@ public class ObjectPuller : MonoBehaviour
     [Header("Stasis")]
     private GameObject frozenObject;
 
+    // Player model colour changing variables
+    List<Renderer> modelRenderers = new List<Renderer>();
+
+    private Scene scene;
+
+    private void Awake()
+    {
+        GameObject model = GameObject.Find("Robot_withUV");
+
+        foreach (Renderer renderer in model.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+    }
+
     void Start()
     {
+        scene = SceneManager.GetActiveScene();
         rb = GetComponent<Rigidbody>();
         mainCamera = Camera.main;
         _playerTransform = GameObject.Find("Player").transform;
@@ -69,14 +86,16 @@ public class ObjectPuller : MonoBehaviour
                 if (isPulling && distToPlayer > 4.0f)
                 {
                     Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
-                    pullDirection = new Vector3(pullDirection.x, 0f, pullDirection.z);
+                    pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
                     selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
+                    SetModelColour(Color.cyan);
                 }
                 else if (isPushing)
                 {
                     Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
-                    pushDirection = new Vector3(pushDirection.x, 0f, pushDirection.z);
+                    pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
                     selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
+                    SetModelColour(Color.red);
                 }
             }
         }
@@ -101,30 +120,48 @@ public class ObjectPuller : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("Metal"))
                     {
-                        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) { isPulling = true; }
-                        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) { isPushing = true; }
+                        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f)
+                        {
+                            isPulling = true;
+                            SetModelColour(Color.cyan);
+                        }
+                        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f)
+                        {
+                            isPushing = true;
+                            SetModelColour(Color.red);
+                        }
                         selectedObject = hit.rigidbody;
                     }
                 }
             }
             else
             {
-                if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) { isPulling = true;}
-                else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) { isPushing = true; }
+                if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f)
+                {
+                    isPulling = true;
+                    SetModelColour(Color.cyan);
+                }
+                else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f)
+                {
+                    isPushing = true;
+                    SetModelColour(Color.red);
+                }
             }
 
-            
+
         }
         // determine if no longer inputting
         if (Input.GetAxisRaw("Fire1") < 0.1f && !Input.GetMouseButton(0))
         {
             isPulling = false;
             soundPlayed = false;
+            SetModelColour(Color.white);
         }
         if (Input.GetAxisRaw("Fire2") < 0.1f && !Input.GetMouseButton(1))
         {
             isPushing = false;
             soundPlayed = false;
+            SetModelColour(Color.white);
         }
     }
 
@@ -176,8 +213,12 @@ public class ObjectPuller : MonoBehaviour
 
     private IEnumerator UnFreeze(GameObject toUnfreeze)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.3f);
         toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        if (scene.name == "Varun Level")
+        {
+            toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
+        }
 
     }
 
@@ -232,4 +273,12 @@ public class ObjectPuller : MonoBehaviour
         }
     }
 
+    // Set player model colour
+    private void SetModelColour(Color color)
+    {
+        foreach (Renderer item in modelRenderers)
+        {
+            item.material.SetColor("_EmissionColor", color);
+        }
+    }
 }
