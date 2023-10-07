@@ -156,6 +156,7 @@ public class ObjectPuller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            Debug.Log("AIJDLKASJDLKAJLDKAJLKDJALKEDJS");
             RaycastHit hit;
             // generates a ray in the look direction
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -164,6 +165,7 @@ public class ObjectPuller : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Metal"))
                 {
+                    Debug.Log("Hit metal");
                     GameObject prevFrozenObject;
                     if (frozenObject != null)
                     {
