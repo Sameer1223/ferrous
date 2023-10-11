@@ -6,6 +6,15 @@ TagManager:
   tags:
   - Ground
   - Metal
+  - Glass
+  - Red
+  - Blue
+  - SwitchLightOne
+  - SwitchLightTwo
+  - SwitchLightThree
+  - SwitchLightFour
+  - RightDoorOne
+  - LeftDoorOne
   layers:
   - Default
   - TransparentFX
