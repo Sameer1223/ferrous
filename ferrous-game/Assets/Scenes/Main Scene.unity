@@ -701,7 +701,7 @@ Transform:
   m_GameObject: {fileID: 351298664}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.02, y: 4.2, z: -6.5}
+  m_LocalPosition: {x: -39.02, y: 4.6, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1748,7 +1748,6 @@ GameObject:
   - component: {fileID: 934694059}
   - component: {fileID: 934694058}
   - component: {fileID: 934694057}
-  - component: {fileID: 934694062}
   m_Layer: 3
   m_Name: Metal Cube (large)
   m_TagString: Metal
@@ -1887,19 +1886,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934694055}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &934694062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 934694055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d88f4556597604489e669bb7be2fa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charge: 0
 --- !u!1 &935130588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2689,7 +2675,7 @@ GameObject:
   - component: {fileID: 1179588528}
   - component: {fileID: 1179588527}
   - component: {fileID: 1179588526}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Ledge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3556,7 +3542,7 @@ Transform:
   m_GameObject: {fileID: 1374921688}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.82, y: 2.3, z: 0}
+  m_LocalPosition: {x: -39.82, y: 2.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4083,8 +4069,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GunActiveSFX: {fileID: 113166031}
-  rayDist: 40
   useSelect: 0
+  rayDist: 40
   pullForce: 50
 --- !u!81 &1678989332
 AudioListener:
@@ -4551,8 +4537,6 @@ GameObject:
   - component: {fileID: 1918968129}
   - component: {fileID: 1918968128}
   - component: {fileID: 1918968127}
-  - component: {fileID: 1918968132}
-  - component: {fileID: 1918968133}
   m_Layer: 3
   m_Name: Metal Cube (medium)
   m_TagString: Metal
@@ -4691,33 +4675,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918968125}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1918968132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918968125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d88f4556597604489e669bb7be2fa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charge: 0
---- !u!114 &1918968133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918968125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 974cefeba5ea8574dad97bbfb1da7017, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSelectDist: 40
-  unfreezeDuration: 2
 --- !u!1001 &2009700097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4802,10 +4759,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: e0105ee697b4d114dac7d63035019937, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 3ed89603cc56a16489da2ae296a2f65f, type: 2}
     - target: {fileID: 8449996119470504636, guid: e0105ee697b4d114dac7d63035019937, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
