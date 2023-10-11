@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +18,11 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("Switch"))
+        {
+            SceneController.DemoSceneChange();
+        }
+
         //TODO: display different set of controls on the canvas when something is paused
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -61,6 +65,9 @@ public class PauseMenu : MonoBehaviour
         IsPaused = false;
         Time.timeScale = 1.0f;
         SceneController.BackToMain();
+
+        Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the screen
+        Cursor.visible = true; // Hide the cursor
     }
 
     public void RestartLevel()

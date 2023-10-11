@@ -146,11 +146,11 @@ MonoBehaviour:
   IsRuntimeOnly: 0
   GenerateAllOutputs: 1
   GenerateAllMipmaps: 0
-  OutputMaterial: {fileID: 2100000, guid: 1cc46839339a1194e8608f4829f83427, type: 2}
+  OutputMaterial: {fileID: 2100000, guid: 6e8287fca8dc3284c90ed11192f51746, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://M_magnetguy\" label=\"\" >\n </sbspreset>\n"
   MaterialShader: Standard
-  RenderTextures: 0
-  OutputRemaped: 0
+  RenderTextures: 1
+  OutputRemaped: 1
   Presets: []
   references:
     version: 2
