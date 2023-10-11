@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -10,16 +11,13 @@ public class CameraController : MonoBehaviour
     public float rotationPower = 1.0f;
     public Quaternion nextRotation;
     public float rotationLerp = 0.5f;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    
+
     private void LateUpdate()
     {
-        CameraControl();
+        if (!PauseMenu.IsPaused)
+        {
+            CameraControl();
+        }
     }
 
     private void CameraControl()

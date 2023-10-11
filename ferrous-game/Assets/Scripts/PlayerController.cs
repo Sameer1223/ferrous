@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the center of the screen
         Cursor.visible = false; // Hide the cursor
-
+       
         rb = gameObject.GetComponent<Rigidbody>();
         camera = gameObject.GetComponentInChildren<Camera>();
 
