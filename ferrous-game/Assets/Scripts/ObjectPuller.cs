@@ -215,7 +215,7 @@ public class ObjectPuller : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
         toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-        if (scene.name == "Varun Level")
+        if (scene.name == "puzzle-structure-complete" || scene.name == "Varun Level")
         {
             toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
         }
