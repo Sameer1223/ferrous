@@ -1,0 +1,5 @@
+<sbspresets count="1" formatversion="1.1">
+  <sbspreset pkgurl="pkg://M_magnetguy" label="Default" >
+  <presetinput identifier="Magnetguy_LightColor" uid="3552580136" type="3" value="1,1,1,1" />
+ </sbspreset>
+</sbspresets>

@@ -54,31 +54,34 @@ public class ObjectPuller : MonoBehaviour
 
     void Update()
     {
-        // determine if the player is inputting a push / pull
-        GetMagnetismInput();
-        // if the player has selected an object / currently push pulling a target
-        if (selectedObject)
+        if (!PauseMenu.IsPaused)
         {
-            CalculateDistFromPlayer(selectedObject);
-        }
-        if (useSelect)
-        {
+            // determine if the player is inputting a push / pull
+            GetMagnetismInput();
+            // if the player has selected an object / currently push pulling a target
+            if (selectedObject)
             {
-                selectObject();
-                // if the player is inputting push/pull, push / pull the selected object
-                if (magnetismInput)
+                CalculateDistFromPlayer(selectedObject);
+            }
+            if (useSelect)
+            {
                 {
-                    SelectMagnetism();
+                    selectObject();
+                    // if the player is inputting push/pull, push / pull the selected object
+                    if (magnetismInput)
+                    {
+                        SelectMagnetism();
+                    }
                 }
             }
-        } else
-        {
-            if (magnetismInput)
+            else
             {
-                LookMagnetism();
+                if (magnetismInput)
+                {
+                    LookMagnetism();
+                }
             }
         }
-
     }
     private void LateUpdate()
     {

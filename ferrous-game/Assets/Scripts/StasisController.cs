@@ -30,7 +30,7 @@ public class StasisController : MonoBehaviour
 
     private void Stasis()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Stasis"))
         {
             RaycastHit hit;
             // generates a ray in the look direction
@@ -77,7 +77,7 @@ public class StasisController : MonoBehaviour
     {
         yield return new WaitForSeconds(unfreezeDuration);
         toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-        if (scene.name == "Varun Level")
+        if (scene.name == "Varun Level"  || scene.name == "puzzle-structure-complete")
         {
             toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
         }

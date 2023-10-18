@@ -118,7 +118,7 @@ MonoBehaviour:
     identifier=\"$outputsize\" uid=\"1195935013\" type=\"8\" value=\"10,10\" />\n 
     <presetinput identifier=\"text\" uid=\"623622293\" type=\"6\" value=\"\" />\n 
     <presetinput identifier=\"BackgroundColor\" uid=\"623622179\" type=\"3\" value=\"0.911134,0.924908,0.990566,1\"
-    />\n  <presetinput identifier=\"Opacity\" uid=\"623622148\" type=\"0\" value=\"0.3\"
+    />\n  <presetinput identifier=\"Opacity\" uid=\"623622148\" type=\"0\" value=\"0.01\"
     />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
@@ -283,7 +283,7 @@ MonoBehaviour:
             output image
           Type: 0
           WidgetType: 3
-        Data: 0.3
+        Data: 0.01
         NumericalDescription:
           DefaultValue: 0.521569
           MinValue: 0

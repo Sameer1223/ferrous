@@ -84,32 +84,36 @@ public class Rays : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Integer to track force push or pull. Pull = 0, Push = 1, No Force = -1
-        force = Force.None;
-
-        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) force = Force.Pull;
-        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) force = Force.Push;
-        else if (!Input.GetMouseButton(0) && Input.GetAxisRaw("Fire1") < 0.1f || !Input.GetMouseButton(1) && Input.GetAxisRaw("Fire2") < 0.1f) Deactivate(outlinedGameObj);
-        
-
-        // Calculate ray logic
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        bool cast = Physics.Raycast(ray, out RaycastHit hit, maxLength);
-        Vector3 hitPosition = cast ? hit.point : raySpawnPoint.position + raySpawnPoint.forward * maxLength;
-
-        if (hit.collider.gameObject != null && !hit.collider.gameObject.CompareTag("Metal"))
+        if (!PauseMenu.IsPaused)
         {
-            Deactivate(outlinedGameObj);
-            return;
+            // Integer to track force push or pull. Pull = 0, Push = 1, No Force = -1
+            force = Force.None;
+
+            if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) force = Force.Pull;
+            else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) force = Force.Push;
+            else if (!Input.GetMouseButton(0) && Input.GetAxisRaw("Fire1") < 0.1f || !Input.GetMouseButton(1) && Input.GetAxisRaw("Fire2") < 0.1f) Deactivate(outlinedGameObj);
+
+
+            // Calculate ray logic
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            bool cast = Physics.Raycast(ray, out RaycastHit hit, maxLength);
+            Vector3 hitPosition = cast ? hit.point : raySpawnPoint.position + raySpawnPoint.forward * maxLength;
+
+            if (hit.collider.gameObject != null && !hit.collider.gameObject.CompareTag("Metal"))
+            {
+                Deactivate(outlinedGameObj);
+                return;
+            }
+
+            // Activate ray with force integer (either push or pull)
+            Activate(force, hit.collider.gameObject);
+
+            if (!magnetRay.enabled) return;
+
+            // Line renderer set positions
+            magnetRay.SetPosition(0, raySpawnPoint.position);
+            magnetRay.SetPosition(1, hitPosition);
         }
-
-        // Activate ray with force integer (either push or pull)
-        Activate(force, hit.collider.gameObject);
-
-        if (!magnetRay.enabled) return;
-        
-        // Line renderer set positions
-        magnetRay.SetPosition(0, raySpawnPoint.position);
-        magnetRay.SetPosition(1, hitPosition);
+       
     }
 }
