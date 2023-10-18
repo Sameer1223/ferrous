@@ -36,9 +36,70 @@ public class ObjectPuller : MonoBehaviour
 
     private void Awake()
     {
-        GameObject model = GameObject.Find("Robot_withUV");
+        GameObject idle_robot = GameObject.Find("idle_robot");
+        GameObject frontwalk_robot = GameObject.Find("frontwalk_robot");
+        GameObject backwalk_robot = GameObject.Find("backward_robot");
+        GameObject leftwalk_robot = GameObject.Find("leftwalk_robot");
+        GameObject rightwalk_robot = GameObject.Find("rightwalk_robot");
+        GameObject idle_handraise_robot = GameObject.Find("idle_handraise_robot");
+        GameObject forward_handraise_robot = GameObject.Find("forward_handraise_robot");
+        GameObject backward_handraise_robot = GameObject.Find("backward_handraise_robot");
+        GameObject left_handraise_robot = GameObject.Find("left_handraise_robot");
+        GameObject right_handraise_robot = GameObject.Find("right_handraise_robot");
+        GameObject forward_jump_robot = GameObject.Find("forward_jump_robot");
+        GameObject left_jump_robot = GameObject.Find("left_jump_robot");
+        GameObject right_jump_robot = GameObject.Find("right_jump_robot");
+        
 
-        foreach (Renderer renderer in model.GetComponentsInChildren<Renderer>())
+        foreach (Renderer renderer in idle_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in frontwalk_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in backwalk_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in leftwalk_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in forward_handraise_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in rightwalk_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in idle_handraise_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in backward_handraise_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in left_handraise_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in right_handraise_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in forward_jump_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in left_jump_robot.GetComponentsInChildren<Renderer>())
+        {
+            modelRenderers.Add(renderer);
+        }
+        foreach (Renderer renderer in right_jump_robot.GetComponentsInChildren<Renderer>())
         {
             modelRenderers.Add(renderer);
         }
