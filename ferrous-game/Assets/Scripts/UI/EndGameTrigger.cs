@@ -18,6 +18,15 @@ public class GamePanelControl : MonoBehaviour
     {
         
     }
+    public void Continue()
+    {
+        BackPanel.SetActive(false);
+        Player.GetComponent<CameraController>().enabled = true;
+        Player.GetComponent<PlayerController>().enabled = true;
+        Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the center of the screen
+        Cursor.visible = false; //
+        transform.gameObject.SetActive(false);
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -27,5 +36,6 @@ public class GamePanelControl : MonoBehaviour
         Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the screen
         Cursor.visible = true; //
     }
+    
 
 }
