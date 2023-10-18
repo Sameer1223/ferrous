@@ -224,8 +224,6 @@ public class ObjectPuller : MonoBehaviour
             }
             if (isPulling && distToPlayer > minDist)
             {
-                //Debug.Log("apply pull");
-
                 /* Retiring this for one axis movement
                 Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                 */
@@ -242,8 +240,6 @@ public class ObjectPuller : MonoBehaviour
             }
             else if (isPushing)
             {
-                //Debug.Log("apply push");
-
                 /* Retiring this for one axis movement
                 Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
                 */

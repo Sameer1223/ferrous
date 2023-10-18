@@ -109,12 +109,6 @@ public class PowerBlocks : MonoBehaviour
             }
             if (isPulling)
             {
-                Debug.Log("apply pull");
-
-                /* Retiring this for one axis movement
-                Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
-                */
-
                 Vector3 pullDirection = objectDirection;
                 pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
 
@@ -122,12 +116,6 @@ public class PowerBlocks : MonoBehaviour
             }
             else if (isPushing)
             {
-                Debug.Log("apply push");
-
-                /* Retiring this for one axis movement
-                Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
-                */
-
                 Vector3 pushDirection = -objectDirection;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
