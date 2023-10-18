@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class PauseMenu : MonoBehaviour
     public static bool IsPaused = false;
     public GameObject pauseMenuUI;
     public GameObject gameUI;
+
+    [Header("First Menu Option")]
+    [SerializeField] private GameObject _pauseMenuFirst;
 
     private void Awake()
     {
@@ -24,7 +28,7 @@ public class PauseMenu : MonoBehaviour
         }
 
         //TODO: display different set of controls on the canvas when something is paused
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("MenuOpenClose"))
         {
             if (IsPaused)
             {
@@ -45,6 +49,8 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = false; // Hide the cursor
 
         pauseMenuUI.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+
         Time.timeScale = 1.0f;
         IsPaused = false;
 
@@ -54,6 +60,10 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
+
+        // change the selected game object to the pause menu's first item
+        EventSystem.current.SetSelectedGameObject(_pauseMenuFirst);
+
         Time.timeScale = 0;
         IsPaused = true;
 
@@ -75,6 +85,8 @@ public class PauseMenu : MonoBehaviour
         SceneController.Restart();
         Time.timeScale = 1.0f;
         IsPaused = false;
+        EventSystem.current.SetSelectedGameObject(null);
+
 
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the center of the screen
         Cursor.visible = false; // Hide the cursor
