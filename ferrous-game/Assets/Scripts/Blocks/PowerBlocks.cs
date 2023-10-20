@@ -64,9 +64,10 @@ public class PowerBlocks : MonoBehaviour
         // function for look push / pull ability
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
+        if (Physics.Raycast(transform.position, -transform.up, out hit))
         {
             Debug.Log(hit.collider.gameObject.name);
+            Debug.DrawLine(transform.position, -transform.up * 10);
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;

@@ -28,10 +28,9 @@ public class L2_R_Switch : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         
-        if(collision.gameObject.name == "R2_MetalBox")
+        if(collision.gameObject.name == "R2BoxTwo")
         {
             EndCollide1 = true;
-
         }
         
     }
