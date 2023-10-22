@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
     // Inputs
-    private float moveHorizontal;
     private float moveVertical;
     private bool jumpInput;
+    private Vector2 moveVector;
 
     // Game Objects
     private Rigidbody rb;
-    private Camera camera;
+    private Camera gameCamera;
 
     // Movement variables
     [Header("Movement")]
@@ -34,8 +36,11 @@ public class PlayerController : MonoBehaviour
     public AudioSource jumpSfx;
     public AudioSource walkSfx;
 
+    [Header("Input")]
+
     // [TESTING]
     Vector3 lastPosition;
+
 
     void Start()
     {
@@ -43,7 +48,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false; // Hide the cursor
        
         rb = gameObject.GetComponent<Rigidbody>();
-        camera = gameObject.GetComponentInChildren<Camera>();
+        gameCamera = gameObject.GetComponentInChildren<Camera>();
 
         canJump = true;
         lastPosition = transform.position;
@@ -71,21 +76,21 @@ public class PlayerController : MonoBehaviour
     // User input
     private void PlayerInput()
     {
-        moveHorizontal = Input.GetAxis("Horizontal");
-        moveVertical = Input.GetAxis("Vertical");
-
-        if (Input.GetButton("Jump") && canJump && isGrounded)
+        moveVector = InputManager.instance.MovementInput;
+        jumpInput = InputManager.instance.JumpInput;
+        if (jumpInput && canJump && isGrounded)
         {
             canJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+
     }
 
     // Player movement
     private void MovePlayer()
     {
-        Vector3 moveDirection = transform.forward * moveVertical + transform.right * moveHorizontal;
+        Vector3 moveDirection = transform.forward * moveVector.y + transform.right * moveVector.x;
 
         if (isGrounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
@@ -115,12 +120,15 @@ public class PlayerController : MonoBehaviour
     // Jump handler
     private void Jump()
     {
+
         // Set rb y velocity to 0 so jump remains consistent
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        
+
         jumpSfx.Play();
+        
+        
     }
 
     private void ResetJump()
