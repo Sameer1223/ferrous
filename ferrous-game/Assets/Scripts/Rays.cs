@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Rays : MonoBehaviour
 {
@@ -22,6 +23,12 @@ public class Rays : MonoBehaviour
     private Color blueColour = new Color(0, 191, 156); 
     private Color redColour = new Color(191, 0, 0);
 
+    [Header("InputChecks")]
+    private bool _pushInput;
+    private bool _pullInput;
+    private Vector2 _mousePos;
+    private bool _stasisInput;
+
     // Force enum to keep track of force modes
     public enum Force
     {
@@ -36,6 +43,14 @@ public class Rays : MonoBehaviour
         magnetRay.enabled = false;
         rayMaterials = magnetRay.materials;
         cam = Camera.main;
+    }
+
+    private void PlayerInput()
+    {
+        _pushInput = InputManager.instance.PushInput;
+        _pullInput = InputManager.instance.PullInput;
+        _mousePos = Mouse.current.position.ReadValue();
+        _stasisInput = InputManager.instance.StasisInput;
     }
 
     // Turn on magnetic ray
@@ -86,16 +101,17 @@ public class Rays : MonoBehaviour
     {
         if (!PauseMenu.IsPaused)
         {
+            PlayerInput();
             // Integer to track force push or pull. Pull = 0, Push = 1, No Force = -1
             force = Force.None;
 
-            if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) force = Force.Pull;
-            else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) force = Force.Push;
-            else if (!Input.GetMouseButton(0) && Input.GetAxisRaw("Fire1") < 0.1f || !Input.GetMouseButton(1) && Input.GetAxisRaw("Fire2") < 0.1f) Deactivate(outlinedGameObj);
+            if (_pullInput) force = Force.Pull;
+            else if (_pushInput) force = Force.Push;
+            else if (!_pullInput && !_pushInput) Deactivate(outlinedGameObj);
 
 
             // Calculate ray logic
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            Ray ray = cam.ScreenPointToRay(_mousePos);
             bool cast = Physics.Raycast(ray, out RaycastHit hit, maxLength);
             Vector3 hitPosition = cast ? hit.point : raySpawnPoint.position + raySpawnPoint.forward * maxLength;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class StasisController : MonoBehaviour
@@ -14,6 +15,11 @@ public class StasisController : MonoBehaviour
 
     private Scene scene;
 
+    // input check
+    private Vector2 _mousePos;
+    private bool _stasisInput;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,16 +31,23 @@ public class StasisController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerInput();
         Stasis();
+    }
+
+    private void PlayerInput()
+    {
+        _mousePos = Mouse.current.position.ReadValue();
+        _stasisInput = InputManager.instance.StasisInput;
     }
 
     private void Stasis()
     {
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Stasis"))
+        if (_stasisInput)
         {
             RaycastHit hit;
             // generates a ray in the look direction
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = mainCamera.ScreenPointToRay(_mousePos);
             // instead of origin -> destination, use the defined ray
             if (Physics.Raycast(ray, out hit, maxSelectDist))
             {

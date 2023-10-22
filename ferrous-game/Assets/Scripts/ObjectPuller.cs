@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 
 public class ObjectPuller : MonoBehaviour
@@ -32,6 +33,13 @@ public class ObjectPuller : MonoBehaviour
     private LinkedObject linked;
     private Vector3 objectDirection;
 
+    [Header("InputChecks")]
+    private bool _pushInput;
+    private bool _pullInput;
+    private Vector2 _mousePos;
+    private bool _selectInput;
+     
+
     // Player model colour changing variables
     List<Renderer> modelRenderers = new List<Renderer>();
 
@@ -58,6 +66,8 @@ public class ObjectPuller : MonoBehaviour
     {
         if (!PauseMenu.IsPaused)
         {
+            PlayerInput();
+
             // determine if the player is inputting a push / pull
             GetMagnetismInput();
             // if the player has selected an object / currently push pulling a target
@@ -89,10 +99,19 @@ public class ObjectPuller : MonoBehaviour
     {
         ApplyMagnesis();
     }
+    
+
+    private void PlayerInput()
+    {
+        _pushInput = InputManager.instance.PushInput;
+        _pullInput = InputManager.instance.PullInput;
+        _mousePos = Mouse.current.position.ReadValue();
+        if (useSelect) { _selectInput = InputManager.instance.SelectInput; }
+    }
 
     private void GetMagnetismInput()
     {
-        if (Input.GetButton("Fire1") || Input.GetAxisRaw("Fire1") > 0 || Input.GetButton("Fire2") || Input.GetAxisRaw("Fire2") > 0)
+        if (_pushInput || _pullInput)
         {
             magnetismInput = true;
         } else
@@ -103,11 +122,11 @@ public class ObjectPuller : MonoBehaviour
         }
 
         // determine which input to turn off
-        if (Input.GetAxisRaw("Fire1") < 0.1f && !Input.GetMouseButton(0))
+        if (!_pullInput)
         {
             isPulling = false;
         }
-        if (Input.GetAxisRaw("Fire2") < 0.1f && !Input.GetMouseButton(1))
+        if (!_pushInput)
         {
             isPushing = false;
         }
@@ -117,7 +136,7 @@ public class ObjectPuller : MonoBehaviour
     {
         // function for look push / pull ability
         RaycastHit hit;
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = mainCamera.ScreenPointToRay(_mousePos);
 
         if (Physics.Raycast(ray, out hit))
         {
@@ -136,12 +155,12 @@ public class ObjectPuller : MonoBehaviour
 
     private void PushOrPull()
     {
-        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f)
+        if (_pullInput)
         {
             isPulling = true;
             SetModelColour(Color.cyan);
         }
-        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f)
+        else if (_pushInput)
         {
             isPushing = true;
             SetModelColour(Color.red);
@@ -157,11 +176,11 @@ public class ObjectPuller : MonoBehaviour
 
     private void selectObject()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (_selectInput)
         {
             RaycastHit hit;
             // generates a ray in the look direction
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = mainCamera.ScreenPointToRay(_mousePos);
             // instead of origin -> destination, use the defined ray
             if (Physics.Raycast(ray, out hit, rayDist))
             {
