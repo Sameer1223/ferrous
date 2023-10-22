@@ -1,15 +1,17 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Rays : MonoBehaviour
 {
     [Header("Ray Logic")]
     public LineRenderer magnetRay;
     public Transform raySpawnPoint;
-    public Material[] rayMaterials;
     public float maxLength;
 
     private Camera cam;
@@ -18,9 +20,21 @@ public class Rays : MonoBehaviour
     // Keeps track of force being applied to object
     private Force force;
 
-    // Constants
+    [Header("Constants")]
     private Color blueColour = new Color(0, 191, 156); 
     private Color redColour = new Color(191, 0, 0);
+    private Color purpleColour = new Color(10, 0, 191);
+
+    [Header("Materials")]
+    public Material blueMaterial;
+    public Material redMaterial;
+    public Material purpleMaterial;
+
+    [Header("InputChecks")]
+    private bool _pushInput;
+    private bool _pullInput;
+    private Vector2 _mousePos;
+    private bool _stasisInput;
 
     // Force enum to keep track of force modes
     public enum Force
@@ -34,15 +48,26 @@ public class Rays : MonoBehaviour
     private void Awake()
     {
         magnetRay.enabled = false;
-        rayMaterials = magnetRay.materials;
         cam = Camera.main;
+    }
+
+    private void PlayerInput()
+    {
+        _pushInput = InputManager.instance.PushInput;
+        _pullInput = InputManager.instance.PullInput;
+        _mousePos = Mouse.current.position.ReadValue();
+        _stasisInput = InputManager.instance.StasisInput;
     }
 
     // Turn on magnetic ray
     private void Activate(Force force, GameObject obj)
     {
         if (force == Force.None) return;
-        magnetRay.material = rayMaterials[(int) force];
+
+        if (force == Force.Pull) magnetRay.material = blueMaterial;
+        else if (force == Force.Push) magnetRay.material = redMaterial;
+        else if (force == Force.Stasis) magnetRay.material = purpleMaterial;
+
         magnetRay.enabled = true;
 
         // Show outline on target object
@@ -69,7 +94,11 @@ public class Rays : MonoBehaviour
 
         outlinedGameObj = obj;
         Outline outline = obj.GetComponent<Outline>();
-        if (force == Force.Pull) outline.OutlineColor = blueColour; else outline.OutlineColor = redColour;
+        if (outline.OutlineColor != purpleColour)
+        {
+            if (force == Force.Pull) outline.OutlineColor = blueColour;
+            else if (force == Force.Push) outline.OutlineColor = redColour;
+        }
     }
 
     // Hiding outline after being deselected
@@ -78,7 +107,7 @@ public class Rays : MonoBehaviour
         if (obj == null) return;
 
         Outline outline = obj.GetComponent<Outline>();
-        outline.OutlineColor = Color.white;
+        if (outline.OutlineColor != purpleColour) { outline.OutlineColor = Color.white; }
     }
 
     // Update is called once per frame
@@ -86,16 +115,18 @@ public class Rays : MonoBehaviour
     {
         if (!PauseMenu.IsPaused)
         {
+            PlayerInput();
             // Integer to track force push or pull. Pull = 0, Push = 1, No Force = -1
             force = Force.None;
 
-            if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f) force = Force.Pull;
-            else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f) force = Force.Push;
-            else if (!Input.GetMouseButton(0) && Input.GetAxisRaw("Fire1") < 0.1f || !Input.GetMouseButton(1) && Input.GetAxisRaw("Fire2") < 0.1f) Deactivate(outlinedGameObj);
+            if (_pullInput) force = Force.Pull;
+            else if (_pushInput) force = Force.Push;
+            else if (_stasisInput) force = Force.Stasis;
+            else if (!_pullInput && !_pushInput && !_stasisInput) Deactivate(outlinedGameObj);
 
 
             // Calculate ray logic
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            Ray ray = cam.ScreenPointToRay(_mousePos);
             bool cast = Physics.Raycast(ray, out RaycastHit hit, maxLength);
             Vector3 hitPosition = cast ? hit.point : raySpawnPoint.position + raySpawnPoint.forward * maxLength;
 
@@ -104,8 +135,7 @@ public class Rays : MonoBehaviour
                 Deactivate(outlinedGameObj);
                 return;
             }
-
-            // Activate ray with force integer (either push or pull)
+            // Activate ray with force integer (push / pull / stasis)
             Activate(force, hit.collider.gameObject);
 
             if (!magnetRay.enabled) return;
@@ -114,6 +144,6 @@ public class Rays : MonoBehaviour
             magnetRay.SetPosition(0, raySpawnPoint.position);
             magnetRay.SetPosition(1, hitPosition);
         }
-       
+       // TODO: MAKE THE STASIS RAY LAST LONGER INSTEAD OF DOING DOWN
     }
 }
