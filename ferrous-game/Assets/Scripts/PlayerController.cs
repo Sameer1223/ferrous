@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     // Game Objects
     private Rigidbody rb;
     private Camera camera;
+    private Animator animator;
+    private Transform character;
 
     // Movement variables
     [Header("Movement")]
@@ -44,6 +46,8 @@ public class PlayerController : MonoBehaviour
        
         rb = gameObject.GetComponent<Rigidbody>();
         camera = gameObject.GetComponentInChildren<Camera>();
+        animator = gameObject.GetComponentInChildren<Animator>();
+        character = transform.Find("Character");
 
         canJump = true;
         lastPosition = transform.position;
@@ -73,6 +77,9 @@ public class PlayerController : MonoBehaviour
     {
         moveHorizontal = Input.GetAxis("Horizontal");
         moveVertical = Input.GetAxis("Vertical");
+
+        animator.SetFloat("horizontalMovement", moveHorizontal);
+        animator.SetFloat("verticalMovement", moveVertical);
 
         if (Input.GetButton("Jump") && canJump && isGrounded)
         {
