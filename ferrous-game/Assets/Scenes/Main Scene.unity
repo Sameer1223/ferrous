@@ -4400,7 +4400,8 @@ LineRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: c429d017ef1a6cd4bb9a0cbb7364fe50, type: 2}
-  - {fileID: 2100000, guid: dad1f30ad4beee244b5a48c00aa36dca, type: 2}
+  - {fileID: 2100000, guid: c148ed8948e3b8d4ea7f18d0d6c5dfbd, type: 2}
+  - {fileID: 2100000, guid: 44c4ce59a423f5943a00b8c506f4fe16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4497,8 +4498,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnetRay: {fileID: 1374921690}
   raySpawnPoint: {fileID: 1222155249}
-  rayMaterials: []
   maxLength: 40
+  blueMaterial: {fileID: 2100000, guid: c429d017ef1a6cd4bb9a0cbb7364fe50, type: 2}
+  redMaterial: {fileID: 2100000, guid: dad1f30ad4beee244b5a48c00aa36dca, type: 2}
+  purpleMaterial: {fileID: 2100000, guid: 44c4ce59a423f5943a00b8c506f4fe16, type: 2}
 --- !u!54 &1374921692
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4608,7 +4611,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 44c4ce59a423f5943a00b8c506f4fe16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

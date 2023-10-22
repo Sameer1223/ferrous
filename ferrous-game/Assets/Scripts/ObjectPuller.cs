@@ -99,7 +99,10 @@ public class ObjectPuller : MonoBehaviour
         {
             magnetismInput = false;
             soundPlayed = false;
-            SetModelColour(Color.white);
+            if (!StasisController.stasisColorOn)
+            {
+                SetModelColour(Color.white);
+            }
         }
 
         // determine which input to turn off
@@ -230,7 +233,6 @@ public class ObjectPuller : MonoBehaviour
 
                 Vector3 pullDirection = objectDirection;
                 pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
-
                 if (linked != null)
                 {
                     linked.linkedObj.AddForce(-pullDirection * pullForce * pullMultiplier);
@@ -246,14 +248,12 @@ public class ObjectPuller : MonoBehaviour
 
                 Vector3 pushDirection = -objectDirection;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
-
                 if (linked != null)
                 {
                     linked.linkedObj.AddForce(-pushDirection * pullForce * pushMultiplier);
                 }
                 selectedObject.AddForce(-pushDirection * pullForce * pushMultiplier);
                 SetModelColour(Color.red);
-
             }
         }
     }

@@ -40,7 +40,6 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
-        Debug.Log(IsPaused);
     }
 
     public void Resume()
