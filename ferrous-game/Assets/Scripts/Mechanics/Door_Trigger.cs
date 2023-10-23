@@ -28,7 +28,7 @@ public class Door_Trigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.name == "Player")
+        if(collision.gameObject.tag == "Player")
         {
             EndCollide1 = true;
         }
