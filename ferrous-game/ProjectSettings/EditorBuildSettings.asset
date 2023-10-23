@@ -20,4 +20,5 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/puzzle-structure-complete.unity
     guid: c8e12396496834ceda8cd211806cad2b
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 482e38cafb1de4d45ab6aaa2ae5162fb, type: 2}
