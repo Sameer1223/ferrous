@@ -19,7 +19,7 @@ public class Door_Trigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (EndCollide1 == true && R1_Door_L.transform.position.z > -4.5f && R1_Door_R.transform.position.z < 3.1f)
+        if (EndCollide1 && R1_Door_L.transform.position.z > -4.5f && R1_Door_R.transform.position.z < 3.1f)
         {
             R1_Door_L.transform.position -= direction * speed * Time.deltaTime;
             R1_Door_R.transform.position += direction * speed * Time.deltaTime;
