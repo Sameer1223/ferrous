@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    private bool isGrounded;
+    public bool isGrounded;
 
     // Audio
     [Header("Sound Effects")] 
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
             rb.drag = groundDrag;
         else
-            rb.drag = groundDrag * 0.25f;
+            rb.drag = groundDrag * 0.75f;
     }
 
     void FixedUpdate()
@@ -87,7 +87,6 @@ public class PlayerController : MonoBehaviour
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-
     }
 
     // Player movement
@@ -111,12 +110,15 @@ public class PlayerController : MonoBehaviour
     // Limiting function for speed
     private void SpeedLimiter()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if(flatVel.magnitude > moveSpeed)
+        if (isGrounded)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            }
         }
 
         // fall faster

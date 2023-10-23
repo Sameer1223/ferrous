@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -851,7 +851,7 @@ Transform:
   m_GameObject: {fileID: 351298664}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.02, y: 4.6, z: -6.5}
+  m_LocalPosition: {x: -39.02, y: 4.4, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3853,7 +3853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0, y: 0, z: 0}
-  ShoulderOffset: {x: 0.8, y: 1, z: 0}
+  ShoulderOffset: {x: 0.8, y: 0.8, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
   CameraDistance: 6.5
@@ -4591,16 +4591,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  jumpForce: 7.5
+  jumpForce: 12
   jumpCooldown: 0.25
   airMultiplier: 0.4
-  groundDrag: 8
-  _fallMultiplier: 1.25
-  _jumpVelocityFalloff: 1.4
+  groundDrag: 6
+  _fallMultiplier: 6.5
+  _jumpVelocityFalloff: 1.45
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  isGrounded: 0
   jumpSfx: {fileID: 1799673221}
   walkSfx: {fileID: 293216600}
 --- !u!23 &1374921696
@@ -5247,7 +5248,7 @@ Transform:
   m_GameObject: {fileID: 1678989326}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.79999924, y: 1.8999999, z: -6.5}
+  m_LocalPosition: {x: 0.79999924, y: 1.7, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
