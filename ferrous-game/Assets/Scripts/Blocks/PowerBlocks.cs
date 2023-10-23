@@ -64,10 +64,10 @@ public class PowerBlocks : MonoBehaviour
         // function for look push / pull ability
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, -transform.up, out hit))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
         {
             Debug.Log(hit.collider.gameObject.name);
-            Debug.DrawLine(transform.position, -transform.up * 10);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.red);
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;
@@ -96,6 +96,7 @@ public class PowerBlocks : MonoBehaviour
             float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
             float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
 
+            /*
             float dotX = Vector3.Dot(transform.forward, Vector3.right);
             float dotZ = Vector3.Dot(transform.forward, Vector3.forward);
 
@@ -103,6 +104,7 @@ public class PowerBlocks : MonoBehaviour
                 objectDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
             else
                 objectDirection = dotX > 0 ? Vector3.right : Vector3.left;
+            */
 
             if (distToPlayer <= minDist && !isPushing)
             {
@@ -110,14 +112,14 @@ public class PowerBlocks : MonoBehaviour
             }
             if (isPulling)
             {
-                Vector3 pullDirection = objectDirection;
+                Vector3 pullDirection = (transform.position - selectedObject.position).normalized;
                 pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
 
                 selectedObject.AddForce(pullDirection * pullForce);
             }
             else if (isPushing)
             {
-                Vector3 pushDirection = -objectDirection;
+                Vector3 pushDirection =  -(transform.position - selectedObject.position).normalized;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
                 selectedObject.AddForce(pushDirection * pullForce);

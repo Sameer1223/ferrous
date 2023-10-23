@@ -247,7 +247,7 @@ public class ObjectPuller : MonoBehaviour
             if (isPulling && distToPlayer > minDist)
             {
                 /* Retiring this for one axis movement
-                Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
+                Vector3 pullDirection = (_mainCamera.transform.position - selectedObject.position).normalized;
                 */
 
                 Vector3 pullDirection = objectDirection;
