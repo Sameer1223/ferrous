@@ -4422,10 +4422,7 @@ LineRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: c429d017ef1a6cd4bb9a0cbb7364fe50, type: 2}
-  - {fileID: 2100000, guid: c148ed8948e3b8d4ea7f18d0d6c5dfbd, type: 2}
-  - {fileID: 2100000, guid: 44c4ce59a423f5943a00b8c506f4fe16, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
