@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 41e8612f4905aff4198d529dfbb147d4
+guid: 85833c80425ad4447974aeaafe83cad9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -19,18 +19,17 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'l_hip_jnt'
-      : position error = 23602.119141 mm\n\t'l_knee_jnt' : position error = 41941.429688
-      mm\n\t'l_ankle_jnt' : position error = 33400.882812 mm\n\t'l_arch_jnt' : position
-      error = 13322.150391 mm\n\t'r_hip_jnt' : position error = 23604.001953 mm\n\t'r_knee_jnt'
-      : position error = 42003.539062 mm\n\t'r_ankle_jnt' : position error = 33400.929688
-      mm\n\t'r_arch_jnt' : position error = 13322.152344 mm\n"
+      : position error = 3576.669678 mm\n\t'r_hip_jnt' : position error = 5713.778809
+      mm\n\t'r_knee_jnt' : position error = 29768.482422 mm\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'c_chest_jnt' has translation animation
-      that will be discarded.\n\t'l_hip_jnt' has translation animation that will
-      be discarded.\n\t'r_hip_jnt' has translation animation that will be discarded.\n\t'r_knee_jnt'
-      has translation animation that will be discarded.\n"
+      that will be discarded.\n\t'c_neck_jnt' has translation animation that will
+      be discarded.\n\t'l_hip_jnt' has translation animation that will be discarded.\n\t'l_knee_jnt'
+      has translation animation that will be discarded.\n\t'r_hip_jnt' has translation
+      animation that will be discarded.\n\t'r_knee_jnt' has translation animation
+      that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -51,15 +50,15 @@ ModelImporter:
       lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
-      level: 17
+      level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0

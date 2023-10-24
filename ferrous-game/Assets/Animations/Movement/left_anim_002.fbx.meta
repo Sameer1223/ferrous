@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 50843459642ec044ba17b3c5335d5471
+guid: d8f864d64303f464ca2094af7adfb628
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -19,7 +19,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'l_hip_jnt'
-      : position error = 3576.669678 mm\n\t'r_hip_jnt' : position error = 5713.778809
+      : position error = 722.730042 mm\n\t'r_hip_jnt' : position error = 5424.743164
       mm\n\t'r_knee_jnt' : position error = 29768.482422 mm\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
@@ -54,10 +54,10 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
