@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
@@ -66,7 +61,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
             rb.drag = groundDrag;
         else
-            rb.drag = groundDrag * 0.75f;
+            rb.drag = groundDrag * 0.9f;
     }
 
     void FixedUpdate()
