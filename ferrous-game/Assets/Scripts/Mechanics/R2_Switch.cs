@@ -27,7 +27,7 @@ public class R2_Switch : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         
-        if(collision.gameObject.name == "R2_Obstacle")
+        if(collision.gameObject.tag == "Metal")
         {
             Debug.Log("Collided");
             

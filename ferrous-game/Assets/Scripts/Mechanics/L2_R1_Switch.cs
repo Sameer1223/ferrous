@@ -20,10 +20,14 @@ public class L2_R1_Switch : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.name == "R2BoxOne")
+        if (collision.gameObject.tag == "Metal")
         {
             L2_R_Switch.EndCollide2 = true;
         }
 
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        L2_R_Switch.EndCollide2 = false;
     }
 }
