@@ -74,6 +74,7 @@ public class StasisController : MonoBehaviour
                         // compare prev and new selected
                         prevFrozenObject = frozenObject.gameObject;
                         frozenObject = hit.rigidbody.gameObject;
+                        DisableLinkLine(hit.rigidbody);
                         if (GameObject.ReferenceEquals(prevFrozenObject, frozenObject))
                         {
                             // turn off stasis of the current object after 2 seconds
@@ -94,6 +95,7 @@ public class StasisController : MonoBehaviour
                     {
                         // nothing is frozen, freeze what we just looked at
                         frozenObject = hit.rigidbody.gameObject;
+                        DisableLinkLine(hit.rigidbody);
                         SetOutlineColor(frozenObject, purpleColour);
                         frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     }
@@ -101,7 +103,6 @@ public class StasisController : MonoBehaviour
             }
         }
     }
-
 
     private IEnumerator UnFreeze(GameObject toUnfreeze)
     {
@@ -115,6 +116,20 @@ public class StasisController : MonoBehaviour
         // set colour back to white TODO: make this flash / some effect
         SetOutlineColor(toUnfreeze, Color.white);
 
+    }
+
+    private void DisableLinkLine(Rigidbody toDisableRb)
+    {
+        // check if the hit object's parent has the link line script
+        LinkLineManager linker = toDisableRb.transform.parent.GetComponent<LinkLineManager>();
+        if (linker != null)
+        {
+            GameObject toDisable = toDisableRb.gameObject;
+            if (toDisable == linker.firstObj || toDisable == linker.secondObj)
+            {
+                linker.disableLink();
+            }
+        }
     }
 
     private IEnumerator SetPlayerStasisColour()
