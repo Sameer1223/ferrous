@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Scene 1.unity
     guid: aa01bbb0c5e9ab04c9be6dd03c139071
   - enabled: 0
-    path: Assets/Scenes/Main Scene.unity
+    path: Assets/Scenes/Gym.unity
     guid: 5012b5e4f7b81d54091e07f35186e164
   - enabled: 0
     path: Assets/Scenes/Varun Level.unity
