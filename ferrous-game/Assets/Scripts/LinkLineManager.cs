@@ -64,7 +64,21 @@ public class LinkLineManager : MonoBehaviour
         }
     }
 
-    public void disableLink()
+    public static void DisableLinkLine(Rigidbody toDisableRb)
+    {
+        // check if the hit object's parent has the link line script
+        LinkLineManager linker = toDisableRb.transform.parent.GetComponent<LinkLineManager>();
+        if (linker != null)
+        {
+            GameObject toDisable = toDisableRb.gameObject;
+            if (toDisable == linker.firstObj || toDisable == linker.secondObj)
+            {
+                linker.disableLinkObj();
+            }
+        }
+    }
+
+    public void disableLinkObj()
     {
         // disable the script and the line renderer
         this.enabled = false;

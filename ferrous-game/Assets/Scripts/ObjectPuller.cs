@@ -146,22 +146,8 @@ public class ObjectPuller : MonoBehaviour
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;
-                DisableLinkLine(selectedObject);
+                LinkLineManager.DisableLinkLine(selectedObject);
                 PushOrPull();
-            }
-        }
-    }
-
-    private void DisableLinkLine(Rigidbody toDisableRb)
-    {
-        // check if the hit object's parent has the link line script
-        LinkLineManager linker = toDisableRb.transform.parent.GetComponent<LinkLineManager>();
-        if (linker != null)
-        {
-            GameObject toDisable = toDisableRb.gameObject;
-            if (toDisable == linker.firstObj || toDisable == linker.secondObj)
-            {
-                linker.disableLink();
             }
         }
     }
