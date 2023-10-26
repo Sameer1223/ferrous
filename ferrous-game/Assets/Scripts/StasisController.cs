@@ -49,7 +49,7 @@ public class StasisController : MonoBehaviour
 
     private void PlayerInput()
     {
-        _mousePos = Mouse.current.position.ReadValue();
+        _mousePos = Pointer.current.position.ReadValue();
         _stasisInput = InputManager.instance.StasisInput;
     }
 
