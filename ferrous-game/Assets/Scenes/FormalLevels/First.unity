@@ -2324,7 +2324,7 @@ PrefabInstance:
       addedObject: {fileID: 519534809}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 62dd338b7d3f29d42aba08e6f45cb017, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 519534811}
+      addedObject: {fileID: 519534814}
   m_SourcePrefab: {fileID: 100100000, guid: 62dd338b7d3f29d42aba08e6f45cb017, type: 3}
 --- !u!4 &519534806 stripped
 Transform:
@@ -2351,7 +2351,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2384,7 +2384,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 2
---- !u!114 &519534811
+--- !u!114 &519534814
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2393,7 +2393,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 519534807}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bef3e7dca6e8602409b499338d0e6acc, type: 3}
+  m_Script: {fileID: 11500000, guid: 76989eea88452cc4b9f551bee792ba6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   R1_Door_L: {fileID: 1780938572}
@@ -10176,7 +10176,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -10221,7 +10221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d2a66d2843f81488630f4f4acae99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  L2_R_Switch: {fileID: 519534811}
+  L2_R_Switch: {fileID: 519534814}
 --- !u!1 &1840685488
 GameObject:
   m_ObjectHideFlags: 0

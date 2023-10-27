@@ -17,16 +17,16 @@ public class L2_R1_Switch : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision collision)
+    
+    private void OnTriggerEnter(Collider collision)
     {
-
         if (collision.gameObject.tag == "Metal")
         {
             L2_R_Switch.EndCollide2 = true;
         }
-
     }
-    private void OnCollisionExit(Collision collision)
+
+    private void OnTriggerExit(Collider collision)
     {
         L2_R_Switch.EndCollide2 = false;
     }
