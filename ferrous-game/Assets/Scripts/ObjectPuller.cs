@@ -147,7 +147,7 @@ public class ObjectPuller : MonoBehaviour
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;
-                LinkLineManager.DisableLinkLine(selectedObject);
+                LinkedObjectManager.DisableLinkLine(selectedObject.gameObject);
                 PushOrPull();
             }
         }
@@ -236,7 +236,7 @@ public class ObjectPuller : MonoBehaviour
             float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
             float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
 
-            linked = selectedObject.GetComponent<LinkedObject>();
+            GameObject linkedObj = LinkedObjectManager.GetLinkedObject(selectedObject.gameObject);
 
             /* One axis movement code
             float dotX = Vector3.Dot(_playerTransform.forward, Vector3.right);
@@ -266,7 +266,7 @@ public class ObjectPuller : MonoBehaviour
 
                 if (linked != null)
                 {
-                    linked.linkedObj.AddForce(pullDirection * pullForce * pullMultiplier);
+                    linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                 }
                 selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
                 SetModelColour(Color.cyan);
@@ -279,7 +279,7 @@ public class ObjectPuller : MonoBehaviour
 
                 Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
-
+                
                 GetInteractDirectionNormalized(pushDirection);
 
                 if (linked != null)
