@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LinkLineManager : MonoBehaviour
+public class LinkedObjectManager : MonoBehaviour
 {
     private LineRenderer lr;
     private Material lineMaterial;
@@ -64,14 +64,31 @@ public class LinkLineManager : MonoBehaviour
         }
     }
 
-    public static void DisableLinkLine(Rigidbody toDisableRb)
+    public static GameObject GetLinkedObject(GameObject go)
     {
         // check if the hit object's parent has the link line script
-        LinkLineManager linker = toDisableRb.transform.parent.GetComponent<LinkLineManager>();
+        LinkedObjectManager linker = go.transform.parent.GetComponent<LinkedObjectManager>();
         if (linker != null)
         {
-            GameObject toDisable = toDisableRb.gameObject;
-            if (toDisable == linker.firstObj || toDisable == linker.secondObj)
+            if (go == linker.firstObj)
+            {
+                return linker.secondObj;
+            }
+            else if (go == linker.secondObj)
+            {
+                return linker.firstObj;
+            }
+        }
+        return null;
+    }
+
+    public static void DisableLinkLine(GameObject go)
+    {
+        // check if the hit object's parent has the link line script
+        LinkedObjectManager linker = go.transform.parent.GetComponent<LinkedObjectManager>();
+        if (linker != null)
+        {
+            if (go == linker.firstObj || go == linker.secondObj)
             {
                 linker.disableLinkObj();
             }
