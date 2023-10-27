@@ -102,7 +102,7 @@ public class PowerBlocks : MonoBehaviour
 
     private void Level1Check()
     {
-        if (SceneManager.GetActiveScene().name != "Main Scene 1")
+        if (SceneManager.GetActiveScene().name != "Main Scene 1" && SceneManager.GetActiveScene().name != "First Level")
         {
             check = false;
             return;
