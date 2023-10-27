@@ -31,7 +31,7 @@ MonoBehaviour:
       Index: 0
       Type: 8
       Channel: baseColor
-    OutputTexture: {fileID: 2800000, guid: aad7a9f6b6ae8dd4f8a7aa5162f785c1, type: 3}
+    OutputTexture: {fileID: 0}
     sRGB: 1
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -47,7 +47,7 @@ MonoBehaviour:
       Index: 1
       Type: 8
       Channel: normal
-    OutputTexture: {fileID: 2800000, guid: 5a7e4fc1a8075cc48974ceaa3812e743, type: 3}
+    OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
       Index: 2
       Type: 8
       Channel: roughness
-    OutputTexture: {fileID: 2800000, guid: 5fea8f7fef03b4f91a6ba144f35ba6c9, type: 3}
+    OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -79,7 +79,7 @@ MonoBehaviour:
       Index: 3
       Type: 8
       Channel: metallic
-    OutputTexture: {fileID: 2800000, guid: 3fba7ab08767eef40b3c07a5a0143ab3, type: 3}
+    OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -95,7 +95,7 @@ MonoBehaviour:
       Index: 4
       Type: 8
       Channel: height
-    OutputTexture: {fileID: 2800000, guid: 31acf47d07c2f294794e221f85777210, type: 3}
+    OutputTexture: {fileID: 0}
     sRGB: 1
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -111,7 +111,7 @@ MonoBehaviour:
       Index: 5
       Type: 8
       Channel: ambientOcclusion
-    OutputTexture: {fileID: 2800000, guid: 3bd7e3eb35b787e4a8102d8e4777ecaf, type: 3}
+    OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -127,7 +127,7 @@ MonoBehaviour:
       Index: 6
       Type: 8
       Channel: emissive
-    OutputTexture: {fileID: 2800000, guid: ebd5fbbf2b98bf147b546bd0afd65b82, type: 3}
+    OutputTexture: {fileID: 0}
     sRGB: 1
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -149,8 +149,8 @@ MonoBehaviour:
   OutputMaterial: {fileID: 2100000, guid: 6e8287fca8dc3284c90ed11192f51746, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://M_magnetguy\" label=\"\" >\n </sbspreset>\n"
   MaterialShader: Standard
-  RenderTextures: 0
-  OutputRemaped: 0
+  RenderTextures: 1
+  OutputRemaped: 1
   Presets: []
   references:
     version: 2
