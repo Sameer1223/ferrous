@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/FormalLevels/First.unity
     guid: aa01bbb0c5e9ab04c9be6dd03c139071
   - enabled: 0
-    path: Assets/Scenes/Main Scene.unity
+    path: Assets/Scenes/Gym.unity
     guid: 5012b5e4f7b81d54091e07f35186e164
   - enabled: 0
     path: Assets/Scenes/Varun Level.unity
@@ -20,4 +20,5 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/puzzle-structure-complete.unity
     guid: c8e12396496834ceda8cd211806cad2b
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 482e38cafb1de4d45ab6aaa2ae5162fb, type: 2}

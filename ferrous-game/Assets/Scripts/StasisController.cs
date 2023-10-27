@@ -49,7 +49,7 @@ public class StasisController : MonoBehaviour
 
     private void PlayerInput()
     {
-        _mousePos = Mouse.current.position.ReadValue();
+        _mousePos = Pointer.current.position.ReadValue();
         _stasisInput = InputManager.instance.StasisInput;
     }
 
@@ -74,34 +74,65 @@ public class StasisController : MonoBehaviour
                         // compare prev and new selected
                         prevFrozenObject = frozenObject.gameObject;
                         frozenObject = hit.rigidbody.gameObject;
-                        if (GameObject.ReferenceEquals(prevFrozenObject, frozenObject))
+
+                        // linked object
+                        LinkedObjectManager.DisableLinkLine(frozenObject);
+                        GameObject linkedObj = LinkedObjectManager.GetLinkedObject(frozenObject);
+                        GameObject prevLinked = LinkedObjectManager.GetLinkedObject(prevFrozenObject);
+
+                        // unstasis if you stasis an already frozen object (prevFrozen / prevLinked) 
+                        if (ReferenceEquals(prevFrozenObject, frozenObject) || (prevLinked && ReferenceEquals(prevLinked, frozenObject)))
                         {
                             // turn off stasis of the current object after 2 seconds
                             StartCoroutine(UnFreeze(frozenObject));
                             prevFrozenObject = null;
                             frozenObject = null;
+                            // turn off stasis for the link if it exists
+                            if (linkedObj)
+                            {
+                                StartCoroutine(UnFreeze(linkedObj));
+                                prevLinked = null;
+                                linkedObj = null;
+                            }
                         }
                         else
                         {
-                            // turn off stasis of the previous object after 2 secs
+                            // turn off stasis of the previous object & link after 2 secs
                             StartCoroutine("UnFreeze", prevFrozenObject);
-                            // freeze the current object
+                            if (prevLinked)
+                            {
+                                StartCoroutine("UnFreeze", prevLinked);
+                            }
+                            // freeze the current object & linked
                             frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                             SetOutlineColor(frozenObject, purpleColour);
+                            if (linkedObj)
+                            {
+                                linkedObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                                SetOutlineColor(linkedObj, purpleColour);
+                            }
                         }
                     }
                     else
                     {
-                        // nothing is frozen, freeze what we just looked at
+                        // nothing is frozen, freeze what we just looked at and its linked object
                         frozenObject = hit.rigidbody.gameObject;
                         SetOutlineColor(frozenObject, purpleColour);
                         frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+                        LinkedObjectManager.DisableLinkLine(frozenObject);
+
+                        GameObject linkedObj = LinkedObjectManager.GetLinkedObject(frozenObject);
+                        if (linkedObj)
+                        {
+                            SetOutlineColor(linkedObj, purpleColour);
+                            linkedObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                        }
                     }
                 }
             }
         }
     }
-
 
     private IEnumerator UnFreeze(GameObject toUnfreeze)
     {

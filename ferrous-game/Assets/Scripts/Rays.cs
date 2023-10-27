@@ -2,7 +2,6 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TreeEditor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -94,10 +93,30 @@ public class Rays : MonoBehaviour
 
         outlinedGameObj = obj;
         Outline outline = obj.GetComponent<Outline>();
+        // get linked object
+        GameObject linkedObj = LinkedObjectManager.GetLinkedObject(obj);
+
+
         if (outline.OutlineColor != purpleColour)
         {
-            if (force == Force.Pull) outline.OutlineColor = blueColour;
-            else if (force == Force.Push) outline.OutlineColor = redColour;
+            if (force == Force.Pull)
+            {
+                outline.OutlineColor = blueColour;
+                if (linkedObj)
+                {
+                    Outline linkedOutline = linkedObj.GetComponent<Outline>();
+                    linkedOutline.OutlineColor = blueColour;
+                }
+            }
+            else if (force == Force.Push)
+            {
+                outline.OutlineColor = redColour;
+                if (linkedObj)
+                {
+                    Outline linkedOutline = linkedObj.GetComponent<Outline>();
+                    linkedOutline.OutlineColor = redColour;
+                }
+            }
         }
     }
 
@@ -107,7 +126,16 @@ public class Rays : MonoBehaviour
         if (obj == null) return;
 
         Outline outline = obj.GetComponent<Outline>();
-        if (outline.OutlineColor != purpleColour) { outline.OutlineColor = Color.white; }
+        GameObject linkedObj = LinkedObjectManager.GetLinkedObject(obj);
+        if (outline.OutlineColor != purpleColour) 
+        { 
+            outline.OutlineColor = Color.white; 
+            if (linkedObj)
+            {
+                Outline linkedOutline = linkedObj.GetComponent<Outline>();
+                linkedOutline.OutlineColor = Color.white;
+            }
+        }
     }
 
     // Update is called once per frame

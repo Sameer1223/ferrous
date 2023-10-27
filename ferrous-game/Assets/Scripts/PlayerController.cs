@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,12 +19,14 @@ public class PlayerController : MonoBehaviour
     public float airMultiplier;
     public float groundDrag;
     private bool canJump;
+    [SerializeField] private float _fallMultiplier = 1.25f;
+    [SerializeField] private float _jumpVelocityFalloff = 1.4f;
 
     // Ground check variables
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    private bool isGrounded;
+    public bool isGrounded;
 
     // Audio
     [Header("Sound Effects")] 
@@ -64,15 +61,16 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
             rb.drag = groundDrag;
         else
-            rb.drag = 0;
+            rb.drag = groundDrag * 0.9f;
     }
 
     void FixedUpdate()
     {
         // Player movement
         MovePlayer();
+
     }
-    
+
     // User input
     private void PlayerInput()
     {
@@ -84,7 +82,6 @@ public class PlayerController : MonoBehaviour
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-
     }
 
     // Player movement
@@ -108,27 +105,33 @@ public class PlayerController : MonoBehaviour
     // Limiting function for speed
     private void SpeedLimiter()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if(flatVel.magnitude > moveSpeed)
+        if (isGrounded)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            }
         }
+
+        // fall faster
+        if (rb.velocity.y < _jumpVelocityFalloff)
+        {
+            rb.velocity += (Vector3.up * Physics.gravity.y * _fallMultiplier * Time.deltaTime);
+        }
+
     }
 
     // Jump handler
     private void Jump()
     {
-
         // Set rb y velocity to 0 so jump remains consistent
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
         jumpSfx.Play();
-        
-        
     }
 
     private void ResetJump()
