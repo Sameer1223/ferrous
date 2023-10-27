@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7180179367979461375}
   - component: {fileID: 5098977190827655789}
   - component: {fileID: 7474045180852549406}
+  - component: {fileID: 8224906648604604207}
   m_Layer: 0
   m_Name: Power Block
   m_TagString: Untagged
@@ -125,3 +126,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pullForce: 100
+--- !u!64 &8224906648604604207
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7225088078254492314}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 9009893830714642796, guid: bd427ce57fbeb3444a21efb4919e94c1, type: 3}
