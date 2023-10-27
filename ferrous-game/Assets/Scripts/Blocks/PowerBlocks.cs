@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
+using static Rays;
 
 public class PowerBlocks : MonoBehaviour
 {
@@ -46,7 +48,6 @@ public class PowerBlocks : MonoBehaviour
     private void LateUpdate()
     {
         ApplyMagnesis();
-        Level1Check();
     }
 
     private void GetMagnetismInput()
@@ -76,10 +77,10 @@ public class PowerBlocks : MonoBehaviour
         // function for look push / pull ability
         RaycastHit hit;
 
+        Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
         {
-            Debug.Log(hit.collider.gameObject.name);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.red);
+            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.red);
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;
@@ -100,52 +101,32 @@ public class PowerBlocks : MonoBehaviour
         }
     }
 
-    private void Level1Check()
-    {
-        if (SceneManager.GetActiveScene().name != "Main Scene 1")
-        {
-            check = false;
-            return;
-        }
-
-        RaycastHit hit;
-        Ray ray = new Ray(playerTransform.position, Vector3.down);
-        if (Physics.Raycast(ray, out hit, 2 * 0.5f + 0.2f))
-        {
-            if (hit.collider.CompareTag("Metal")) check = true;
-            else check = false;
-        }
-    }
-
     private void ApplyMagnesis()
     {
-        if (check)
+        if (magnetismInput && selectedObject)
         {
-            if (magnetismInput && selectedObject)
+            // calculate a multipler based on how far away the selected object is from the player
+            float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
+            float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
+
+            if (distToPlayer <= minDist && !isPushing)
             {
-                // calculate a multipler based on how far away the selected object is from the player
-                float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
-                float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
+                selectedObject.velocity = Vector3.zero;
+            }
+            if (isPulling)
+            {
+                Vector3 pullDirection = -ObjectPuller.objectDirection;
+                pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
 
-                if (distToPlayer <= minDist && !isPushing)
-                {
-                    selectedObject.velocity = Vector3.zero;
-                }
-                if (isPulling)
-                {
-                    Vector3 pullDirection = (transform.position - selectedObject.position).normalized;
-                    pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
+                selectedObject.AddForce(pullDirection * pullForce);
+            }
+            else if (isPushing)
+            {
+                Vector3 pushDirection = ObjectPuller.objectDirection;
+                pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
-                    selectedObject.AddForce(pullDirection * pullForce);
-                }
-                else if (isPushing)
-                {
-                    Vector3 pushDirection = -(transform.position - selectedObject.position).normalized;
-                    pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
+                selectedObject.AddForce(pushDirection * pullForce);
 
-                    selectedObject.AddForce(pushDirection * pullForce);
-
-                }
             }
         }
     }

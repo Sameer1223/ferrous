@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
@@ -30,7 +31,8 @@ public class ObjectPuller : MonoBehaviour
     private Rigidbody selectedObject;
     private float distToPlayer;
     private bool magnetismInput;
-    private Vector3 objectDirection;
+    private LinkedObject linked;
+    public static Vector3 objectDirection;
 
     [Header("InputChecks")]
     private bool _pushInput;
@@ -259,12 +261,15 @@ public class ObjectPuller : MonoBehaviour
 
                 Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                 pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
+
+                GetInteractDirectionNormalized(pullDirection);
+
                 selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
-                // add force to linked object
                 if (linkedObj != null)
                 {
                     linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                 }
+
                 SetModelColour(Color.cyan);
             }
             else if (isPushing)
@@ -275,14 +280,42 @@ public class ObjectPuller : MonoBehaviour
 
                 Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
+
+                GetInteractDirectionNormalized(pushDirection);
+
                 selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
                 if (linkedObj != null)
                 {
-                    linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pushMultiplier);
+                    linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pullMultiplier);
                 }
                 SetModelColour(Color.red);
             }
         }
+    }
+
+    private void GetInteractDirectionNormalized(Vector3 direction)
+    {
+        float dotX = Vector3.Dot(direction, Vector3.right);
+        float dotZ = Vector3.Dot(direction, Vector3.forward);
+
+        Vector3 nearestAxisDirection;
+
+        if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
+            nearestAxisDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
+        else
+            nearestAxisDirection = dotX > 0 ? Vector3.right : Vector3.left;
+
+        RaycastHit hit;
+        Ray ray = new Ray(_playerTransform.position, Vector3.down);
+        if (Physics.Raycast(ray, out hit, 2 * 0.5f + 0.2f))
+        {
+            if (hit.collider.CompareTag("Metal"))
+            {
+                nearestAxisDirection = Vector3.up;
+            }
+
+        }
+        objectDirection = nearestAxisDirection;
     }
 
     // Set player model colour
