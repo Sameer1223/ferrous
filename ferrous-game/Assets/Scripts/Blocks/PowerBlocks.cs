@@ -115,14 +115,14 @@ public class PowerBlocks : MonoBehaviour
             }
             if (isPulling)
             {
-                Vector3 pullDirection = ObjectPuller.objectDirection;
+                Vector3 pullDirection = -ObjectPuller.objectDirection;
                 pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
 
                 selectedObject.AddForce(pullDirection * pullForce);
             }
             else if (isPushing)
             {
-                Vector3 pushDirection = -ObjectPuller.objectDirection;
+                Vector3 pushDirection = ObjectPuller.objectDirection;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
                 selectedObject.AddForce(pushDirection * pullForce);

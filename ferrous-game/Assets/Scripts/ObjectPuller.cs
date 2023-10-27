@@ -264,12 +264,11 @@ public class ObjectPuller : MonoBehaviour
 
                 GetInteractDirectionNormalized(pullDirection);
 
-                selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
-                if (linkedObj != null)
+                if (linked != null)
                 {
                     linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                 }
-
+                selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
                 SetModelColour(Color.cyan);
             }
             else if (isPushing)
@@ -283,11 +282,11 @@ public class ObjectPuller : MonoBehaviour
                 
                 GetInteractDirectionNormalized(pushDirection);
 
-                selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
-                if (linkedObj != null)
+                if (linked != null)
                 {
-                    linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pullMultiplier);
+                    linked.linkedObj.AddForce(pushDirection * pullForce * pushMultiplier);
                 }
+                selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
                 SetModelColour(Color.red);
             }
         }
