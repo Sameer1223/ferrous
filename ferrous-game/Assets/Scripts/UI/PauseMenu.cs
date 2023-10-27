@@ -27,11 +27,13 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         InputCheck();
-
+        
+        /* Cheat code to switch levels
         if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("Switch"))
         {
             SceneController.DemoSceneChange();
         }
+        */
 
         //TODO: display different set of controls on the canvas when something is paused
         if (_pauseMenuInput)
