@@ -264,11 +264,12 @@ public class ObjectPuller : MonoBehaviour
 
                 GetInteractDirectionNormalized(pullDirection);
 
-                if (linked != null)
+                selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
+                if (linkedObj != null)
                 {
                     linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                 }
-                selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
+
                 SetModelColour(Color.cyan);
             }
             else if (isPushing)
@@ -279,14 +280,14 @@ public class ObjectPuller : MonoBehaviour
 
                 Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
-                
+
                 GetInteractDirectionNormalized(pushDirection);
 
-                if (linked != null)
-                {
-                    linked.linkedObj.AddForce(pushDirection * pullForce * pushMultiplier);
-                }
                 selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
+                if (linkedObj != null)
+                {
+                    linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pullMultiplier);
+                }
                 SetModelColour(Color.red);
             }
         }
