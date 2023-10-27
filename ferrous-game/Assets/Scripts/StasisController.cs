@@ -74,6 +74,7 @@ public class StasisController : MonoBehaviour
                         // compare prev and new selected
                         prevFrozenObject = frozenObject.gameObject;
                         frozenObject = hit.rigidbody.gameObject;
+                        LinkLineManager.DisableLinkLine(hit.rigidbody);
                         if (GameObject.ReferenceEquals(prevFrozenObject, frozenObject))
                         {
                             // turn off stasis of the current object after 2 seconds
@@ -94,6 +95,7 @@ public class StasisController : MonoBehaviour
                     {
                         // nothing is frozen, freeze what we just looked at
                         frozenObject = hit.rigidbody.gameObject;
+                        LinkLineManager.DisableLinkLine(hit.rigidbody);
                         SetOutlineColor(frozenObject, purpleColour);
                         frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     }
@@ -101,7 +103,6 @@ public class StasisController : MonoBehaviour
             }
         }
     }
-
 
     private IEnumerator UnFreeze(GameObject toUnfreeze)
     {

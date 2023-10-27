@@ -146,14 +146,10 @@ public class ObjectPuller : MonoBehaviour
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;
+                LinkLineManager.DisableLinkLine(selectedObject);
                 PushOrPull();
             }
         }
-    }
-
-    private void SelectMagnetism()
-    {
-        PushOrPull();
     }
 
     private void PushOrPull()
@@ -176,6 +172,11 @@ public class ObjectPuller : MonoBehaviour
         distToPlayer = Mathf.Clamp(distToPlayer, minDist, maxDist);
     }
 
+
+    private void SelectMagnetism()
+    {
+        PushOrPull();
+    }
 
     private void selectObject()
     {
@@ -222,6 +223,10 @@ public class ObjectPuller : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Function that applies the magnetic force to the selectedObject.
+    /// </summary>
     private void ApplyMagnesis()
     {
         if (magnetismInput && selectedObject)
