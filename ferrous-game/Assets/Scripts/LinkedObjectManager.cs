@@ -69,32 +69,41 @@ public class LinkedObjectManager : MonoBehaviour
     public static GameObject GetLinkedObject(GameObject go)
     {
         // check if the hit object's parent has the link line script
-        LinkedObjectManager linker = go.transform.parent.GetComponent<LinkedObjectManager>();
-        if (linker != null)
+        if (go.transform.parent)
         {
-            if (go == linker.firstObj)
+            LinkedObjectManager linker = go.transform.parent.GetComponent<LinkedObjectManager>();
+            if (linker != null)
             {
-                return linker.secondObj;
+                if (go == linker.firstObj)
+                {
+                    return linker.secondObj;
+                }
+                else if (go == linker.secondObj)
+                {
+                    return linker.firstObj;
+                }
             }
-            else if (go == linker.secondObj)
-            {
-                return linker.firstObj;
-            }
+            return null;
         }
         return null;
+        
     }
 
     public static void DisableLinkLine(GameObject go)
     {
         // check if the hit object's parent has the link line script
-        LinkedObjectManager linker = go.transform.parent.GetComponent<LinkedObjectManager>();
-        if (linker != null)
+        if (go.transform.parent)
         {
-            if (go == linker.firstObj || go == linker.secondObj)
+            LinkedObjectManager linker = go.transform.parent.GetComponent<LinkedObjectManager>();
+            if (linker != null)
             {
-                linker.disableLinkObj();
+                if (go == linker.firstObj || go == linker.secondObj)
+                {
+                    linker.disableLinkObj();
+                }
             }
         }
+        
     }
 
     public void disableLinkObj()
