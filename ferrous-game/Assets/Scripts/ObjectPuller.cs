@@ -30,7 +30,6 @@ public class ObjectPuller : MonoBehaviour
     private Rigidbody selectedObject;
     private float distToPlayer;
     private bool magnetismInput;
-    private LinkedObject linked;
     private Vector3 objectDirection;
 
     [Header("InputChecks")]
@@ -235,7 +234,7 @@ public class ObjectPuller : MonoBehaviour
             float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
             float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
 
-            linked = selectedObject.GetComponent<LinkedObject>();
+            GameObject linkedObj = LinkedObjectManager.GetLinkedObject(selectedObject.gameObject);
 
             /* One axis movement code
             float dotX = Vector3.Dot(_playerTransform.forward, Vector3.right);
@@ -260,11 +259,12 @@ public class ObjectPuller : MonoBehaviour
 
                 Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                 pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
-                if (linked != null)
-                {
-                    linked.linkedObj.AddForce(pullDirection * pullForce * pullMultiplier);
-                }
                 selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
+                // add force to linked object
+                if (linkedObj != null)
+                {
+                    linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
+                }
                 SetModelColour(Color.cyan);
             }
             else if (isPushing)
@@ -275,11 +275,11 @@ public class ObjectPuller : MonoBehaviour
 
                 Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
-                if (linked != null)
-                {
-                    linked.linkedObj.AddForce(pushDirection * pullForce * pushMultiplier);
-                }
                 selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
+                if (linkedObj != null)
+                {
+                    linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pushMultiplier);
+                }
                 SetModelColour(Color.red);
             }
         }

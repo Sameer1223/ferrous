@@ -6,6 +6,7 @@ public class LinkedObjectManager : MonoBehaviour
 {
     private LineRenderer lr;
     private Material lineMaterial;
+  
 
     [Header("Objects")]
     public GameObject firstObj;
@@ -26,6 +27,7 @@ public class LinkedObjectManager : MonoBehaviour
         endColor = lineMaterial.color;
         endColor.a = 0;
         StartCoroutine(fadeLink());
+        // TODO: give the link object a material, give first and secondObj outline = material on start
 
     }
 
