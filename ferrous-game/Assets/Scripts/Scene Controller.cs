@@ -25,7 +25,6 @@ public class SceneController : MonoBehaviour
         Menu = "GameStart",
         Tutorial = "Main Scene",
         LevelOne = "Varun Level",
-        LevelTwo = "puzzle-structure-complete"
     };
 
     public static void DemoSceneChange()

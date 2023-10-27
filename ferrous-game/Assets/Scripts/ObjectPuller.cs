@@ -235,15 +235,18 @@ public class ObjectPuller : MonoBehaviour
             float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
             float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
 
+            linked = selectedObject.GetComponent<LinkedObject>();
+
+            /* One axis movement code
             float dotX = Vector3.Dot(_playerTransform.forward, Vector3.right);
             float dotZ = Vector3.Dot(_playerTransform.forward, Vector3.forward);
 
-            linked = selectedObject.GetComponent<LinkedObject>();
 
             if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
                 objectDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
             else
                 objectDirection = dotX > 0 ? Vector3.right : Vector3.left;
+            */
 
             if (distToPlayer <= minDist && !isPushing)
             {
@@ -251,32 +254,32 @@ public class ObjectPuller : MonoBehaviour
             }
             if (isPulling && distToPlayer > minDist)
             {
-                /* Retiring this for one axis movement
-                Vector3 pullDirection = (_mainCamera.transform.position - selectedObject.position).normalized;
+                /* Retiring this for multi axis movement
+                Vector3 pullDirection = objectDirection;
                 */
 
-                Vector3 pullDirection = objectDirection;
+                Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                 pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
                 if (linked != null)
                 {
-                    linked.linkedObj.AddForce(-pullDirection * pullForce * pullMultiplier);
+                    linked.linkedObj.AddForce(pullDirection * pullForce * pullMultiplier);
                 }
-                selectedObject.AddForce(-pullDirection * pullForce * pullMultiplier);
+                selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
                 SetModelColour(Color.cyan);
             }
             else if (isPushing)
             {
                 /* Retiring this for one axis movement
-                Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
+                Vector3 pushDirection = -objectDirection;
                 */
 
-                Vector3 pushDirection = -objectDirection;
+                Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
                 if (linked != null)
                 {
-                    linked.linkedObj.AddForce(-pushDirection * pullForce * pushMultiplier);
+                    linked.linkedObj.AddForce(pushDirection * pullForce * pushMultiplier);
                 }
-                selectedObject.AddForce(-pushDirection * pullForce * pushMultiplier);
+                selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
                 SetModelColour(Color.red);
             }
         }
