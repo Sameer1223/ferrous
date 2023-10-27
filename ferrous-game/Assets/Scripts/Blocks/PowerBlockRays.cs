@@ -87,8 +87,8 @@ public class PowerBlockRays : MonoBehaviour
             // Integer to track force push or pull. Pull = 0, Push = 1, No Force = -1
             force = Force.None;
 
-            if (_pullInput) force = Force.Push;
-            else if (_pushInput) force = Force.Pull;
+            if (_pullInput) force = Force.Pull;
+            else if (_pushInput) force = Force.Push;
             else if (_stasisInput) force = Force.Stasis;
             else if (!_pullInput && !_pushInput && !_stasisInput) Deactivate();
 
