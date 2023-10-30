@@ -43,7 +43,7 @@ public class Immovable : MonoBehaviour
         
     }
 
-    private void OnCollisionExit(Collision other)
+    private void OnCollisionExit(Collision c)
     {
         if (c.gameObject.tag == "Player")
         {
