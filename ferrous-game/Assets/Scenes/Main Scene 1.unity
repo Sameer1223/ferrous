@@ -10959,6 +10959,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Block
       objectReference: {fileID: 0}
+    - target: {fileID: 8224906648604604207, guid: a64e8230c6fb2104db895829de467677, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8406729185227706495, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: m_LocalScale.x
       value: 10
