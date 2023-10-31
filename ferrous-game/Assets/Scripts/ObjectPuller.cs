@@ -16,6 +16,7 @@ public class ObjectPuller : MonoBehaviour
     private Rigidbody rb;
     private Camera mainCamera;
     private Transform _playerTransform;
+    private Animator animator;
     private bool soundPlayed;
 
 
@@ -45,7 +46,7 @@ public class ObjectPuller : MonoBehaviour
 
     private void Awake()
     {
-        GameObject model = GameObject.Find("Robot_withUV");
+        GameObject model = GameObject.Find("Robot");
 
         foreach (Renderer renderer in model.GetComponentsInChildren<Renderer>())
         {
@@ -57,7 +58,9 @@ public class ObjectPuller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         mainCamera = Camera.main;
-        _playerTransform = GameObject.Find("Player").transform;
+        GameObject player = GameObject.Find("Player");
+        _playerTransform = player.transform;
+        animator = player.GetComponentInChildren<Animator>();
         magnetismInput = false;
     }
 
@@ -122,6 +125,8 @@ public class ObjectPuller : MonoBehaviour
                 SetModelColour(Color.white);
             }
         }
+
+        animator.SetBool("isInteracting", magnetismInput);
 
         // determine which input to turn off
         if (!_pullInput)

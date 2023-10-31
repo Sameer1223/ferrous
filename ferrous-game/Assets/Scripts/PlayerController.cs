@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     // Game Objects
     private Rigidbody rb;
     private Camera gameCamera;
+    private Animator animator;
 
     // Movement variables
     [Header("Movement")]
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
        
         rb = gameObject.GetComponent<Rigidbody>();
         gameCamera = gameObject.GetComponentInChildren<Camera>();
+        animator = gameObject.GetComponentInChildren<Animator>();
 
         canJump = true;
         lastPosition = transform.position;
@@ -76,12 +78,18 @@ public class PlayerController : MonoBehaviour
     {
         moveVector = InputManager.instance.MovementInput;
         jumpInput = InputManager.instance.JumpInput;
+
+        animator.SetFloat("horizontalMovement", moveVector.x);
+        animator.SetFloat("verticalMovement", moveVector.y);
+
         if (jumpInput && canJump && isGrounded)
         {
             canJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+
+        animator.SetBool("isJumping", !canJump);
     }
 
     // Player movement
@@ -94,6 +102,7 @@ public class PlayerController : MonoBehaviour
 
         else if (!isGrounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+
 
         // Music
         if (moveDirection != Vector3.zero && !walkSfx.isPlaying)
