@@ -1,20 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     // Inputs
-    private float moveHorizontal;
     private float moveVertical;
     private bool jumpInput;
+    private Vector2 moveVector;
 
     // Game Objects
     private Rigidbody rb;
-    private Camera camera;
-    private Animator animator;
-    private Transform character;
+    private Camera gameCamera;
 
     // Movement variables
     [Header("Movement")]
@@ -24,20 +19,25 @@ public class PlayerController : MonoBehaviour
     public float airMultiplier;
     public float groundDrag;
     private bool canJump;
+    [SerializeField] private float _fallMultiplier = 1.25f;
+    [SerializeField] private float _jumpVelocityFalloff = 1.4f;
 
     // Ground check variables
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    private bool isGrounded;
+    public bool isGrounded;
 
     // Audio
     [Header("Sound Effects")] 
     public AudioSource jumpSfx;
     public AudioSource walkSfx;
 
+    [Header("Input")]
+
     // [TESTING]
     Vector3 lastPosition;
+
 
     void Start()
     {
@@ -45,9 +45,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false; // Hide the cursor
        
         rb = gameObject.GetComponent<Rigidbody>();
-        camera = gameObject.GetComponentInChildren<Camera>();
-        animator = gameObject.GetComponentInChildren<Animator>();
-        character = transform.Find("Character");
+        gameCamera = gameObject.GetComponentInChildren<Camera>();
 
         canJump = true;
         lastPosition = transform.position;
@@ -63,25 +61,22 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
             rb.drag = groundDrag;
         else
-            rb.drag = 0;
+            rb.drag = groundDrag * 0.9f;
     }
 
     void FixedUpdate()
     {
         // Player movement
         MovePlayer();
+
     }
-    
+
     // User input
     private void PlayerInput()
     {
-        moveHorizontal = Input.GetAxis("Horizontal");
-        moveVertical = Input.GetAxis("Vertical");
-
-        animator.SetFloat("horizontalMovement", moveHorizontal);
-        animator.SetFloat("verticalMovement", moveVertical);
-
-        if (Input.GetButton("Jump") && canJump && isGrounded)
+        moveVector = InputManager.instance.MovementInput;
+        jumpInput = InputManager.instance.JumpInput;
+        if (jumpInput && canJump && isGrounded)
         {
             canJump = false;
             Jump();
@@ -92,7 +87,7 @@ public class PlayerController : MonoBehaviour
     // Player movement
     private void MovePlayer()
     {
-        Vector3 moveDirection = transform.forward * moveVertical + transform.right * moveHorizontal;
+        Vector3 moveDirection = transform.forward * moveVector.y + transform.right * moveVector.x;
 
         if (isGrounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
@@ -110,13 +105,23 @@ public class PlayerController : MonoBehaviour
     // Limiting function for speed
     private void SpeedLimiter()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if(flatVel.magnitude > moveSpeed)
+        if (isGrounded)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            }
         }
+
+        // fall faster
+        if (rb.velocity.y < _jumpVelocityFalloff)
+        {
+            rb.velocity += (Vector3.up * Physics.gravity.y * _fallMultiplier * Time.deltaTime);
+        }
+
     }
 
     // Jump handler
@@ -126,7 +131,6 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        
         jumpSfx.Play();
     }
 

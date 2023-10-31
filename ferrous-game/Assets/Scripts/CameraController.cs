@@ -23,17 +23,19 @@ public class CameraController : MonoBehaviour
     private void CameraControl()
     {
         #region Player Based Rotation
+
+        Vector2 lookInput = InputManager.instance.LookInput;
         
         //Move the player based on the X input on the controller
-        transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
+        transform.rotation *= Quaternion.AngleAxis(lookInput.x * rotationPower, Vector3.up);
 
         #endregion
 
         #region Follow Transform Rotation
 
         //Rotate the Follow Target transform based on the input
-        CameraTarget.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X")  * rotationPower, Vector3.up);
-        CameraTarget.transform.rotation *= Quaternion.AngleAxis(-Input.GetAxis("Mouse Y")  * rotationPower, Vector3.right);
+        CameraTarget.transform.rotation *= Quaternion.AngleAxis(lookInput.x  * rotationPower, Vector3.up);
+        CameraTarget.transform.rotation *= Quaternion.AngleAxis(-lookInput.y  * rotationPower, Vector3.right);
 
         // get angles of rotation
         var angles = CameraTarget.transform.localEulerAngles;
