@@ -9,18 +9,12 @@ public class CanvasControl : MonoBehaviour
     [SerializeField] private GameObject Settingmenu;
     [SerializeField] private GameObject Helpmenu;
     [SerializeField] private GameObject MusicSlider;
-    [SerializeField] private GameObject _mainFirst;
-    [SerializeField] private GameObject _controlsMenu;
-    [SerializeField] private GameObject _controlsBtn;
-    [SerializeField] private GameObject _controlsFirst;
-
     [SerializeField] private float alphaSpeed = 1.0f;
     private bool isFade = false;
     private bool isFadeHelp = false;
     private CanvasGroup canvasGroupSetting;
     private CanvasGroup canvasGroupHelp;
     private CanvasGroup canvasGroup2;
-
     public AudioSource button;
     // Start is called before the first frame update
     void Start()
@@ -28,7 +22,6 @@ public class CanvasControl : MonoBehaviour
         canvasGroupSetting = Settingmenu.GetComponent<CanvasGroup>();
         canvasGroup2 = MusicSlider.GetComponent<CanvasGroup>();
         canvasGroupHelp = Helpmenu.GetComponent<CanvasGroup>();
-        EventSystem.current.SetSelectedGameObject(_mainFirst);
     }
 
     // Update is called once per frame
@@ -97,7 +90,7 @@ public class CanvasControl : MonoBehaviour
         isFadeHelp = !isFadeHelp;
     }
 
-    public void onStartGame()
+    public void OnClickBtnNextScene()
     {
 
         SceneManager.LoadScene(1);
@@ -106,18 +99,6 @@ public class CanvasControl : MonoBehaviour
     public void OnClickBtnBackMainScene()
     {
         SceneManager.LoadScene(0);
-    }
-
-    public void OnControlsOpen()
-    {
-        _controlsMenu.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(_controlsFirst);
-    }
-
-    public void OnControlsClose()
-    {
-        _controlsMenu.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(_controlsBtn);
     }
 
     public void QuitGame()

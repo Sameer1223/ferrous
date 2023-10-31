@@ -19,24 +19,25 @@ public class L2_R_Switch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(EndCollide1 && EndCollide2 && R1_Door_L.transform.position.z> -4.5f && R1_Door_R.transform.position.z<3.1f)
+        if(EndCollide1 == true && EndCollide2 == true && R1_Door_L.transform.position.z> -4.5f && R1_Door_R.transform.position.z<3.1f)
         {
             R1_Door_L.transform.position -= direction * speed * Time.deltaTime;
             R1_Door_R.transform.position += direction * speed * Time.deltaTime;
         }
     }
-
-    private void OnTriggerEnter(Collider collision)
+    void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Metal")
+        
+        if(collision.gameObject.name == "R2BoxTwo")
         {
             EndCollide1 = true;
         }
+        
     }
-
-    private void OnTriggerExit(Collider collision)
+    void OnCollisionExit(Collision collision)
     {
-        EndCollide1 = false;
+        
+
     }
 
     public void SetEndCollided2True()

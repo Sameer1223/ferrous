@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 
 public class ObjectPuller : MonoBehaviour
@@ -32,14 +30,7 @@ public class ObjectPuller : MonoBehaviour
     private float distToPlayer;
     private bool magnetismInput;
     private LinkedObject linked;
-    public static Vector3 objectDirection;
-
-    [Header("InputChecks")]
-    private bool _pushInput;
-    private bool _pullInput;
-    private Vector2 _mousePos;
-    private bool _selectInput;
-     
+    private Vector3 objectDirection;
 
     // Player model colour changing variables
     List<Renderer> modelRenderers = new List<Renderer>();
@@ -67,8 +58,6 @@ public class ObjectPuller : MonoBehaviour
     {
         if (!PauseMenu.IsPaused)
         {
-            PlayerInput();
-
             // determine if the player is inputting a push / pull
             GetMagnetismInput();
             // if the player has selected an object / currently push pulling a target
@@ -100,37 +89,25 @@ public class ObjectPuller : MonoBehaviour
     {
         ApplyMagnesis();
     }
-    
-
-    private void PlayerInput()
-    {
-        _pushInput = InputManager.instance.PushInput;
-        _pullInput = InputManager.instance.PullInput;
-        _mousePos = Mouse.current.position.ReadValue();
-        if (useSelect) { _selectInput = InputManager.instance.SelectInput; }
-    }
 
     private void GetMagnetismInput()
     {
-        if (_pushInput || _pullInput)
+        if (Input.GetButton("Fire1") || Input.GetAxisRaw("Fire1") > 0 || Input.GetButton("Fire2") || Input.GetAxisRaw("Fire2") > 0)
         {
             magnetismInput = true;
         } else
         {
             magnetismInput = false;
             soundPlayed = false;
-            if (!StasisController.stasisColorOn)
-            {
-                SetModelColour(Color.white);
-            }
+            SetModelColour(Color.white);
         }
 
         // determine which input to turn off
-        if (!_pullInput)
+        if (Input.GetAxisRaw("Fire1") < 0.1f && !Input.GetMouseButton(0))
         {
             isPulling = false;
         }
-        if (!_pushInput)
+        if (Input.GetAxisRaw("Fire2") < 0.1f && !Input.GetMouseButton(1))
         {
             isPushing = false;
         }
@@ -140,27 +117,31 @@ public class ObjectPuller : MonoBehaviour
     {
         // function for look push / pull ability
         RaycastHit hit;
-        Ray ray = mainCamera.ScreenPointToRay(_mousePos);
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;
-                LinkedObjectManager.DisableLinkLine(selectedObject.gameObject);
                 PushOrPull();
             }
         }
     }
 
+    private void SelectMagnetism()
+    {
+        PushOrPull();
+    }
+
     private void PushOrPull()
     {
-        if (_pullInput)
+        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f)
         {
             isPulling = true;
             SetModelColour(Color.cyan);
         }
-        else if (_pushInput)
+        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f)
         {
             isPushing = true;
             SetModelColour(Color.red);
@@ -174,18 +155,13 @@ public class ObjectPuller : MonoBehaviour
     }
 
 
-    private void SelectMagnetism()
-    {
-        PushOrPull();
-    }
-
     private void selectObject()
     {
-        if (_selectInput)
+        if (Input.GetKeyDown(KeyCode.E))
         {
             RaycastHit hit;
             // generates a ray in the look direction
-            Ray ray = mainCamera.ScreenPointToRay(_mousePos);
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             // instead of origin -> destination, use the defined ray
             if (Physics.Raycast(ray, out hit, rayDist))
             {
@@ -224,10 +200,6 @@ public class ObjectPuller : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// Function that applies the magnetic force to the selectedObject.
-    /// </summary>
     private void ApplyMagnesis()
     {
         if (magnetismInput && selectedObject)
@@ -236,18 +208,15 @@ public class ObjectPuller : MonoBehaviour
             float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
             float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
 
-            GameObject linkedObj = LinkedObjectManager.GetLinkedObject(selectedObject.gameObject);
-
-            /* One axis movement code
             float dotX = Vector3.Dot(_playerTransform.forward, Vector3.right);
             float dotZ = Vector3.Dot(_playerTransform.forward, Vector3.forward);
 
+            linked = selectedObject.GetComponent<LinkedObject>();
 
             if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
                 objectDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
             else
                 objectDirection = dotX > 0 ? Vector3.right : Vector3.left;
-            */
 
             if (distToPlayer <= minDist && !isPushing)
             {
@@ -255,67 +224,38 @@ public class ObjectPuller : MonoBehaviour
             }
             if (isPulling && distToPlayer > minDist)
             {
-                /* Retiring this for multi axis movement
-                Vector3 pullDirection = objectDirection;
+                /* Retiring this for one axis movement
+                Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                 */
 
-                Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
+                Vector3 pullDirection = objectDirection;
                 pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
 
-                GetInteractDirectionNormalized(pullDirection);
-
-                selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
-                if (linkedObj != null)
+                if (linked != null)
                 {
-                    linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
+                    linked.linkedObj.AddForce(-pullDirection * pullForce * pullMultiplier);
                 }
-
+                selectedObject.AddForce(-pullDirection * pullForce * pullMultiplier);
                 SetModelColour(Color.cyan);
             }
             else if (isPushing)
             {
                 /* Retiring this for one axis movement
-                Vector3 pushDirection = -objectDirection;
+                Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
                 */
 
-                Vector3 pushDirection = -(mainCamera.transform.position - selectedObject.position).normalized;
+                Vector3 pushDirection = -objectDirection;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
-                GetInteractDirectionNormalized(pushDirection);
-
-                selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
-                if (linkedObj != null)
+                if (linked != null)
                 {
-                    linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pullMultiplier);
+                    linked.linkedObj.AddForce(-pushDirection * pullForce * pushMultiplier);
                 }
+                selectedObject.AddForce(-pushDirection * pullForce * pushMultiplier);
                 SetModelColour(Color.red);
+
             }
         }
-    }
-
-    private void GetInteractDirectionNormalized(Vector3 direction)
-    {
-        float dotX = Vector3.Dot(direction, Vector3.right);
-        float dotZ = Vector3.Dot(direction, Vector3.forward);
-
-        Vector3 nearestAxisDirection;
-
-        if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
-            nearestAxisDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
-        else
-            nearestAxisDirection = dotX > 0 ? Vector3.right : Vector3.left;
-
-        RaycastHit hit;
-        Ray ray = new Ray(_playerTransform.position, Vector3.down);
-        if (Physics.Raycast(ray, out hit, 2 * 0.5f + 0.2f))
-        {
-            if (hit.collider.CompareTag("Metal"))
-            {
-                nearestAxisDirection = Vector3.up;
-            }
-
-        }
-        objectDirection = nearestAxisDirection;
     }
 
     // Set player model colour

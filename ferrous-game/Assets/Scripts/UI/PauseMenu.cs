@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
@@ -10,10 +11,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject gameUI;
 
-
-    [Header("InputChecks")]
-    private bool _pauseMenuInput;
-
     [Header("First Menu Option")]
     [SerializeField] private GameObject _pauseMenuFirst;
 
@@ -22,21 +19,16 @@ public class PauseMenu : MonoBehaviour
         IsPaused = false;
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        InputCheck();
-        
-        /* Cheat code to switch levels
         if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("Switch"))
         {
             SceneController.DemoSceneChange();
         }
-        */
 
         //TODO: display different set of controls on the canvas when something is paused
-        if (_pauseMenuInput)
+        if (Input.GetButtonDown("MenuOpenClose"))
         {
             if (IsPaused)
             {
@@ -48,11 +40,7 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
-    }
-
-    private void InputCheck()
-    {
-        _pauseMenuInput = InputManager.instance.PauseMenuOpenCloseInput;
+        Debug.Log(IsPaused);
     }
 
     public void Resume()
