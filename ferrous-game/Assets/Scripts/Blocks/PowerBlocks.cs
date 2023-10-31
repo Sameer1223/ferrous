@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using TreeEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 using static Rays;
@@ -25,18 +26,24 @@ public class PowerBlocks : MonoBehaviour
     private bool magnetismInput;
     private Vector3 objectDirection;
 
-    private bool check;
+    [Header("InputChecks")]
+    private bool _pushInput;
+    private bool _pullInput;
+    private Vector2 _mousePos;
+    private bool _selectInput;
 
     private void Start()
     {
         playerTransform = GameObject.Find("Player").transform;
-        check = false;
     }
+
 
     void Update()
     {
         if (!PauseMenu.IsPaused)
         {
+            PlayerInput();
+
             // determine if the player is inputting a push / pull
             GetMagnetismInput();
             if (magnetismInput)
@@ -52,7 +59,7 @@ public class PowerBlocks : MonoBehaviour
 
     private void GetMagnetismInput()
     {
-        if (Input.GetButton("Fire1") || Input.GetAxisRaw("Fire1") > 0 || Input.GetButton("Fire2") || Input.GetAxisRaw("Fire2") > 0)
+        if (_pushInput || _pullInput)
         {
             magnetismInput = true;
         }
@@ -62,14 +69,21 @@ public class PowerBlocks : MonoBehaviour
         }
 
         // determine which input to turn off
-        if (Input.GetAxisRaw("Fire1") < 0.1f && !Input.GetMouseButton(0))
+        if (!_pullInput)
         {
             isPulling = false;
         }
-        if (Input.GetAxisRaw("Fire2") < 0.1f && !Input.GetMouseButton(1))
+        if (!_pushInput)
         {
             isPushing = false;
         }
+    }
+
+    private void PlayerInput()
+    {
+        _pushInput = InputManager.instance.PushInput;
+        _pullInput = InputManager.instance.PullInput;
+        _mousePos = Mouse.current.position.ReadValue();
     }
 
     private void LookMagnetism()
@@ -77,7 +91,6 @@ public class PowerBlocks : MonoBehaviour
         // function for look push / pull ability
         RaycastHit hit;
 
-        Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
         {
             //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.red);
@@ -91,11 +104,11 @@ public class PowerBlocks : MonoBehaviour
 
     private void PushOrPull()
     {
-        if (Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") > 0.1f)
+        if (_pullInput)
         {
             isPulling = true;
         }
-        else if (Input.GetMouseButton(1) || Input.GetAxisRaw("Fire2") > 0.1f)
+        else if (_pushInput)
         {
             isPushing = true;
         }
@@ -115,6 +128,7 @@ public class PowerBlocks : MonoBehaviour
             }
             if (isPulling)
             {
+                Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
                 Vector3 pullDirection = -ObjectPuller.objectDirection;
                 pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
 
@@ -122,6 +136,7 @@ public class PowerBlocks : MonoBehaviour
             }
             else if (isPushing)
             {
+                Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
                 Vector3 pushDirection = ObjectPuller.objectDirection;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
