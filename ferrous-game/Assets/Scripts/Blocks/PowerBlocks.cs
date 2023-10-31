@@ -2,14 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
+using static Rays;
 
 public class PowerBlocks : MonoBehaviour
 {
 
     private bool isPulling = false;
     private bool isPushing = false;
+
+    private Transform playerTransform;
 
     [Header("Push/Pull")]
     private float maxDist = 40f;
@@ -19,6 +24,14 @@ public class PowerBlocks : MonoBehaviour
     private float distToPlayer;
     private bool magnetismInput;
     private Vector3 objectDirection;
+
+    private bool check;
+
+    private void Start()
+    {
+        playerTransform = GameObject.Find("Player").transform;
+        check = false;
+    }
 
     void Update()
     {
@@ -64,10 +77,10 @@ public class PowerBlocks : MonoBehaviour
         // function for look push / pull ability
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, -transform.up, out hit))
+        Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
         {
-            Debug.Log(hit.collider.gameObject.name);
-            Debug.DrawLine(transform.position, -transform.up * 10);
+            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.red);
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;
@@ -96,28 +109,20 @@ public class PowerBlocks : MonoBehaviour
             float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
             float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
 
-            float dotX = Vector3.Dot(transform.forward, Vector3.right);
-            float dotZ = Vector3.Dot(transform.forward, Vector3.forward);
-
-            if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
-                objectDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
-            else
-                objectDirection = dotX > 0 ? Vector3.right : Vector3.left;
-
             if (distToPlayer <= minDist && !isPushing)
             {
                 selectedObject.velocity = Vector3.zero;
             }
             if (isPulling)
             {
-                Vector3 pullDirection = objectDirection;
+                Vector3 pullDirection = -ObjectPuller.objectDirection;
                 pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
 
                 selectedObject.AddForce(pullDirection * pullForce);
             }
             else if (isPushing)
             {
-                Vector3 pushDirection = -objectDirection;
+                Vector3 pushDirection = ObjectPuller.objectDirection;
                 pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
                 selectedObject.AddForce(pushDirection * pullForce);
