@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
     public bool StasisInput { get; private set; }
     public bool PauseMenuOpenCloseInput { get; private set; }
     public bool SelectInput { get; private set; }
+    public string CurrControlScheme { get; private set; }
 
 
     private PlayerInput _playerInput;
@@ -30,7 +31,6 @@ public class InputManager : MonoBehaviour
     private InputAction _stasisAction;
     private InputAction _pauseMenuOpenCloseAction;
     private InputAction _selectAction;
-
 
 
     private void Awake()
@@ -52,21 +52,27 @@ public class InputManager : MonoBehaviour
         _pauseMenuOpenCloseAction = _playerInput.actions["PauseMenuOpenClose"];
         _selectAction = _playerInput.actions["Select"];
 
-
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        JumpInput = _jumpAction.IsPressed();
-        MovementInput = _movementAction.ReadValue<Vector2>();
-        LookInput = _lookAction.ReadValue<Vector2>();
-        PushInput = _pushAction.IsPressed();
-        PullInput = _pullAction.IsPressed();
-        StasisInput = _stasisAction.WasPressedThisFrame();
+
         PauseMenuOpenCloseInput = _pauseMenuOpenCloseAction.WasPressedThisFrame();
-        SelectInput = _selectAction.WasPressedThisFrame();
+        CurrControlScheme = _playerInput.currentControlScheme;
+
+        if (!PauseMenu.IsPaused)
+        {
+            JumpInput = _jumpAction.IsPressed();
+            MovementInput = _movementAction.ReadValue<Vector2>();
+            LookInput = _lookAction.ReadValue<Vector2>();
+            PushInput = _pushAction.IsPressed();
+            PullInput = _pullAction.IsPressed();
+            StasisInput = _stasisAction.WasPressedThisFrame();
+            SelectInput = _selectAction.WasPressedThisFrame();
+        }
+
 
     }
 }

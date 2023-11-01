@@ -52,8 +52,6 @@ public class MainMenu : MonoBehaviour
         {
             CloseControls();
         }
-
-        Debug.Log(EventSystem.current.currentSelectedGameObject.name);
     }
 
     public void StartGame()
