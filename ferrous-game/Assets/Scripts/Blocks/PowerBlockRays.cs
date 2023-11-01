@@ -61,6 +61,8 @@ public class PowerBlockRays : MonoBehaviour
     // Turn on magnetic ray
     private void Activate(Force force)
     {
+        Debug.Log("Activates");
+
         if (force == Force.None) return;
 
         if (force == Force.Pull) magnetRay.material = blueMaterial;
@@ -92,13 +94,12 @@ public class PowerBlockRays : MonoBehaviour
             else if (_stasisInput) force = Force.Stasis;
             else if (!_pullInput && !_pushInput && !_stasisInput) Deactivate();
 
-
             // Calculate ray logic
             RaycastHit hit;
-            bool cast = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit);
+            bool cast = Physics.Raycast(transform.position, ObjectPuller.objectDirection, out hit);
             Vector3 hitPosition = cast ? hit.point : raySpawnPoint.position + raySpawnPoint.forward * maxLength;
 
-            if (hit.collider.gameObject != null && !hit.collider.gameObject.CompareTag("Metal") && (_pullInput || _pushInput))
+            if (hit.collider != null && !hit.collider.gameObject.CompareTag("Metal"))
             {
                 Deactivate();
                 return;
@@ -107,6 +108,8 @@ public class PowerBlockRays : MonoBehaviour
             Activate(force);
 
             if (!magnetRay.enabled) return;
+
+            Debug.Log("Rays here");
 
             // Line renderer set positions
             magnetRay.SetPosition(0, raySpawnPoint.position);

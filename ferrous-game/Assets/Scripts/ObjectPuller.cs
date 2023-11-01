@@ -267,7 +267,7 @@ public class ObjectPuller : MonoBehaviour
             {
                 selectedObject.velocity = Vector3.zero;
             }
-            if (isPulling && distToPlayer > minDist)
+            if (isPulling)
             {
                 /* Retiring this for multi axis movement
                 Vector3 pullDirection = objectDirection;
@@ -279,7 +279,7 @@ public class ObjectPuller : MonoBehaviour
                 GetInteractDirectionNormalized(pullDirection);
 
                 selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
-                if (linkedObj != null)
+                if (linkedObj != null && objectDirection != Vector3.down)
                 {
                     linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                 }
@@ -298,7 +298,7 @@ public class ObjectPuller : MonoBehaviour
                 GetInteractDirectionNormalized(pushDirection);
 
                 selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
-                if (linkedObj != null)
+                if (linkedObj != null && objectDirection != Vector3.down)
                 {
                     linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pullMultiplier);
                 }
@@ -329,7 +329,6 @@ public class ObjectPuller : MonoBehaviour
             }
 
         }
-        Debug.Log(nearestAxisDirection.ToString());
         objectDirection = nearestAxisDirection;
     }
 
