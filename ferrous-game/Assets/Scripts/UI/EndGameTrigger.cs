@@ -33,6 +33,7 @@ public class GamePanelControl : MonoBehaviour
         BackPanel.SetActive(true) ;
         Player.GetComponent<CameraController>().enabled = false;
         Player.GetComponent<PlayerController>().enabled = false;
+        Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the screen
         Cursor.visible = true; //
     }

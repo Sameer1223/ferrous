@@ -31,6 +31,7 @@ public class SceneController : MonoBehaviour
         int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
 
         SceneManager.LoadScene(nextSceneIndex);
+        Time.timeScale = 1.0f;
     }
 
     public static bool IsLastScene()
