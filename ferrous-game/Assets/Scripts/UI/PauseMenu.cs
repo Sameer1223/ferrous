@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -33,7 +35,6 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         InputCheck();
-        
         /* Cheat code to switch levels
         if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("Switch"))
         {
@@ -41,7 +42,6 @@ public class PauseMenu : MonoBehaviour
         }
         */
 
-        //TODO: display different set of controls on the canvas when something is paused
         if (_pauseMenuInput)
         {
             if (IsPaused)
@@ -52,6 +52,18 @@ public class PauseMenu : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None; // unlock the cursor
                 Cursor.visible = true; // unhide the cursor
                 Pause();
+            }
+        }
+
+        // setting the correct selected option for menus
+        if (EventSystem.current.currentSelectedGameObject == null && pauseMenuUI.activeSelf)
+        {
+            // if keyboard / gamepad input, select the first thing in the list
+            if ((Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame) ||
+                (Gamepad.current != null && Gamepad.current.allControls.Any(control => control.IsActuated()))
+                )
+            {
+                EventSystem.current.SetSelectedGameObject(_pauseMenuFirst);
             }
         }
     }
@@ -65,9 +77,6 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
-
-        // change the selected game object to the pause menu's first item
-        EventSystem.current.SetSelectedGameObject(_pauseMenuFirst);
 
         Time.timeScale = 0;
         IsPaused = true;

@@ -9,12 +9,23 @@ public class LevelComplete : MonoBehaviour
 {
 
     [Header("Possible First Btns")]
+    [SerializeField] private GameObject _nextLevelBtn;
+    [SerializeField] private GameObject _restartBtn;
+    private GameObject _firstBtn;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (SceneController.IsLastScene())
+        {
+            _firstBtn = _restartBtn;
+            // hide the next level button
+            _nextLevelBtn.SetActive(false);
+        } else
+        {
+            _firstBtn = _nextLevelBtn;
+        }
     }
 
     // Update is called once per frame
