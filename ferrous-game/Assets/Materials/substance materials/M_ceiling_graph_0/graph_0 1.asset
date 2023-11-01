@@ -163,8 +163,8 @@ MonoBehaviour:
   OutputMaterial: {fileID: 2100000, guid: 97721c746fd624c6ca19d3211678bff6, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://M_ceiling\" label=\"\" >\n </sbspreset>\n"
   MaterialShader: Standard
-  RenderTextures: 0
-  OutputRemaped: 0
+  RenderTextures: 1
+  OutputRemaped: 1
   Presets: []
   references:
     version: 2
