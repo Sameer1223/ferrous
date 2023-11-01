@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
