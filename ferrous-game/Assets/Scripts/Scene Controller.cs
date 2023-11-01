@@ -42,6 +42,9 @@ public class SceneController : MonoBehaviour
     {
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
+
+        // un-pause just in case
+        PauseMenu.IsPaused = true;
         Time.timeScale = 1.0f;
     }
 
