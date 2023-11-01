@@ -66,14 +66,14 @@ public class Immovable : MonoBehaviour
         {
             _rigidbody.isKinematic = true;
         }
-        
+
     }
 
     private void OnCollisionExit(Collision c)
     {
         if (c.gameObject.tag == "Player")
         {
-            
+
             _rigidbody.isKinematic = false;
         }
 
