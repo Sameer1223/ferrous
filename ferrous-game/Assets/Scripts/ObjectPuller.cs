@@ -157,11 +157,22 @@ public class ObjectPuller : MonoBehaviour
         {
             isPulling = true;
             SetModelColour(Color.cyan);
+            if (!soundPlayed)
+            {
+                soundPlayed = true;
+                GunActiveSFX.Play();
+            }
+
         }
         else if (_pushInput)
         {
             isPushing = true;
             SetModelColour(Color.red);
+            if (!soundPlayed)
+            {
+                soundPlayed = true;
+                GunActiveSFX.Play();
+            }
         }
     }
 
