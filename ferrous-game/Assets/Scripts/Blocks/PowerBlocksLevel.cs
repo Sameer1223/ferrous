@@ -17,6 +17,8 @@ public class PowerBlocksLevel : MonoBehaviour
 
     private Transform playerTransform;
 
+    public GameObject player;
+
     [Header("PowerObjects")]
     public Rigidbody HitObject;
 
@@ -45,16 +47,22 @@ public class PowerBlocksLevel : MonoBehaviour
     {
         if (!PauseMenu.IsPaused)
         {
-            PlayerInput();
-
-            // determine if the player is inputting a push / pull
-            GetMagnetismInput();
-            PushOrPull();
-            if (magnetismInput)
+            //Debug.Log(player.transform.position.x);
+            if(player.transform.position.x < -47)
             {
 
-                ApplyMagnesis();
+                PlayerInput();
+
+                // determine if the player is inputting a push / pull
+                GetMagnetismInput();
+                PushOrPull();
+                if (magnetismInput)
+                {
+
+                    ApplyMagnesis();
+                }
             }
+            
         }
     }
     private void LateUpdate()
@@ -113,7 +121,7 @@ public class PowerBlocksLevel : MonoBehaviour
         if (_pullInput)
         {
             isPulling = true;
-            Debug.Log("ispulling");
+            //Debug.Log("ispulling");
         }
         else if (_pushInput)
         {

@@ -14,6 +14,8 @@ public class CameraSwitch : MonoBehaviour
     public Camera[] CameraList;
 
     public Transform PlayerTransform;
+
+    public int cameraTransformX = -46;
     // Start is called before the first frame update
 
     void Start()
@@ -32,7 +34,7 @@ public class CameraSwitch : MonoBehaviour
     {
         if (Input.GetButton("Fire1") || Input.GetAxisRaw("Fire1") > 0 || Input.GetButton("Fire2") || Input.GetAxisRaw("Fire2") > 0)
         {
-            if (PlayerTransform.position.x <= -53)
+            if (PlayerTransform.position.x <= cameraTransformX)
             {
                 SwitchToCamera(Room2Camera);
             }
