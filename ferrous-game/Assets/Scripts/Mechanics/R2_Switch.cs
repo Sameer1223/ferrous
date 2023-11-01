@@ -29,8 +29,7 @@ public class R2_Switch : MonoBehaviour
         
         if(collision.gameObject.tag == "Metal")
         {
-            Debug.Log("Collided");
-            
+            ;
         }
         
     }
