@@ -44,24 +44,13 @@ public class CameraSwitch : MonoBehaviour
         PlayerInput();
         if (_pushInput || _pullInput)
         {
-            RaycastHit hit;
-            Ray ray = mainCamera.ScreenPointToRay(_mousePos);
-
-            if (Physics.Raycast(ray, out hit, 10f))
+            if (PlayerTransform.position.x <= cameraTransformX)
             {
-                //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.red);
-                if (hit.collider.CompareTag("Metal"))
-                {
-                    if (PlayerTransform.position.x <= cameraTransformX)
-                    {
-                        SwitchToCamera(Room2Camera);
-                    }
-                    else
-                    {
-                        SwitchToCamera(Room1Camera); 
-                    }
-
-                }
+                SwitchToCamera(Room2Camera);
+            }
+            else
+            {
+                SwitchToCamera(Room1Camera); 
             }
            
         }
