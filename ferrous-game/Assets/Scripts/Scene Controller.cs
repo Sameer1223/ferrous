@@ -23,16 +23,22 @@ public class SceneController : MonoBehaviour
     public static Scenes gameScenes = new Scenes
     {
         Menu = "GameStart",
-        Tutorial = "Main Scene",
-        LevelOne = "Varun Level",
     };
 
-    public static void DemoSceneChange()
+    public static void LoadNextScene()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
 
         SceneManager.LoadScene(nextSceneIndex);
+    }
+
+    public static bool IsLastScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int totalScenes = SceneManager.sceneCountInBuildSettings;
+
+        return currentSceneIndex == totalScenes - 1;
     }
 
     /// <summary>
@@ -42,6 +48,9 @@ public class SceneController : MonoBehaviour
     {
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
+
+        // un-pause just in case
+        PauseMenu.IsPaused = true;
         Time.timeScale = 1.0f;
     }
 

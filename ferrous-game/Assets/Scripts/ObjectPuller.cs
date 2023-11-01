@@ -27,7 +27,7 @@ public class ObjectPuller : MonoBehaviour
 
     [Header("Push/Pull")]
     private float maxDist = 40f;
-    private float minDist = 5.0f;
+    private float minDist = 2.5f;
     public float pullForce = 50.0f;
     private Rigidbody selectedObject;
     private float distToPlayer;
@@ -162,11 +162,22 @@ public class ObjectPuller : MonoBehaviour
         {
             isPulling = true;
             SetModelColour(Color.cyan);
+            if (!soundPlayed)
+            {
+                soundPlayed = true;
+                GunActiveSFX.Play();
+            }
+
         }
         else if (_pushInput)
         {
             isPushing = true;
             SetModelColour(Color.red);
+            if (!soundPlayed)
+            {
+                soundPlayed = true;
+                GunActiveSFX.Play();
+            }
         }
     }
 
@@ -314,10 +325,11 @@ public class ObjectPuller : MonoBehaviour
         {
             if (hit.collider.CompareTag("Metal"))
             {
-                nearestAxisDirection = Vector3.up;
+                nearestAxisDirection = Vector3.down;
             }
 
         }
+        Debug.Log(nearestAxisDirection.ToString());
         objectDirection = nearestAxisDirection;
     }
 
