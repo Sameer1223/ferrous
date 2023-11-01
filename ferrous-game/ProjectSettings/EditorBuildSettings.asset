@@ -9,19 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/UI/GameStart.unity
     guid: fd53cb00ec7d2ee4197af8ab53890da0
   - enabled: 1
-    path: Assets/Scenes/FormalLevels/First.unity
-    guid: aa01bbb0c5e9ab04c9be6dd03c139071
-  - enabled: 0
-    path: Assets/Scenes/Gym.unity
-    guid: 5012b5e4f7b81d54091e07f35186e164
-  - enabled: 0
-    path: Assets/Scenes/Varun Level.unity
-    guid: ab122579baf344e718319d86137e8200
-  - enabled: 0
-    path: Assets/Scenes/puzzle-structure-complete.unity
-    guid: c8e12396496834ceda8cd211806cad2b
-  - enabled: 1
     path: Assets/Scenes/FormalLevels/Tutorial.unity
     guid: 91d9967ef0b303c4399eadda77fe7ca3
+  - enabled: 1
+    path: Assets/Scenes/FormalLevels/Tutorial Linked Blocks.unity
+    guid: 8075d257384666d47a61b04eb7473574
+  - enabled: 1
+    path: Assets/Scenes/FormalLevels/First.unity
+    guid: aa01bbb0c5e9ab04c9be6dd03c139071
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 482e38cafb1de4d45ab6aaa2ae5162fb, type: 2}
