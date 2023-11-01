@@ -40,10 +40,8 @@ public class ObjectPuller : MonoBehaviour
     private Vector2 _mousePos;
     private bool _selectInput;
      
-
     // Player model colour changing variables
     List<Renderer> modelRenderers = new List<Renderer>();
-
 
     private void Awake()
     {
