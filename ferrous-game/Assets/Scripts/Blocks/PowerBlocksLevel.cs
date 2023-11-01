@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
@@ -137,7 +136,6 @@ public class PowerBlocksLevel : MonoBehaviour
             // calculate a multipler based on how far away the selected object is from the player
             if (isPulling)
             {
-                Debug.Log("working");
                 //Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
                 //Vector3 pullDirection = -ObjectPuller.objectDirection;
                 Vector3 pullDirection = new Vector3(1f, 0f, 0f);

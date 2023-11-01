@@ -33,7 +33,7 @@ public class StasisController : MonoBehaviour
         mainCamera = Camera.main;
         scene = SceneManager.GetActiveScene();
 
-        GameObject model = GameObject.Find("Robot_withUV");
+        GameObject model = GameObject.Find("Robot");
         foreach (Renderer renderer in model.GetComponentsInChildren<Renderer>())
         {
             modelRenderers.Add(renderer);
