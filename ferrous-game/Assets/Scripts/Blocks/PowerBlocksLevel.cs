@@ -9,13 +9,16 @@ using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 using static Rays;
 
-public class PowerBlocks : MonoBehaviour
+public class PowerBlocksLevel : MonoBehaviour
 {
 
     private bool isPulling = false;
     private bool isPushing = false;
 
     private Transform playerTransform;
+
+    [Header("PowerObjects")]
+    public Rigidbody HitObject;
 
     [Header("Push/Pull")]
     private float maxDist = 40f;
@@ -46,15 +49,17 @@ public class PowerBlocks : MonoBehaviour
 
             // determine if the player is inputting a push / pull
             GetMagnetismInput();
+            PushOrPull();
             if (magnetismInput)
             {
-                LookMagnetism();
+
+                ApplyMagnesis();
             }
         }
     }
     private void LateUpdate()
     {
-        ApplyMagnesis();
+        //ApplyMagnesis();
     }
 
     private void GetMagnetismInput()
@@ -91,12 +96,13 @@ public class PowerBlocks : MonoBehaviour
         // function for look push / pull ability
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
         {
             //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.red);
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;
+                Debug.Log(selectedObject.name);
                 PushOrPull();
             }
         }
@@ -107,6 +113,7 @@ public class PowerBlocks : MonoBehaviour
         if (_pullInput)
         {
             isPulling = true;
+            Debug.Log("ispulling");
         }
         else if (_pushInput)
         {
@@ -116,31 +123,27 @@ public class PowerBlocks : MonoBehaviour
 
     private void ApplyMagnesis()
     {
-        if (magnetismInput && selectedObject)
+        if (magnetismInput)
         {
-            // calculate a multipler based on how far away the selected object is from the player
-            float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
-            float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
 
-            if (distToPlayer <= minDist && !isPushing)
-            {
-                selectedObject.velocity = Vector3.zero;
-            }
+            // calculate a multipler based on how far away the selected object is from the player
             if (isPulling)
             {
-                Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
-                Vector3 pullDirection = -ObjectPuller.objectDirection;
-                pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
+                Debug.Log("working");
+                //Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
+                //Vector3 pullDirection = -ObjectPuller.objectDirection;
+                Vector3 pullDirection = new Vector3(1f, 0f, 0f);
 
-                selectedObject.AddForce(pullDirection * pullForce);
+                HitObject.AddForce(pullDirection * pullForce);
+                
             }
             else if (isPushing)
             {
-                Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
-                Vector3 pushDirection = ObjectPuller.objectDirection;
-                pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
+                //Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
+                //Vector3 pushDirection = ObjectPuller.objectDirection;
+                Vector3 pushDirection = new Vector3(-1f, 0f, 0f);
 
-                selectedObject.AddForce(pushDirection * pullForce);
+                HitObject.AddForce(pushDirection * pullForce);
 
             }
         }
