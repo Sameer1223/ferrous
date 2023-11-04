@@ -59,18 +59,27 @@ public class Rays : MonoBehaviour
     }
 
     // Turn on magnetic ray
-    private void Activate(Force force, GameObject obj)
+    private void Activate(Force force, Collider collider)
     {
-        if (force == Force.None) return;
+        if (collider)
+        {
+            GameObject obj = collider.gameObject;
+            if (obj)
+            {
+                if (force == Force.None) return;
 
-        if (force == Force.Pull) magnetRay.material = blueMaterial;
-        else if (force == Force.Push) magnetRay.material = redMaterial;
-        else if (force == Force.Stasis) magnetRay.material = purpleMaterial;
+                if (force == Force.Pull) magnetRay.material = blueMaterial;
+                else if (force == Force.Push) magnetRay.material = redMaterial;
+                else if (force == Force.Stasis) magnetRay.material = purpleMaterial;
 
-        magnetRay.enabled = true;
+                magnetRay.enabled = true;
 
-        // Show outline on target object
-        ShowOutline(obj, force);
+                // Show outline on target object
+                ShowOutline(obj, force);
+            }
+           
+        }
+        
     }
 
     // Turn off magnetic ray
@@ -158,13 +167,13 @@ public class Rays : MonoBehaviour
             bool cast = Physics.Raycast(ray, out RaycastHit hit, maxLength);
             Vector3 hitPosition = cast ? hit.point : raySpawnPoint.position + raySpawnPoint.forward * maxLength;
 
-            if (hit.collider.gameObject != null && !hit.collider.gameObject.CompareTag("Metal"))
+            if (hit.collider && hit.collider.gameObject && !hit.collider.gameObject.CompareTag("Metal"))
             {
                 Deactivate(outlinedGameObj);
                 return;
             }
             // Activate ray with force integer (push / pull / stasis)
-            Activate(force, hit.collider.gameObject);
+            Activate(force, hit.collider);
 
             if (!magnetRay.enabled) return;
 

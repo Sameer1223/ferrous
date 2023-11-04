@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
-
+        
     }
 
     private void Update()
@@ -57,6 +57,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("Tutorial");
+        Time.timeScale = 1.0f;
     }
 
 

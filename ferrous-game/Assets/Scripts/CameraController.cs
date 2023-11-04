@@ -27,15 +27,15 @@ public class CameraController : MonoBehaviour
         Vector2 lookInput = InputManager.instance.LookInput;
         
         //Move the player based on the X input on the controller
-        transform.rotation *= Quaternion.AngleAxis(lookInput.x * rotationPower, Vector3.up);
+        transform.rotation *= Quaternion.AngleAxis(lookInput.x * rotationPower * Time.deltaTime, Vector3.up);
 
         #endregion
 
         #region Follow Transform Rotation
 
         //Rotate the Follow Target transform based on the input
-        CameraTarget.transform.rotation *= Quaternion.AngleAxis(lookInput.x  * rotationPower, Vector3.up);
-        CameraTarget.transform.rotation *= Quaternion.AngleAxis(-lookInput.y  * rotationPower, Vector3.right);
+        CameraTarget.transform.rotation *= Quaternion.AngleAxis(lookInput.x  * rotationPower  * Time.deltaTime, Vector3.up);
+        CameraTarget.transform.rotation *= Quaternion.AngleAxis(-lookInput.y  * rotationPower * Time.deltaTime, Vector3.right);
 
         // get angles of rotation
         var angles = CameraTarget.transform.localEulerAngles;
@@ -63,7 +63,6 @@ public class CameraController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, CameraTarget.transform.rotation.eulerAngles.y, 0);
         //reset the y rotation of the look transform
         CameraTarget.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
-
 
     }
 }
