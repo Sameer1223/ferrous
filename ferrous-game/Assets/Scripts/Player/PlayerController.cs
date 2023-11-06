@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     // Game Objects
     private Rigidbody rb;
-    private Camera gameCamera;
+    [SerializeField] private Camera gameCamera;
     private Animator animator;
 
     // Movement variables
@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _fallMultiplier = 1.25f;
     [SerializeField] private float _jumpVelocityFalloff = 1.4f;
 
+    [Header("Player Rotation")]
+    [SerializeField] private float playerRotationSpeed = 5f;
+
     // Ground check variables
     [Header("Ground Check")]
     public float playerHeight;
@@ -30,11 +33,11 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
 
     // Audio
-    [Header("Sound Effects")] 
-    public AudioSource jumpSfx;
-    public AudioSource walkSfx;
+    [Header("Sound Effects")]
+    [SerializeField] private AudioSource jumpSfx;
+    [SerializeField] private AudioSource walkSfx;
 
-    [Header("Input")]
+  
 
     // [TESTING]
     Vector3 lastPosition;
@@ -46,7 +49,6 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false; // Hide the cursor
        
         rb = gameObject.GetComponent<Rigidbody>();
-        gameCamera = gameObject.GetComponentInChildren<Camera>();
         animator = gameObject.GetComponentInChildren<Animator>();
 
         canJump = true;
@@ -95,17 +97,19 @@ public class PlayerController : MonoBehaviour
     // Player movement
     private void MovePlayer()
     {
-        Vector3 moveDirection = transform.forward * moveVector.y + transform.right * moveVector.x;
+        Vector3 moveDirection = gameCamera.transform.forward * moveVector.y + gameCamera.transform.right * moveVector.x;
+        moveDirection = new Vector3(moveDirection.x, 0f, moveDirection.z);
+
+        moveDirection.Normalize();
 
         if (isGrounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(moveDirection * moveSpeed * 10f, ForceMode.Force);
 
         else if (!isGrounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
-
-        // Music
-        if (moveDirection != Vector3.zero && !walkSfx.isPlaying)
+        // walkSfx
+        if (moveDirection != Vector3.zero && !walkSfx.isPlaying && isGrounded)
         {
             walkSfx.Play();
         }
