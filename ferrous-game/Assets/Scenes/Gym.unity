@@ -225,6 +225,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8667415358332875707, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4367,9 +4371,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3904205434451554093, guid: 175f864a74d52334fae1e4100d9583cf, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 5054110133019239391, guid: 175f864a74d52334fae1e4100d9583cf, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5192868489105170400, guid: 175f864a74d52334fae1e4100d9583cf, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -4531,9 +4543,17 @@ PrefabInstance:
       value: Player Container
       objectReference: {fileID: 0}
     - target: {fileID: 1762914812881725844, guid: 8ab52f9335b60c24fa47cb93a01e66f0, type: 3}
+      propertyPath: rotationPower
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762914812881725844, guid: 8ab52f9335b60c24fa47cb93a01e66f0, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 216662664}
+    - target: {fileID: 1762914812881725844, guid: 8ab52f9335b60c24fa47cb93a01e66f0, type: 3}
+      propertyPath: playerRotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4137033174796793168, guid: 8ab52f9335b60c24fa47cb93a01e66f0, type: 3}
       propertyPath: jumpSfx
       value: 

@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Rotation")]
     [SerializeField] private float playerRotationSpeed = 5f;
+    public float playerRotationTime = 0.1f;
+
 
     // Ground check variables
     [Header("Ground Check")]

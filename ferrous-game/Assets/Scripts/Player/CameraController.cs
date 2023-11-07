@@ -14,18 +14,23 @@ public class CameraController : MonoBehaviour
 
     [Header("Player Control")]
     public float playerRotationTime = 0.1f;
+    public float playerRotationSpeed = 5.0f;
     private float _turnSmoothVelocity;
 
     private void Update()
     {
-        transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y + 0.5f, playerTransform.position.z);
+        if (!PauseMenu.IsPaused)
+        {
+            CameraControl();
+        }
     }
 
     private void LateUpdate()
     {
         if (!PauseMenu.IsPaused)
         {
-            CameraControl();
+            transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y + 0.5f, playerTransform.position.z);
+
         }
     }
 
@@ -38,8 +43,8 @@ public class CameraController : MonoBehaviour
         #region Follow Transform Rotation
 
         //Rotate the Follow Target transform based on the input
-        transform.rotation *= Quaternion.AngleAxis(lookInput.x * rotationPower, Vector3.up);
-        transform.rotation *= Quaternion.AngleAxis(-lookInput.y  * rotationPower, Vector3.right);
+        transform.rotation *= Quaternion.AngleAxis(lookInput.x * rotationPower * Time.deltaTime, Vector3.up);
+        transform.rotation *= Quaternion.AngleAxis(-lookInput.y  * rotationPower * Time.deltaTime, Vector3.right);
 
         // get angles of rotation
         var angles = transform.localEulerAngles;
@@ -61,8 +66,8 @@ public class CameraController : MonoBehaviour
         transform.localEulerAngles = angles;
         #endregion
 
-        // determine where the player should rotate to next if they are not moving
-        nextRotation = Quaternion.Lerp(transform.rotation, nextRotation, Time.deltaTime * rotationLerp);
+        // determine where the camera should rotate to next if they are not moving
+        //nextRotation = Quaternion.Lerp(transform.rotation, nextRotation, Time.deltaTime * rotationLerp);
 
         Vector3 moveDir = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
 
