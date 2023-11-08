@@ -75,8 +75,12 @@ public class CameraController : MonoBehaviour
         if (moveDir.magnitude > 0)
         {
             float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + transform.eulerAngles.y;
+
             float smoothenedAngle = Mathf.SmoothDampAngle(playerTransform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, playerRotationTime);
             playerTransform.rotation = Quaternion.Euler(0f, smoothenedAngle, 0f);
+
+            //Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
+            //playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, Time.deltaTime / playerRotationTime);
         }
     }
 }
