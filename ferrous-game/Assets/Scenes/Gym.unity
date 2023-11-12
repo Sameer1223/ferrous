@@ -227,7 +227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8667415358332875707, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -451,6 +451,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1513819321}
     m_Modifications:
+    - target: {fileID: -975804348586893672, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 214221513142263804, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
       propertyPath: m_Name
       value: Metal Cube (large)
@@ -4161,6 +4165,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1513819321}
     m_Modifications:
+    - target: {fileID: -975804348586893672, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 214221513142263804, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
       propertyPath: m_Name
       value: Metal Cube (small)

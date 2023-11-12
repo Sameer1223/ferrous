@@ -10,6 +10,7 @@ public class Immovable : MonoBehaviour
     // Start is called before the first frame update
     private Rigidbody _rigidbody;
     RaycastHit hit;
+    public bool _isAbove;
 
     [Header("InputChecks")]
     private bool _pushInput;
@@ -23,7 +24,6 @@ public class Immovable : MonoBehaviour
     {
         _rigidbody = gameObject.GetComponent<Rigidbody>();
         mainCamera = Camera.main;
-
     }
 
 
@@ -42,8 +42,7 @@ public class Immovable : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit, 10f))
                 {
-                    //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10, Color.red);
-                    if (hit.collider.CompareTag("Metal"))
+                    if (hit.collider.CompareTag("Metal") && !_isAbove)
                     {
                         Debug.Log("hit metal");
                         _rigidbody.isKinematic = false;
@@ -77,5 +76,22 @@ public class Immovable : MonoBehaviour
             _rigidbody.isKinematic = false;
         }
 
+    }
+
+    private void OnTriggerEnter(Collider c)
+    {
+        if (c.gameObject.tag == "Player")
+        {
+            Debug.Log("is above");
+            _isAbove = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider c)
+    {
+        if (c.gameObject.tag == "Player")
+        {
+            _isAbove = false;
+        }
     }
 }
