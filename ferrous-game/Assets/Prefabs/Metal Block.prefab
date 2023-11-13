@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2132522011712479429}
   - component: {fileID: 4330350851416584736}
   - component: {fileID: 2869184157500930877}
+  - component: {fileID: 3039194860148284916}
   - component: {fileID: -975804348586893672}
   m_Layer: 3
   m_Name: Metal Block
@@ -154,6 +155,19 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &3039194860148284916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214221513142263804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf0b214253cb9e849b15b44a1db8f9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gCus: 30
 --- !u!114 &-975804348586893672
 MonoBehaviour:
   m_ObjectHideFlags: 0
