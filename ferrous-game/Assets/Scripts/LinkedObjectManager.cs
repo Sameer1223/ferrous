@@ -17,6 +17,8 @@ public class LinkedObjectManager : MonoBehaviour
     private Color startColor;
     private Color endColor;
 
+    public bool _madeLighter;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,7 @@ public class LinkedObjectManager : MonoBehaviour
         lineMaterial = lr.material;
         startColor = lineMaterial.color;
         endColor = lineMaterial.color;
-        endColor.a = 0;
+        endColor.a = 0.6f;
         StartCoroutine(fadeLink());
         // TODO: give the link object a material, give first and secondObj outline = material on start
 
@@ -48,6 +50,7 @@ public class LinkedObjectManager : MonoBehaviour
         // continually run this coroutine
         while (true)
         {
+
             float timer = 0f;
             // fading out
             while (timer < fadeDuration)
@@ -89,6 +92,23 @@ public class LinkedObjectManager : MonoBehaviour
         
     }
 
+    public static void LightenLinkLine(GameObject go)
+    {
+        // check if the hit object's parent has the link line script
+        if (go.transform.parent)
+        {
+            LinkedObjectManager linker = go.transform.parent.GetComponent<LinkedObjectManager>();
+            if (linker != null)
+            {
+                if ((go == linker.firstObj || go == linker.secondObj) && !linker._madeLighter)
+                {
+                    linker.lightenLinkLine();
+                    linker._madeLighter = true;
+                }
+            }
+        }
+    }
+
     public static void DisableLinkLine(GameObject go)
     {
         // check if the hit object's parent has the link line script
@@ -106,10 +126,16 @@ public class LinkedObjectManager : MonoBehaviour
         
     }
 
-    public void disableLinkObj()
+    private void disableLinkObj()
     {
         // disable the script and the line renderer
         this.enabled = false;
         lr.enabled = false;
+    }
+
+    public void lightenLinkLine()
+    {
+        startColor = new Color(startColor.r, startColor.b, startColor.g, 0.75f);
+        endColor = new Color(endColor.r, endColor.b, endColor.g, 0);
     }
 }

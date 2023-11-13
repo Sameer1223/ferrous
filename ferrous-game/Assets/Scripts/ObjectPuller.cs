@@ -150,6 +150,7 @@ public class ObjectPuller : MonoBehaviour
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;
+                LinkedObjectManager.LightenLinkLine(selectedObject.gameObject);
                 PushOrPull();
             }
         }
