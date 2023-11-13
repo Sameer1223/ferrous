@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c6e2678f0c914ee498d75e7b5bdfaf0a, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -4507,7 +4507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndTrigger: {fileID: 0}
   BackPanel: {fileID: 603040581}
-  Player: {fileID: 0}
+  PlayerContainer: {fileID: 0}
 --- !u!65 &932357860
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5160,7 +5160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndTrigger: {fileID: 0}
   BackPanel: {fileID: 0}
-  Player: {fileID: 0}
+  PlayerContainer: {fileID: 0}
 --- !u!65 &1037873638
 BoxCollider:
   m_ObjectHideFlags: 0
