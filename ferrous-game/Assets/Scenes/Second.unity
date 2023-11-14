@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2321,6 +2321,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1684290467}
     m_Modifications:
+    - target: {fileID: 1212012148711142985, guid: 45deca4c415e44b4f9dfea9ee6c605b1, type: 3}
+      propertyPath: GunActiveSFX
+      value: 
+      objectReference: {fileID: 113166031}
     - target: {fileID: 2433173748431286902, guid: 45deca4c415e44b4f9dfea9ee6c605b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 77.79794
@@ -4507,7 +4511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndTrigger: {fileID: 0}
   BackPanel: {fileID: 603040581}
-  Player: {fileID: 0}
+  PlayerContainer: {fileID: 0}
 --- !u!65 &932357860
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5160,7 +5164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndTrigger: {fileID: 0}
   BackPanel: {fileID: 0}
-  Player: {fileID: 0}
+  PlayerContainer: {fileID: 0}
 --- !u!65 &1037873638
 BoxCollider:
   m_ObjectHideFlags: 0
