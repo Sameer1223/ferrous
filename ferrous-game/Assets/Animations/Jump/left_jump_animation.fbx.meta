@@ -17,9 +17,21 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'l_hip_jnt'
+      : position error = 23600.587891 mm\n\t'l_knee_jnt' : position error = 41941.429688
+      mm\n\t'l_ankle_jnt' : position error = 33400.882812 mm\n\t'l_arch_jnt' : position
+      error = 13322.150391 mm\n\t'r_hip_jnt' : position error = 23605.636719 mm\n\t'r_knee_jnt'
+      : position error = 42046.761719 mm\n\t'r_ankle_jnt' : position error = 33400.929688
+      mm\n\t'r_arch_jnt' : position error = 13322.152344 mm\n"
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'c_chest_jnt' has translation animation
+      that will be discarded.\n\t'c_neck_jnt' has translation animation that will
+      be discarded.\n\t'l_hip_jnt' has translation animation that will be discarded.\n\t'r_hip_jnt'
+      has translation animation that will be discarded.\n\t'r_knee_jnt' has translation
+      animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -31,7 +43,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      internalID: 1827226128182048838
+      firstFrame: 1
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []

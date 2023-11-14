@@ -150,7 +150,7 @@ public class ObjectPuller : MonoBehaviour
             if (hit.collider.CompareTag("Metal"))
             {
                 selectedObject = hit.rigidbody;
-                LinkedObjectManager.DisableLinkLine(selectedObject.gameObject);
+                LinkedObjectManager.LightenLinkLine(selectedObject.gameObject);
                 PushOrPull();
             }
         }
@@ -300,7 +300,7 @@ public class ObjectPuller : MonoBehaviour
                 selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
                 if (linkedObj != null && objectDirection != Vector3.down)
                 {
-                    linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pullMultiplier);
+                    linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pushMultiplier);
                 }
                 SetModelColour(Color.red);
             }

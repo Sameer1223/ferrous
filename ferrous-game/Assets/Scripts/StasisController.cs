@@ -76,7 +76,7 @@ public class StasisController : MonoBehaviour
                         frozenObject = hit.rigidbody.gameObject;
 
                         // linked object
-                        LinkedObjectManager.DisableLinkLine(frozenObject);
+                        LinkedObjectManager.LightenLinkLine(frozenObject);
                         GameObject linkedObj = LinkedObjectManager.GetLinkedObject(frozenObject);
                         GameObject prevLinked = LinkedObjectManager.GetLinkedObject(prevFrozenObject);
 
@@ -115,13 +115,14 @@ public class StasisController : MonoBehaviour
                     }
                     else
                     {
-                        // nothing is frozen, freeze what we just looked at and its linked object
+                        // nothing is frozen, freeze what we just looked
                         frozenObject = hit.rigidbody.gameObject;
                         SetOutlineColor(frozenObject, purpleColour);
                         frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
-                        LinkedObjectManager.DisableLinkLine(frozenObject);
+                        LinkedObjectManager.LightenLinkLine(frozenObject);
 
+                        // and freeze the linked object
                         GameObject linkedObj = LinkedObjectManager.GetLinkedObject(frozenObject);
                         if (linkedObj)
                         {
