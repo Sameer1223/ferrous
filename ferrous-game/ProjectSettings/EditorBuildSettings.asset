@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/FormalLevels/Tutorial Linked Blocks.unity
     guid: 8075d257384666d47a61b04eb7473574
   - enabled: 1
-    path: Assets/Scenes/FormalLevels/First.unity
+    path: Assets/Scenes/FormalLevels/Second.unity
     guid: aa01bbb0c5e9ab04c9be6dd03c139071
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 482e38cafb1de4d45ab6aaa2ae5162fb, type: 2}
