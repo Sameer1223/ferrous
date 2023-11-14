@@ -32,19 +32,27 @@ public class Immovable : MonoBehaviour
     void Update()
     {
         PlayerInput();
+        if (_isAbove)
+        {
+            _rigidbody.isKinematic = true;
+
+        } else
+        {
+            _rigidbody.isKinematic = false;
+
+        }
+
         if (_rigidbody.isKinematic)
         {
-            if (_pushInput || _pullInput)
+            if ((_pushInput || _pullInput) && !_isAbove)
             {
-                Debug.Log("getting input");
                 RaycastHit hit;
                 Ray ray = mainCamera.ScreenPointToRay(_mousePos);
 
                 if (Physics.Raycast(ray, out hit, 10f))
                 {
-                    if (hit.collider.CompareTag("Metal") && !_isAbove)
+                    if (hit.collider.CompareTag("Metal"))
                     {
-                        Debug.Log("hit metal");
                         _rigidbody.isKinematic = false;
                     }
                 }
@@ -82,7 +90,6 @@ public class Immovable : MonoBehaviour
     {
         if (c.gameObject.tag == "Player")
         {
-            Debug.Log("is above");
             _isAbove = true;
         }
     }
@@ -92,6 +99,7 @@ public class Immovable : MonoBehaviour
         if (c.gameObject.tag == "Player")
         {
             _isAbove = false;
+
         }
     }
 }
