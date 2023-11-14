@@ -109,8 +109,6 @@ public class PowerBlockRays : MonoBehaviour
 
             if (!magnetRay.enabled) return;
 
-            Debug.Log("Rays here");
-
             // Line renderer set positions
             magnetRay.SetPosition(0, raySpawnPoint.position);
             magnetRay.SetPosition(1, hitPosition);
