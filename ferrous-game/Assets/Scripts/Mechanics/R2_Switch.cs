@@ -8,7 +8,7 @@ public class R2_Switch : MonoBehaviour
     public GameObject R1_Door_L;
     public GameObject R1_Door_R;
     private Vector3 direction = Vector3.forward;
-    private float speed = 1f;
+    private float speed = 2f;
     private bool EndCollide = false;
     void Start()
     {
@@ -18,7 +18,7 @@ public class R2_Switch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(EndCollide == true && R1_Door_L.transform.position.z> -4.5f && R1_Door_R.transform.position.z<3.1f)
+        if(EndCollide == true && R1_Door_L.transform.position.z> 14 && R1_Door_R.transform.position.z<29)
         {
             R1_Door_L.transform.position -= direction * speed * Time.deltaTime;
             R1_Door_R.transform.position += direction * speed * Time.deltaTime;

@@ -73,7 +73,6 @@ public class CameraController : MonoBehaviour
         // if the player is inputting movement, rotate the player based on the input
         if (moveDir.magnitude > 0)
         {
-            Debug.Log("move dir > 0, rotating now");
             float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + transform.eulerAngles.y;
 
             float smoothenedAngle = Mathf.SmoothDampAngle(playerTransform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, playerRotationTime);
