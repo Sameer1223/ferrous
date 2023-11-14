@@ -67,20 +67,18 @@ public class CameraController : MonoBehaviour
         #endregion
 
         // determine where the camera should rotate to next if they are not moving
-        //nextRotation = Quaternion.Lerp(transform.rotation, nextRotation, Time.deltaTime * rotationLerp);
 
         Vector3 moveDir = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
 
         // if the player is inputting movement, rotate the player based on the input
         if (moveDir.magnitude > 0)
         {
+            Debug.Log("move dir > 0, rotating now");
             float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + transform.eulerAngles.y;
 
             float smoothenedAngle = Mathf.SmoothDampAngle(playerTransform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, playerRotationTime);
             playerTransform.rotation = Quaternion.Euler(0f, smoothenedAngle, 0f);
 
-            //Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
-            //playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, Time.deltaTime / playerRotationTime);
         }
     }
 }

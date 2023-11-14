@@ -227,7 +227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8667415358332875707, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -451,6 +451,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1513819321}
     m_Modifications:
+    - target: {fileID: -975804348586893672, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 214221513142263804, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
       propertyPath: m_Name
       value: Metal Cube (large)
@@ -1559,37 +1563,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707513224}
   m_Mesh: {fileID: 1240331251}
---- !u!1 &718439772
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 718439773}
-  m_Layer: 3
-  m_Name: Metals
-  m_TagString: Metal
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &718439773
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718439772}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -26.36, y: 0.526515, z: -13.199999}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1525510504}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &722496225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3457,7 +3430,6 @@ Transform:
   m_Children:
   - {fileID: 948568354}
   - {fileID: 747609227}
-  - {fileID: 718439773}
   - {fileID: 1513819321}
   - {fileID: 1865373893}
   m_Father: {fileID: 0}
@@ -4092,6 +4064,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2094915807}
     m_Modifications:
+    - target: {fileID: 2394871685445356879, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4307462587189730157, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -35.03
@@ -4148,6 +4124,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Container
       objectReference: {fileID: 0}
+    - target: {fileID: 5448639816156301275, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
+      propertyPath: m_AngularDrag
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448639816156301275, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 9079725633233866069, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4161,6 +4149,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1513819321}
     m_Modifications:
+    - target: {fileID: -975804348586893672, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 214221513142263804, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
       propertyPath: m_Name
       value: Metal Cube (small)

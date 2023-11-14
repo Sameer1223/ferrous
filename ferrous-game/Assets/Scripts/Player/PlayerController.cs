@@ -23,10 +23,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _fallMultiplier = 1.25f;
     [SerializeField] private float _jumpVelocityFalloff = 1.4f;
 
-    [Header("Player Rotation")]
-    [SerializeField] private float playerRotationSpeed = 5f;
-    public float playerRotationTime = 0.1f;
-
 
     // Ground check variables
     [Header("Ground Check")]

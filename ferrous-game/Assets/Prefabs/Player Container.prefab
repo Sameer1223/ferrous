@@ -545,8 +545,6 @@ MonoBehaviour:
   groundDrag: 6
   _fallMultiplier: 6.5
   _jumpVelocityFalloff: 1.45
-  playerRotationSpeed: 5
-  playerRotationTime: 0.1
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -587,7 +585,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 20
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1949,7 +1947,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6431129150543288013}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8a4be14de09eac14abf9043e70cd3dc5, type: 3}
   m_Controller: {fileID: 9100000, guid: d4992841dc67b4a4b821de6b71ca7a3e, type: 2}
   m_CullingMode: 1

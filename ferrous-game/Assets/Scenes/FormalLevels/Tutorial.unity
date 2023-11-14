@@ -1348,6 +1348,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.29694802, y: 0.20995444, z: 0.005167738}
   m_Center: {x: -0.14847371, y: 0.10497722, z: 0.002583868}
+--- !u!1 &329002317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5378887863682832231, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
+  m_PrefabInstance: {fileID: 1706373426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &336444303
 GameObject:
   m_ObjectHideFlags: 0
@@ -3182,9 +3187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784e5db2570e04b4fb072924a85295b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EndTrigger: {fileID: 0}
+  EndTrigger: {fileID: 731339286}
   BackPanel: {fileID: 2025274015}
-  Player: {fileID: 0}
+  PlayerContainer: {fileID: 329002317}
 --- !u!65 &932357860
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5795,6 +5800,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 868993770}
     m_Modifications:
+    - target: {fileID: 1212012148711142985, guid: 45deca4c415e44b4f9dfea9ee6c605b1, type: 3}
+      propertyPath: GunActiveSFX
+      value: 
+      objectReference: {fileID: 113166031}
     - target: {fileID: 2433173748431286902, guid: 45deca4c415e44b4f9dfea9ee6c605b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38.073166
@@ -6715,6 +6724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Container
       objectReference: {fileID: 0}
+    - target: {fileID: 7108294382885076824, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 99b31e9d0e6f54da1bd70d93de1c6a25, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
