@@ -2399,7 +2399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndTrigger: {fileID: 0}
   BackPanel: {fileID: 0}
-  Player: {fileID: 0}
+  PlayerContainer: {fileID: 0}
 --- !u!65 &1037873638
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4123,18 +4123,6 @@ PrefabInstance:
     - target: {fileID: 5378887863682832231, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
       propertyPath: m_Name
       value: Player Container
-      objectReference: {fileID: 0}
-    - target: {fileID: 5448639816156301275, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
-      propertyPath: m_AngularDrag
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5448639816156301275, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
-      propertyPath: m_Constraints
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 9079725633233866069, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
-      propertyPath: m_Material
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

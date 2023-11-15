@@ -13,6 +13,7 @@ public class ObjectPuller : MonoBehaviour
     private bool isPushing = false;
     public AudioSource GunActiveSFX;
 
+
     private Rigidbody rb;
     private Camera mainCamera;
     private Transform _playerTransform;
@@ -62,6 +63,7 @@ public class ObjectPuller : MonoBehaviour
         _playerTransform = player.transform;
         animator = player.GetComponentInChildren<Animator>();
         magnetismInput = false;
+
     }
 
     void Update()
@@ -263,10 +265,10 @@ public class ObjectPuller : MonoBehaviour
                 objectDirection = dotX > 0 ? Vector3.right : Vector3.left;
             */
 
-            if (distToPlayer <= minDist && !isPushing)
-            {
-                selectedObject.velocity = Vector3.zero;
-            }
+            //if (distToPlayer <= minDist && !isPushing)
+            //{
+            //    selectedObject.velocity = Vector3.zero;
+            //}
             if (isPulling)
             {
                 /* Retiring this for multi axis movement

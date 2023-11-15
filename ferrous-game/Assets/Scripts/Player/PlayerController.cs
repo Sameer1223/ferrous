@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     // Game Objects
     private Rigidbody rb;
     [SerializeField] private Camera gameCamera;
+
     private Animator animator;
 
     // Movement variables

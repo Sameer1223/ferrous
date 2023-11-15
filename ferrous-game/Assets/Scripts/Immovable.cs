@@ -32,33 +32,28 @@ public class Immovable : MonoBehaviour
     void Update()
     {
         PlayerInput();
-        if (_isAbove)
-        {
-            _rigidbody.isKinematic = true;
 
-        } else
+        if ((_pushInput) && !_isAbove)
         {
-            _rigidbody.isKinematic = false;
+            RaycastHit hit;
+            Ray ray = mainCamera.ScreenPointToRay(_mousePos);
 
-        }
-
-        if (_rigidbody.isKinematic)
-        {
-            if ((_pushInput || _pullInput) && !_isAbove)
+            if (Physics.Raycast(ray, out hit, 10f))
             {
-                RaycastHit hit;
-                Ray ray = mainCamera.ScreenPointToRay(_mousePos);
-
-                if (Physics.Raycast(ray, out hit, 10f))
+                if (hit.collider.CompareTag("Metal"))
                 {
-                    if (hit.collider.CompareTag("Metal"))
-                    {
-                        _rigidbody.isKinematic = false;
-                    }
+                    Debug.Log("fwapojqwopfj");
+
+                    _rigidbody.isKinematic = false;
+                    //_rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+
+
                 }
+
             }
         }
     }
+
 
     private void PlayerInput()
     {
@@ -71,7 +66,11 @@ public class Immovable : MonoBehaviour
     {
         if (c.gameObject.tag == "Player")
         {
+            Debug.Log("enter player collision");
             _rigidbody.isKinematic = true;
+
+            //c.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            //_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
     }
@@ -80,26 +79,30 @@ public class Immovable : MonoBehaviour
     {
         if (c.gameObject.tag == "Player")
         {
-
+            Debug.Log("exit player collision");
             _rigidbody.isKinematic = false;
+
+            //_rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+
         }
 
     }
 
-    private void OnTriggerEnter(Collider c)
-    {
-        if (c.gameObject.tag == "Player")
-        {
-            _isAbove = true;
-        }
-    }
+    //private void OnTriggerEnter(Collider c)
+    //{
+    //    if (c.gameObject.tag == "Player")
+    //    {
+    //        _isAbove = true;
 
-    private void OnTriggerExit(Collider c)
-    {
-        if (c.gameObject.tag == "Player")
-        {
-            _isAbove = false;
+    //    }
+    //}
 
-        }
-    }
+    //private void OnTriggerExit(Collider c)
+    //{
+    //    if (c.gameObject.tag == "Player")
+    //    {
+    //        _isAbove = false;
+
+    //    }
+    //}
 }

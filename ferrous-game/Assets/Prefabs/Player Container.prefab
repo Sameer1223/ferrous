@@ -538,13 +538,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 0}
-  moveSpeed: 10
-  jumpForce: 13.5
+  moveSpeed: 12
+  jumpForce: 22.5
   jumpCooldown: 0.25
-  airMultiplier: 0.4
-  groundDrag: 6
-  _fallMultiplier: 6.5
-  _jumpVelocityFalloff: 1.45
+  airMultiplier: 0.75
+  groundDrag: 12
+  _fallMultiplier: 13.5
+  _jumpVelocityFalloff: 1.4
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -559,7 +559,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2976961729054197838}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f4e2cc53d95a2b14eaba4239d5cf0eb8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -733,7 +733,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fa31de10a5a55465c859e6bfd38389c4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 99b31e9d0e6f54da1bd70d93de1c6a25, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.191
   m_Pitch: 1
