@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseSwitch : MonoBehaviour
+namespace Ferrous.Mechanics
 {
-    public bool activated = false;
-    public bool subRoomActivated = false;
-
-    // 当对象被激活时调用这个方法
-    public virtual void ActivateObject()
+    public abstract class BaseSwitch : MonoBehaviour
     {
-        if (!activated)
+        public bool activated = false;
+        public bool subRoomActivated = false;
+
+        public virtual void ActivateObject()
         {
-            activated = true;
+            if (!activated)
+            {
+                activated = true;
+            }
         }
     }
 }
+

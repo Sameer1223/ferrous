@@ -3,26 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerSwitch : BaseSwitch
+namespace Ferrous.Mechanics
 {
-    void Update()
+    public class TriggerSwitch : BaseSwitch
     {
-
-    }
-
-    // 实现抽象方法
-    public override void ActivateObject()
-    {
-        activated = true;
-        Debug.Log("Trigger Plate Activated");
-    }
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.tag == "Metal")
+        void Update()
         {
-            ActivateObject();
-        }
-    }
 
+        }
+
+        // 实现抽象方法
+        public override void ActivateObject()
+        {
+            activated = true;
+            Debug.Log("Trigger Plate Activated");
+        }
+
+        private void OnTriggerEnter(Collider collision)
+        {
+            if (collision.tag == "Metal")
+            {
+                ActivateObject();
+            }
+        }
+
+    }
 }
+

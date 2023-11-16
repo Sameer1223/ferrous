@@ -3,58 +3,62 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SubroomSwitchManager : BaseSwitch
+namespace Ferrous.Mechanics
 {
-    [SerializeField] private List<BaseSwitch> activatedSwitches = new List<BaseSwitch>();
-    [SerializeField] private GameObject leftDoor;
-    [SerializeField] private GameObject rightDoor;
-    private bool allActivated = false;
-
-    private Vector3 initialPositionLeft;
-    private Vector3 initialPositionRight;
-    private Vector3 targetPositionLeft;
-    private Vector3 targetPositionRight;
-    [SerializeField] float openSpeed = 1.0f;
-
-
-    void Start()
+    public class SubroomSwitchManager : BaseSwitch
     {
-        initialPositionLeft = leftDoor.transform.position;
-        initialPositionRight = rightDoor.transform.position;
-        targetPositionLeft = initialPositionLeft + leftDoor.transform.right * 3f;
-        targetPositionRight = initialPositionRight - rightDoor.transform.right * 3f;
+        [SerializeField] private List<BaseSwitch> activatedSwitches = new List<BaseSwitch>();
+        [SerializeField] private GameObject leftDoor;
+        [SerializeField] private GameObject rightDoor;
+        private bool allActivated = false;
 
-    }
+        private Vector3 initialPositionLeft;
+        private Vector3 initialPositionRight;
+        private Vector3 targetPositionLeft;
+        private Vector3 targetPositionRight;
+        [SerializeField] float openSpeed = 1.0f;
 
 
-    void Update()
-    {
-        DetectActive(activatedSwitches);
-        if (allActivated)
+        void Start()
         {
-            OpenDoor();
+            initialPositionLeft = leftDoor.transform.position;
+            initialPositionRight = rightDoor.transform.position;
+            targetPositionLeft = initialPositionLeft + leftDoor.transform.right * 3f;
+            targetPositionRight = initialPositionRight - rightDoor.transform.right * 3f;
+
         }
 
-    }
 
-    public void OpenDoor()
-    {
-        rightDoor.transform.position = Vector3.MoveTowards(rightDoor.transform.position, targetPositionRight, openSpeed * Time.deltaTime);
-        leftDoor.transform.position = Vector3.MoveTowards(leftDoor.transform.position, targetPositionLeft, openSpeed * Time.deltaTime);
-        subRoomActivated = true;
-    }
-
-    public void DetectActive(List<BaseSwitch> ActivatedSwitches)
-    {
-        foreach(BaseSwitch Switch in ActivatedSwitches)
+        void Update()
         {
-            if (Switch.activated == false)
+            DetectActive(activatedSwitches);
+            if (allActivated)
             {
-                allActivated = false;
-                return;
+                OpenDoor();
             }
+
         }
-        allActivated = true;
+
+        public void OpenDoor()
+        {
+            rightDoor.transform.position = Vector3.MoveTowards(rightDoor.transform.position, targetPositionRight, openSpeed * Time.deltaTime);
+            leftDoor.transform.position = Vector3.MoveTowards(leftDoor.transform.position, targetPositionLeft, openSpeed * Time.deltaTime);
+            subRoomActivated = true;
+        }
+
+        public void DetectActive(List<BaseSwitch> ActivatedSwitches)
+        {
+            foreach (BaseSwitch Switch in ActivatedSwitches)
+            {
+                if (Switch.activated == false)
+                {
+                    allActivated = false;
+                    return;
+                }
+            }
+            allActivated = true;
+        }
+
     }
 
 }

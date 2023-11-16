@@ -2,35 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainroomSwitchManager : BaseSwitch
+namespace Ferrous.Mechanics
 {
-    [SerializeField] private List<BaseSwitch> subIsOpen = new List<BaseSwitch>();
-    private bool allSubActivated = false;
-    void Start()
+    public class MainroomSwitchManager : BaseSwitch
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        DetectSubActive(subIsOpen);
-        if (allSubActivated)
+        [SerializeField] private List<BaseSwitch> subIsOpen = new List<BaseSwitch>();
+        private bool allSubActivated = false;
+        void Start()
         {
-            Debug.Log("all subrooms activated");
+
         }
-    }
 
-    public void DetectSubActive(List<BaseSwitch> AllSubIsOpen)
-    {
-        foreach (SubroomSwitchManager Switch in AllSubIsOpen)
+        // Update is called once per frame
+        void Update()
         {
-            if (Switch.subRoomActivated == false)
+            DetectSubActive(subIsOpen);
+            if (allSubActivated)
             {
-                allSubActivated = false;
-                return;
+                Debug.Log("all subrooms activated");
             }
         }
-        allSubActivated = true;
+
+        public void DetectSubActive(List<BaseSwitch> AllSubIsOpen)
+        {
+            foreach (SubroomSwitchManager Switch in AllSubIsOpen)
+            {
+                if (Switch.subRoomActivated == false)
+                {
+                    allSubActivated = false;
+                    return;
+                }
+            }
+            allSubActivated = true;
+        }
     }
 }
+
