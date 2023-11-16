@@ -1,62 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
+using Ferrous.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-public class SceneController : MonoBehaviour
+namespace Ferrous
 {
-
-    /// <summary>
-    /// An struct that stores all the scene names.
-    /// </summary>
-    /// 
-
-    public struct Scenes
+    public class SceneController : MonoBehaviour
     {
-        public string Menu;
-        public string Tutorial;
-        public string LevelOne;
-        public string LevelTwo;
-    }
 
-    public static Scenes gameScenes = new Scenes
-    {
-        Menu = "GameStart",
-    };
+        /// <summary>
+        /// An struct that stores all the scene names.
+        /// </summary>
+        /// 
 
-    public static void LoadNextScene()
-    {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+        public struct Scenes
+        {
+            public string Menu;
+            public string Tutorial;
+            public string LevelOne;
+            public string LevelTwo;
+        }
 
-        SceneManager.LoadScene(nextSceneIndex);
-        Time.timeScale = 1.0f;
-    }
+        public static Scenes gameScenes = new Scenes
+        {
+            Menu = "GameStart",
+        };
 
-    public static bool IsLastScene()
-    {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int totalScenes = SceneManager.sceneCountInBuildSettings;
+        public static void LoadNextScene()
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
 
-        return currentSceneIndex == totalScenes - 1;
-    }
+            SceneManager.LoadScene(nextSceneIndex);
+            Time.timeScale = 1.0f;
+        }
 
-    /// <summary>
-    /// Restarts the current scene.
-    /// </summary>
-    public static void Restart()
-    {
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.name);
+        public static bool IsLastScene()
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int totalScenes = SceneManager.sceneCountInBuildSettings;
 
-        // un-pause just in case
-        PauseMenu.IsPaused = true;
-        Time.timeScale = 1.0f;
-    }
+            return currentSceneIndex == totalScenes - 1;
+        }
 
-    public static void BackToMain()
-    {
-        SceneManager.LoadScene(gameScenes.Menu);
+        /// <summary>
+        /// Restarts the current scene.
+        /// </summary>
+        public static void Restart()
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
+
+            // un-pause just in case
+            PauseMenu.IsPaused = true;
+            Time.timeScale = 1.0f;
+        }
+
+        public static void BackToMain()
+        {
+            SceneManager.LoadScene(gameScenes.Menu);
+        }
     }
 }

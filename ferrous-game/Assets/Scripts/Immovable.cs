@@ -1,105 +1,104 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Immovable : MonoBehaviour
+namespace Ferrous
 {
-    // Start is called before the first frame update
-    private Rigidbody _rigidbody;
-    RaycastHit hit;
-    public bool _isAbove;
-
-    [Header("InputChecks")]
-    private bool _pushInput;
-    private bool _pullInput;
-    private Vector2 _mousePos;
-    private Camera mainCamera;
-
-
-
-    void Start()
+    public class Immovable : MonoBehaviour
     {
-        _rigidbody = gameObject.GetComponent<Rigidbody>();
-        mainCamera = Camera.main;
-    }
+        // Start is called before the first frame update
+        private Rigidbody _rigidbody;
+        RaycastHit hit;
+        public bool _isAbove;
+
+        [Header("InputChecks")]
+        private bool _pushInput;
+        private bool _pullInput;
+        private Vector2 _mousePos;
+        private Camera mainCamera;
 
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        PlayerInput();
-        if (_isAbove)
+        void Start()
         {
-            _rigidbody.isKinematic = true;
-
-        } else
-        {
-            _rigidbody.isKinematic = false;
-
+            _rigidbody = gameObject.GetComponent<Rigidbody>();
+            mainCamera = Camera.main;
         }
 
-        if (_rigidbody.isKinematic)
-        {
-            if ((_pushInput || _pullInput) && !_isAbove)
-            {
-                RaycastHit hit;
-                Ray ray = mainCamera.ScreenPointToRay(_mousePos);
 
-                if (Physics.Raycast(ray, out hit, 10f))
+
+        // Update is called once per frame
+        void Update()
+        {
+            PlayerInput();
+            if (_isAbove)
+            {
+                _rigidbody.isKinematic = true;
+
+            } else
+            {
+                _rigidbody.isKinematic = false;
+
+            }
+
+            if (_rigidbody.isKinematic)
+            {
+                if ((_pushInput || _pullInput) && !_isAbove)
                 {
-                    if (hit.collider.CompareTag("Metal"))
+                    RaycastHit hit;
+                    Ray ray = mainCamera.ScreenPointToRay(_mousePos);
+
+                    if (Physics.Raycast(ray, out hit, 10f))
                     {
-                        _rigidbody.isKinematic = false;
+                        if (hit.collider.CompareTag("Metal"))
+                        {
+                            _rigidbody.isKinematic = false;
+                        }
                     }
                 }
             }
         }
-    }
 
-    private void PlayerInput()
-    {
-        _pushInput = InputManager.instance.PushInput;
-        _pullInput = InputManager.instance.PullInput;
-        _mousePos = Mouse.current.position.ReadValue();
-    }
-
-    private void OnCollisionEnter(Collision c)
-    {
-        if (c.gameObject.tag == "Player")
+        private void PlayerInput()
         {
-            _rigidbody.isKinematic = true;
+            _pushInput = InputManager.instance.PushInput;
+            _pullInput = InputManager.instance.PullInput;
+            _mousePos = Mouse.current.position.ReadValue();
         }
 
-    }
-
-    private void OnCollisionExit(Collision c)
-    {
-        if (c.gameObject.tag == "Player")
+        private void OnCollisionEnter(Collision c)
         {
+            if (c.gameObject.tag == "Player")
+            {
+                _rigidbody.isKinematic = true;
+            }
 
-            _rigidbody.isKinematic = false;
         }
 
-    }
-
-    private void OnTriggerEnter(Collider c)
-    {
-        if (c.gameObject.tag == "Player")
+        private void OnCollisionExit(Collision c)
         {
-            _isAbove = true;
+            if (c.gameObject.tag == "Player")
+            {
+
+                _rigidbody.isKinematic = false;
+            }
+
         }
-    }
 
-    private void OnTriggerExit(Collider c)
-    {
-        if (c.gameObject.tag == "Player")
+        private void OnTriggerEnter(Collider c)
         {
-            _isAbove = false;
+            if (c.gameObject.tag == "Player")
+            {
+                _isAbove = true;
+            }
+        }
 
+        private void OnTriggerExit(Collider c)
+        {
+            if (c.gameObject.tag == "Player")
+            {
+                _isAbove = false;
+
+            }
         }
     }
 }
