@@ -1,23 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TempDemoCode : MonoBehaviour
+namespace Ferrous
 {
-    Rigidbody rb;
-
-    private void Start()
+    public class TempDemoCode : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        Rigidbody rb;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.B))
+        private void Start()
         {
-            Debug.Log("B");
-            rb.AddForce(100.0f * transform.up);
+            rb = GetComponent<Rigidbody>();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetKey(KeyCode.B))
+            {
+                Debug.Log("B");
+                rb.AddForce(100.0f * transform.up);
+            }
         }
     }
 }

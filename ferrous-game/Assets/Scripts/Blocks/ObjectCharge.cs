@@ -1,54 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectCharge : MonoBehaviour
+namespace Ferrous.Blocks
 {
-
-    private enum Charge
+    public class ObjectCharge : MonoBehaviour
     {
-        None, //0
-        North, //1
-        South, //2
-    }
 
-    [SerializeField] private Charge charge = Charge.None;
-    private Rigidbody rb;
-
-    private float sphereRadius;
-    private float pullingForce = 7f;
-
-    private void Start()
-    {
-        if (charge == Charge.None)
+        private enum Charge
         {
-            Destroy(this); 
-            return;
+            None, //0
+            North, //1
+            South, //2
         }
 
-        rb = GetComponent<Rigidbody>();
-        sphereRadius = transform.localScale.z + 1f;
-    }
+        [SerializeField] private Charge charge = Charge.None;
+        private Rigidbody rb;
 
-    // Update is called once per frame
-    void Update()
-    {
+        private float sphereRadius;
+        private float pullingForce = 7f;
 
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, sphereRadius);
-
-        foreach (Collider collider in hitColliders)
+        private void Start()
         {
-            // Get component rigidbody
-            Rigidbody hitRigidbody = collider.GetComponent<Rigidbody>();
-
-            if (hitRigidbody != null && hitRigidbody != rb)
+            if (charge == Charge.None)
             {
-                Debug.Log(hitRigidbody);
-                // Calculate the direction
-                Vector3 forceDirection = (transform.position - hitRigidbody.transform.position).normalized;
-                if (charge == Charge.South) { forceDirection = -forceDirection; }
+                Destroy(this); 
+                return;
+            }
 
-                hitRigidbody.AddForce(forceDirection * pullingForce);
+            rb = GetComponent<Rigidbody>();
+            sphereRadius = transform.localScale.z + 1f;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, sphereRadius);
+
+            foreach (Collider collider in hitColliders)
+            {
+                // Get component rigidbody
+                Rigidbody hitRigidbody = collider.GetComponent<Rigidbody>();
+
+                if (hitRigidbody != null && hitRigidbody != rb)
+                {
+                    Debug.Log(hitRigidbody);
+                    // Calculate the direction
+                    Vector3 forceDirection = (transform.position - hitRigidbody.transform.position).normalized;
+                    if (charge == Charge.South) { forceDirection = -forceDirection; }
+
+                    hitRigidbody.AddForce(forceDirection * pullingForce);
+                }
             }
         }
     }

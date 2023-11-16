@@ -1,33 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class L2_R1_Switch : MonoBehaviour
+namespace Ferrous.Mechanics
 {
-    // Start is called before the first frame update
-    public L2_R_Switch L2_R_Switch;
-    void Start()
+    public class L2_R1_Switch : MonoBehaviour
     {
+        // Start is called before the first frame update
+        public L2_R_Switch L2_R_Switch;
+        void Start()
+        {
         
-    }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
         
-    }
+        }
 
     
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.tag == "Metal")
+        private void OnTriggerEnter(Collider collision)
         {
-            L2_R_Switch.EndCollide2 = true;
+            if (collision.gameObject.tag == "Metal")
+            {
+                L2_R_Switch.EndCollide2 = true;
+            }
         }
-    }
 
-    private void OnTriggerExit(Collider collision)
-    {
-        L2_R_Switch.EndCollide2 = false;
+        private void OnTriggerExit(Collider collision)
+        {
+            L2_R_Switch.EndCollide2 = false;
+        }
     }
 }
