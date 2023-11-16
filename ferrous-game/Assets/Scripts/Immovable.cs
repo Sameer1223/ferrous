@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,22 +32,21 @@ namespace Ferrous
         {
             PlayerInput();
 
-            if (_rigidbody.isKinematic)
-            {
-                if ((_pushInput || _pullInput) && !_isAbove)
-                {
-                    RaycastHit hit;
-                    Ray ray = mainCamera.ScreenPointToRay(_mousePos);
 
-                    if (Physics.Raycast(ray, out hit, 10f))
+            if ((_pushInput) && !_isAbove)
+            {
+                RaycastHit hit;
+                Ray ray = mainCamera.ScreenPointToRay(_mousePos);
+
+                if (Physics.Raycast(ray, out hit, 10f))
+                {
+                    if (hit.collider.CompareTag("Metal"))
                     {
-                        if (hit.collider.CompareTag("Metal"))
-                        {
-                            // _rigidbody.isKinematic = false;
-                        }
+                        _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
                     }
                 }
             }
+            
         }
 
         private void PlayerInput()
@@ -61,7 +61,9 @@ namespace Ferrous
             if (c.gameObject.tag == "Player")
             {
                 Debug.Log("entered collision");
-                _rigidbody.isKinematic = true;
+
+                //Physics.IgnoreCollision(c.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+                _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             }
 
         }
@@ -71,7 +73,8 @@ namespace Ferrous
             if (c.gameObject.tag == "Player")
             {
                 Debug.Log("exited collision");
-                // _rigidbody.isKinematic = false;
+                //Physics.IgnoreCollision(c.gameObject.GetComponent<Collider>(), GetComponent<Collider>(), false);
+                _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             }
 
         }
