@@ -30,15 +30,6 @@ namespace Ferrous
         void Update()
         {
             PlayerInput();
-            if (_isAbove)
-            {
-                _rigidbody.isKinematic = true;
-
-            } else
-            {
-                _rigidbody.isKinematic = false;
-
-            }
 
             if (_rigidbody.isKinematic)
             {
@@ -51,7 +42,7 @@ namespace Ferrous
                     {
                         if (hit.collider.CompareTag("Metal"))
                         {
-                            _rigidbody.isKinematic = false;
+                            // _rigidbody.isKinematic = false;
                         }
                     }
                 }
@@ -69,6 +60,7 @@ namespace Ferrous
         {
             if (c.gameObject.tag == "Player")
             {
+                Debug.Log("entered collision");
                 _rigidbody.isKinematic = true;
             }
 
@@ -78,27 +70,29 @@ namespace Ferrous
         {
             if (c.gameObject.tag == "Player")
             {
-
-                _rigidbody.isKinematic = false;
+                Debug.Log("exited collision");
+                // _rigidbody.isKinematic = false;
             }
 
         }
 
-        private void OnTriggerEnter(Collider c)
-        {
-            if (c.gameObject.tag == "Player")
-            {
-                _isAbove = true;
-            }
-        }
-
-        private void OnTriggerExit(Collider c)
-        {
-            if (c.gameObject.tag == "Player")
-            {
-                _isAbove = false;
-
-            }
-        }
+        // private void OnTriggerEnter(Collider c)
+        // {
+        //     if (c.gameObject.tag == "Player")
+        //     {
+        //         Debug.Log("trigger entered");
+        //         // _isAbove = true; 
+        //     }
+        // }
+        //
+        // private void OnTriggerExit(Collider c)
+        // {
+        //     if (c.gameObject.tag == "Player")
+        //     {
+        //         Debug.Log("trigger exited");
+        //         // _isAbove = false;
+        //
+        //     }
+        // }
     }
 }
