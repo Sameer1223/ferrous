@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: graph_0
   m_EditorClassIdentifier: 
   AssetPath: Assets/Models/Level Elements/big button/M_button_Vent_light_wire.sbsar
-  RawData: {fileID: 0}
+  RawData: {fileID: -244192453324840774, guid: b132fac4e91edef41868c38265b1cb3a, type: 3}
   Name: graph_0
   IsRoot: 1
   FlagedForDelete: 0
