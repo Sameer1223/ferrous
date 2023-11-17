@@ -11,7 +11,6 @@ namespace Ferrous.Mechanics
     {
         [SerializeField] private UnityEvent onAllActivated;
         [SerializeField] private List<BaseSwitch> mustBeActivated = new List<BaseSwitch>();
-        private bool allActivated = false;
 
 
         void Update()
