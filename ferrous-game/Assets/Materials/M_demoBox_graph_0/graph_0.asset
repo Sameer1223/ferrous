@@ -123,7 +123,7 @@ MonoBehaviour:
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
-  OutputMaterial: {fileID: 2100000, guid: 453c24b1edc0fbc4c8cb38a538f517bb, type: 2}
+  OutputMaterial: {fileID: 2100000, guid: eebd32c337a3ded4aa1d5a6f11d5e216, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://M_demoBox\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"1195935013\" type=\"8\" value=\"10,10\" />\n
     </sbspreset>\n"
