@@ -48,13 +48,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activated: 0
   subRoomActivated: 0
+  onAllSwitchesActivated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4651528026172681729}
+        m_TargetAssemblyTypeName: OpenDoor, Assembly-CSharp
+        m_MethodName: OpenDoors
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   activatedSwitches:
   - {fileID: 7159133340919598132}
   - {fileID: 2439491133105391722}
   - {fileID: 7158148060165934702}
-  leftDoor: {fileID: 501461581846638707}
-  rightDoor: {fileID: 6712886285735881394}
-  openSpeed: 1
 --- !u!1 &3157822677543020807
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +275,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2970357547748563730}
+  - component: {fileID: 4651528026172681729}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -287,6 +300,21 @@ Transform:
   - {fileID: 2601684734534058396}
   m_Father: {fileID: 2968634026513042628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4651528026172681729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361321120186843322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763af9684fe923a41ae3e5f58b0ed83c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftDoor: {fileID: 501461581846638707}
+  rightDoor: {fileID: 6712886285735881394}
+  openSpeed: 1
 --- !u!1 &6830543112216941878
 GameObject:
   m_ObjectHideFlags: 0

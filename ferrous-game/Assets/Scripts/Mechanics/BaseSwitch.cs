@@ -7,7 +7,6 @@ namespace Ferrous.Mechanics
     public abstract class BaseSwitch : MonoBehaviour
     {
         public bool activated = false;
-        public bool subRoomActivated = false;
 
         public virtual void ActivateObject()
         {
