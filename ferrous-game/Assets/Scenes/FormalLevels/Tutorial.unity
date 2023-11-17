@@ -3050,6 +3050,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2132522011712479429, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6348907509053972332, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
       propertyPath: m_TagString
       value: Untagged
@@ -7345,6 +7349,10 @@ PrefabInstance:
     - target: {fileID: 214221513142263804, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
       propertyPath: m_Name
       value: Metal Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 214221513142263804, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 591082402408891121, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
       propertyPath: m_LocalScale.x

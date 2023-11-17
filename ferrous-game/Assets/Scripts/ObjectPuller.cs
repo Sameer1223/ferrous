@@ -275,11 +275,12 @@ namespace Ferrous
                     Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                     pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
 
-                    GetInteractDirectionNormalized(pullDirection);
-
+                    // GetInteractDirectionNormalized(pullDirection);
+                    // Debug.Log("pulling");
                     selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
                     if (linkedObj != null && objectDirection != Vector3.down)
                     {
+                        Debug.Log("linked object is moving");
                         linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                     }
 
