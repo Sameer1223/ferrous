@@ -7,10 +7,6 @@ namespace Ferrous.Mechanics
 {
     public class PressurePlate : BaseSwitch
     {
-        void Update()
-        {
-
-        }
 
         public override void ActivateObject()
         {
