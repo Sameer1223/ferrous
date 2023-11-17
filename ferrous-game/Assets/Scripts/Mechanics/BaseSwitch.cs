@@ -6,15 +6,20 @@ namespace Ferrous.Mechanics
 {
     public abstract class BaseSwitch : MonoBehaviour
     {
-        public bool activated = false;
+        private bool activated = false;
 
-        public virtual void ActivateObject()
+        public bool Activated             //定义属性，用来操作私有字段id
         {
-            if (!activated)
+            get
             {
-                activated = true;
+                return activated;
+            }
+            set
+            {
+                activated = value;
             }
         }
+        public abstract void ActivateObject();
     }
 }
 
