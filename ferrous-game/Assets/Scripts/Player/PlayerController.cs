@@ -160,7 +160,7 @@ namespace Ferrous.Player
             }
 
             // fall faster
-            if (rb.velocity.y < _jumpVelocityFalloff)
+            if (rb.velocity.y < _jumpVelocityFalloff && !onSlope)
             {
                 rb.velocity += (Vector3.up * Physics.gravity.y * _fallMultiplier * Time.deltaTime);
             }
