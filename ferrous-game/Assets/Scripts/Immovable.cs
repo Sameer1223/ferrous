@@ -17,13 +17,25 @@ namespace Ferrous
         private bool _pullInput;
         private Vector2 _mousePos;
         private Camera mainCamera;
+        
+        [Header("grounded check")]
+        private float height;
+        [SerializeField] private bool isGrounded;
+        [SerializeField] LayerMask whatIsGround;
+
+        
+        private Color stasisColor = new Color(10, 0, 191);
+        
 
 
 
         void Start()
         {
             _rigidbody = gameObject.GetComponent<Rigidbody>();
+            _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             mainCamera = Camera.main;
+            height = gameObject.GetComponent<BoxCollider>().bounds.size.y;
+
         }
 
 
@@ -32,22 +44,26 @@ namespace Ferrous
         void Update()
         {
             PlayerInput();
+            IsGrounded();
 
 
-            // if ((_pushInput) && !_isAbove)
-            // {
-            //     RaycastHit hit;
-            //     Ray ray = mainCamera.ScreenPointToRay(_mousePos);
-            //
-            //     if (Physics.Raycast(ray, out hit, 10f))
-            //     {
-            //         if (hit.collider.CompareTag("Metal"))
-            //         {
-            //             _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-            //         }
-            //     }
-            // }
-            //
+            if ((_pushInput) && !_isAbove)
+            {
+                RaycastHit hit;
+                Ray ray = mainCamera.ScreenPointToRay(_mousePos);
+            
+                if (Physics.Raycast(ray, out hit, 10f))
+                {
+                    if (hit.collider.CompareTag("Metal"))
+                    {
+                        if (gameObject.GetComponent<Outline>().OutlineColor != stasisColor)
+                        {
+                            _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                        }
+                    }
+                }
+            }
+            
         }
 
         private void PlayerInput()
@@ -56,15 +72,17 @@ namespace Ferrous
             _pullInput = InputManager.instance.PullInput;
             _mousePos = Mouse.current.position.ReadValue();
         }
+        
+        private void IsGrounded()
+        {
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, height * 0.5f + 0.2f, whatIsGround);
+        }
 
         private void OnCollisionEnter(Collision c)
         {
             if (c.gameObject.tag == "Player")
             {
-                Debug.Log("entered collision");
-
-                //Physics.IgnoreCollision(c.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
-                _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                FreezeBlock();
             }
         }
 
@@ -72,7 +90,7 @@ namespace Ferrous
         {
             if (c.gameObject.tag == "Player")
             {
-                // Debug.Log(c.collider.name);
+                FreezeBlock();
             }
         }
 
@@ -80,30 +98,57 @@ namespace Ferrous
         {
             if (c.gameObject.tag == "Player")
             {
-                Debug.Log("exited collision");
-                //Physics.IgnoreCollision(c.gameObject.GetComponent<Collider>(), GetComponent<Collider>(), false);
-                _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                UnfreezeBlock();
             }
 
         }
 
-        // private void OnTriggerEnter(Collider c)
-        // {
-        //     if (c.gameObject.tag == "Player")
-        //     {
-        //         Debug.Log("trigger entered");
-        //         // _isAbove = true; 
-        //     }
-        // }
-        //
-        // private void OnTriggerExit(Collider c)
-        // {
-        //     if (c.gameObject.tag == "Player")
-        //     {
-        //         Debug.Log("trigger exited");
-        //         // _isAbove = false;
-        //
-        //     }
-        // }
+        private void OnTriggerEnter(Collider c)
+        {
+            if (c.gameObject.tag == "Player")
+            {
+                _isAbove = true;
+            }
+        }
+
+        private void OnTriggerStay(Collider c)
+        {
+            if (c.gameObject.tag == "Player")
+            {
+                FreezeBlock();
+            }
+        }
+
+        private void OnTriggerExit(Collider c)
+        {
+            if (c.gameObject.tag == "Player")
+            {
+                UnfreezeBlock();
+                _isAbove = false;
+        
+            }
+        }
+
+        void FreezeBlock()
+        {
+            if (isGrounded)
+            {
+                _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            }
+            else if (!isGrounded && gameObject.GetComponent<Outline>().OutlineColor != stasisColor)
+            {
+                _rigidbody.constraints = RigidbodyConstraints.FreezeRotation |
+                                         RigidbodyConstraints.FreezePositionX |
+                                         RigidbodyConstraints.FreezePositionZ;
+            }
+        }
+
+        void UnfreezeBlock()
+        {
+            if (gameObject.GetComponent<Outline>().OutlineColor != stasisColor)
+            {
+                _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+            }
+        }
     }
 }
