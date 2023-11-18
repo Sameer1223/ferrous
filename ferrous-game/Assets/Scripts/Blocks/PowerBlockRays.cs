@@ -12,6 +12,15 @@ namespace Ferrous.Blocks
 
         private Camera cam;
         private GameObject outlinedGameObj;
+        private Transform playerTransform;
+        public GameObject inputMetal;
+        private Transform inputMetalTransform;
+        private bool inputMetalForceActedUpon;
+
+        private float distance;
+        private Vector3 heading;
+        private Vector3 direction;
+
 
         // Keeps track of force being applied to object
         private Force force;
@@ -47,6 +56,13 @@ namespace Ferrous.Blocks
             cam = Camera.main;
         }
 
+          private void Start()
+        {
+            playerTransform = GameObject.Find("Player").transform;
+            inputMetalForceActedUpon = inputMetal.GetComponent<Outline>().forceActedUpon;
+            inputMetalTransform = inputMetal.GetComponent<Transform>();
+        }
+
         private void PlayerInput()
         {
             _pushInput = InputManager.instance.PushInput;
@@ -55,7 +71,7 @@ namespace Ferrous.Blocks
         }
 
         // Turn on magnetic ray
-        private void Activate(Force force)
+        public void Activate(Force force)
         {
             Debug.Log("Activates");
 
@@ -79,6 +95,7 @@ namespace Ferrous.Blocks
         // Update is called once per frame
         void Update()
         {
+            inputMetalForceActedUpon = inputMetal.GetComponent<Outline>().forceActedUpon;
             if (!PauseMenu.IsPaused)
             {
                 PlayerInput();
@@ -92,10 +109,13 @@ namespace Ferrous.Blocks
 
                 // Calculate ray logic
                 RaycastHit hit;
-                bool cast = Physics.Raycast(transform.position, ObjectPuller.objectDirection, out hit);
+                heading = inputMetalTransform.position - playerTransform.position ;
+                distance = heading.magnitude;
+                direction = heading / distance;
+                bool cast = Physics.Raycast(transform.position, direction, out hit);
                 Vector3 hitPosition = cast ? hit.point : raySpawnPoint.position + raySpawnPoint.forward * maxLength;
 
-                if (hit.collider != null && !hit.collider.gameObject.CompareTag("Metal"))
+                if (hit.collider != null && (!inputMetalForceActedUpon || !hit.collider.gameObject.CompareTag("Metal")))
                 {
                     Deactivate();
                     return;
