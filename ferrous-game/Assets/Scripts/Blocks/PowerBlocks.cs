@@ -104,7 +104,7 @@ namespace Ferrous.Blocks
             heading = inputMetalTransform.position - playerTransform.position;
             distance = heading.magnitude;
             direction = heading / distance; // This is now the normalized direction.
-
+            direction = GetInteractDirectionNormalized(direction);
             if (Physics.Raycast(transform.position, direction, out hit))
             {   
                 if (hit.collider.CompareTag("Metal"))
@@ -157,6 +157,31 @@ namespace Ferrous.Blocks
 
                 }
             }
+        }
+
+        private Vector3 GetInteractDirectionNormalized(Vector3 direction)
+        {
+            float dotX = Vector3.Dot(direction, Vector3.right);
+            float dotZ = Vector3.Dot(direction, Vector3.forward);
+
+            Vector3 nearestAxisDirection;
+
+            if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
+                nearestAxisDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
+            else
+                nearestAxisDirection = dotX > 0 ? Vector3.right : Vector3.left;
+
+            RaycastHit hit;
+            Ray ray = new Ray(playerTransform.position, Vector3.down);
+            if (Physics.Raycast(ray, out hit, 2 * 0.5f + 0.2f))
+            {
+                if (hit.collider.CompareTag("Metal"))
+                {
+                    nearestAxisDirection = Vector3.down;
+                }
+
+            }
+            return nearestAxisDirection;
         }
     }
 }

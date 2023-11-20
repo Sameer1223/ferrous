@@ -112,6 +112,7 @@ namespace Ferrous.Blocks
                 heading = inputMetalTransform.position - playerTransform.position ;
                 distance = heading.magnitude;
                 direction = heading / distance;
+                direction = GetInteractDirectionNormalized(direction);
                 bool cast = Physics.Raycast(transform.position, direction, out hit);
                 Vector3 hitPosition = cast ? hit.point : raySpawnPoint.position + raySpawnPoint.forward * maxLength;
 
@@ -130,6 +131,31 @@ namespace Ferrous.Blocks
                 magnetRay.SetPosition(1, hitPosition);
             }
             // TODO: MAKE THE STASIS RAY LAST LONGER INSTEAD OF DOING DOWN
+        }
+
+        private Vector3 GetInteractDirectionNormalized(Vector3 direction)
+        {
+            float dotX = Vector3.Dot(direction, Vector3.right);
+            float dotZ = Vector3.Dot(direction, Vector3.forward);
+
+            Vector3 nearestAxisDirection;
+
+            if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
+                nearestAxisDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
+            else
+                nearestAxisDirection = dotX > 0 ? Vector3.right : Vector3.left;
+
+            RaycastHit hit;
+            Ray ray = new Ray(playerTransform.position, Vector3.down);
+            if (Physics.Raycast(ray, out hit, 2 * 0.5f + 0.2f))
+            {
+                if (hit.collider.CompareTag("Metal"))
+                {
+                    nearestAxisDirection = Vector3.down;
+                }
+
+            }
+            return nearestAxisDirection;
         }
     }
 }
