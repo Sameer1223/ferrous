@@ -32,6 +32,10 @@ public class Outline : MonoBehaviour {
     }
   }
 
+  [HideInInspector] 
+  public Color DefaultOutlineColor;
+  
+
   public Color OutlineColor {
     get { return outlineColor; }
     set {
@@ -86,6 +90,7 @@ public class Outline : MonoBehaviour {
     renderers = GetComponentsInChildren<Renderer>();
 
     outlineColor = OutlineColor;
+    DefaultOutlineColor = OutlineColor;
 
     // Instantiate outline materials
     outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));

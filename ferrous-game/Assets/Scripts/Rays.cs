@@ -106,7 +106,7 @@ namespace Ferrous
             Outline outline = obj.GetComponent<Outline>();
             if (defaultSet == false){ 
                 defaultSet = true;
-                defaultOutlineColor = outline.OutlineColor;
+                defaultOutlineColor = outline.DefaultOutlineColor;
                 }
 
 
