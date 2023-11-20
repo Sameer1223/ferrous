@@ -550,6 +550,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   isGrounded: 0
+  maxSlopeAngle: 0
+  onSlope: 0
   jumpSfx: {fileID: 0}
   walkSfx: {fileID: 0}
 --- !u!136 &9079725633233866069
@@ -616,7 +618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnetRay: {fileID: 1193753587454654534}
   raySpawnPoint: {fileID: 3250582286306342809}
-  maxLength: 40
+  maxLength: 30
   blueMaterial: {fileID: 2100000, guid: c429d017ef1a6cd4bb9a0cbb7364fe50, type: 2}
   redMaterial: {fileID: 2100000, guid: dad1f30ad4beee244b5a48c00aa36dca, type: 2}
   purpleMaterial: {fileID: 2100000, guid: 44c4ce59a423f5943a00b8c506f4fe16, type: 2}

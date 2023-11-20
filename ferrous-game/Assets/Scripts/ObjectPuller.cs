@@ -20,12 +20,12 @@ namespace Ferrous
 
 
         [Header("Select")]
-        public float rayDist;
+        private float rayDist;
         public bool useSelect = false; // bool that lets us choose which system we want to use when pushing / pulling
 
 
         [Header("Push/Pull")]
-        private float maxDist = 40f;
+        public float maxDist = 30f;
         private float minDist = 2.5f;
         public float pullForce = 50.0f;
         private Rigidbody selectedObject;
@@ -75,6 +75,7 @@ namespace Ferrous
                 if (selectedObject)
                 {
                     CalculateDistFromPlayer(selectedObject);
+                    Debug.Log(selectedObject.name);
                 }
                 if (useSelect)
                 {
@@ -184,6 +185,7 @@ namespace Ferrous
         {
             distToPlayer = Vector3.Distance(_playerTransform.position, secondObject.position);
             distToPlayer = Mathf.Clamp(distToPlayer, minDist, maxDist);
+            Debug.Log(distToPlayer);
         }
 
 
@@ -205,7 +207,7 @@ namespace Ferrous
                     if (hit.collider.CompareTag("Metal"))
                     {
                         GameObject prevSelectedObject;
-                        if (selectedObject != null)
+                        if (selectedObject)
                         {
                             // compare prev and new selected
                             prevSelectedObject = selectedObject.gameObject;
@@ -266,7 +268,7 @@ namespace Ferrous
                 {
                     selectedObject.velocity = Vector3.zero;
                 }
-                if (isPulling)
+                if (isPulling && distToPlayer < maxDist)
                 {
                     /* Retiring this for multi axis movement
                 Vector3 pullDirection = objectDirection;
@@ -285,7 +287,7 @@ namespace Ferrous
 
                     SetModelColour(Color.cyan);
                 }
-                else if (isPushing)
+                else if (isPushing && distToPlayer < maxDist)
                 {
                     /* Retiring this for one axis movement
                 Vector3 pushDirection = -objectDirection;

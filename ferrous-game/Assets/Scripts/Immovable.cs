@@ -1,3 +1,4 @@
+using Ferrous.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,33 +30,37 @@ namespace Ferrous
         // Update is called once per frame
         void Update()
         {
-            PlayerInput();
-            if (_isAbove)
+            if (!PauseMenu.IsPaused)
             {
-                _rigidbody.isKinematic = true;
-
-            } else
-            {
-                _rigidbody.isKinematic = false;
-
-            }
-
-            if (_rigidbody.isKinematic)
-            {
-                if ((_pushInput || _pullInput) && !_isAbove)
+                PlayerInput();
+                if (_isAbove)
                 {
-                    RaycastHit hit;
-                    Ray ray = mainCamera.ScreenPointToRay(_mousePos);
+                    _rigidbody.isKinematic = true;
 
-                    if (Physics.Raycast(ray, out hit, 10f))
+                } else
+                {
+                    _rigidbody.isKinematic = false;
+
+                }
+
+                if (_rigidbody.isKinematic)
+                {
+                    if ((_pushInput || _pullInput) && !_isAbove)
                     {
-                        if (hit.collider.CompareTag("Metal"))
+                        RaycastHit hit;
+                        Ray ray = mainCamera.ScreenPointToRay(_mousePos);
+
+                        if (Physics.Raycast(ray, out hit, 10f))
                         {
-                            _rigidbody.isKinematic = false;
+                            if (hit.collider.CompareTag("Metal"))
+                            {
+                                _rigidbody.isKinematic = false;
+                            }
                         }
                     }
                 }
             }
+            
         }
 
         private void PlayerInput()
