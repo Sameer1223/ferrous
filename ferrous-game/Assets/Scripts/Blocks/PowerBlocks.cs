@@ -18,7 +18,7 @@ namespace Ferrous.Blocks
         private float minDist = 5.0f;
         public float pullForce = 50.0f;
         private Rigidbody selectedObject;
-        private float distToPlayer;
+        private float distToPowerBlock;
         private bool magnetismInput;
         private Vector3 objectDirection;
 
@@ -110,6 +110,7 @@ namespace Ferrous.Blocks
                 if (hit.collider.CompareTag("Metal"))
                 {
                     selectedObject = hit.rigidbody;
+                    CalculateDistFromPlayer(selectedObject);
                     PushOrPull();
                 } else {
                     selectedObject = null;
@@ -134,10 +135,10 @@ namespace Ferrous.Blocks
             if (magnetismInput && selectedObject)
             {
                 // calculate a multipler based on how far away the selected object is from the player
-                float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
-                float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
+                float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPowerBlock) / (maxDist - minDist));
+                float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPowerBlock) / (maxDist - minDist));
 
-                if (distToPlayer <= minDist && !isPushing)
+                if (distToPowerBlock <= minDist && !isPushing)
                 {
                     selectedObject.velocity = Vector3.zero;
                 }
@@ -182,6 +183,12 @@ namespace Ferrous.Blocks
 
             }
             return nearestAxisDirection;
+        }
+
+         private void CalculateDistFromPlayer(Rigidbody secondObject)
+        {
+            distToPowerBlock = Vector3.Distance(transform.position, secondObject.position);
+            distToPowerBlock = Mathf.Clamp(distToPowerBlock, minDist, maxDist);
         }
     }
 }
