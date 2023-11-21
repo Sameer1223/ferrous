@@ -538,13 +538,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 0}
-  moveSpeed: 10
-  jumpForce: 13.5
+  moveSpeed: 12
+  jumpForce: 22.5
   jumpCooldown: 0.25
-  airMultiplier: 0.4
-  groundDrag: 6
-  _fallMultiplier: 6.5
-  _jumpVelocityFalloff: 1.45
+  airMultiplier: 0.75
+  groundDrag: 12
+  _fallMultiplier: 13.5
+  _jumpVelocityFalloff: 1.4
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -561,7 +561,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2976961729054197838}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f4e2cc53d95a2b14eaba4239d5cf0eb8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

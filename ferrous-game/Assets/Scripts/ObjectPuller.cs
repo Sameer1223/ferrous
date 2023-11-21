@@ -25,10 +25,12 @@ namespace Ferrous
 
 
         [Header("Push/Pull")]
-        public float maxDist = 30f;
-        private float minDist = 2.5f;
+        private float maxDist = 40f;
+        private float minDist = 1.0f;
+        public float stopPullingDist;
         public float pullForce = 50.0f;
         private Rigidbody selectedObject;
+        private Vector3 selectedObjectSize;
         private float distToPlayer;
         private bool magnetismInput;
         private LinkedObject linked;
@@ -80,7 +82,7 @@ namespace Ferrous
                 if (useSelect)
                 {
                     {
-                        selectObject();
+                        //selectObject();
                         // if the player is inputting push/pull, push / pull the selected object
                         if (magnetismInput)
                         {
@@ -120,6 +122,7 @@ namespace Ferrous
             {
                 magnetismInput = false;
                 soundPlayed = false;
+                selectedObjectSize = Vector3.zero;
                 if (!StasisController.stasisColorOn)
                 {
                     SetModelColour(Color.white);
@@ -150,6 +153,14 @@ namespace Ferrous
                 if (hit.collider.CompareTag("Metal"))
                 {
                     selectedObject = hit.rigidbody;
+                    if (selectedObjectSize == Vector3.zero)
+                    {
+                        selectedObjectSize = hit.rigidbody.GetComponent<BoxCollider>().bounds.size;
+                        stopPullingDist = selectedObjectSize.x >= selectedObjectSize.z
+                            ? selectedObjectSize.x 
+                            : selectedObjectSize.z;
+                    }
+                    
                     LinkedObjectManager.LightenLinkLine(selectedObject.gameObject);
                     PushOrPull();
                 }
@@ -194,50 +205,50 @@ namespace Ferrous
             PushOrPull();
         }
 
-        private void selectObject()
-        {
-            if (_selectInput)
-            {
-                RaycastHit hit;
-                // generates a ray in the look direction
-                Ray ray = mainCamera.ScreenPointToRay(_mousePos);
-                // instead of origin -> destination, use the defined ray
-                if (Physics.Raycast(ray, out hit, rayDist))
-                {
-                    if (hit.collider.CompareTag("Metal"))
-                    {
-                        GameObject prevSelectedObject;
-                        if (selectedObject)
-                        {
-                            // compare prev and new selected
-                            prevSelectedObject = selectedObject.gameObject;
-                            selectedObject = hit.rigidbody;
-                            if (GameObject.ReferenceEquals(prevSelectedObject, selectedObject.gameObject))
-                            {
-                                // de-select the object
-                                selectedObject.useGravity = true;
-                                selectedObject = null;
-                            }
-                            else
-                            {
-                                // turn gravity back on for the previous object
-                                prevSelectedObject.GetComponent<Rigidbody>().useGravity = true;
-                                // make the current object hover
-                                selectedObject.useGravity = false;
-                                selectedObject.AddForce(Vector3.up * 75f);
-                            }
-                        }
-                        else
-                        {
-                            // no object was previously selected, select the current one
-                            selectedObject = hit.rigidbody;
-                            selectedObject.useGravity = false;
-                            selectedObject.AddForce(Vector3.up * 75f);
-                        }
-                    }
-                }
-            }
-        }
+        //private void selectObject()
+        //{
+        //    if (_selectInput)
+        //    {
+        //        RaycastHit hit;
+        //        // generates a ray in the look direction
+        //        Ray ray = mainCamera.ScreenPointToRay(_mousePos);
+        //        // instead of origin -> destination, use the defined ray
+        //        if (Physics.Raycast(ray, out hit, rayDist))
+        //        {
+        //            if (hit.collider.CompareTag("Metal"))
+        //            {
+        //                GameObject prevSelectedObject;
+        //                if (selectedObject != null)
+        //                {
+        //                    // compare prev and new selected
+        //                    prevSelectedObject = selectedObject.gameObject;
+        //                    selectedObject = hit.rigidbody;
+        //                    if (GameObject.ReferenceEquals(prevSelectedObject, selectedObject.gameObject))
+        //                    {
+        //                        // de-select the object
+        //                        selectedObject.useGravity = true;
+        //                        selectedObject = null;
+        //                    }
+        //                    else
+        //                    {
+        //                        // turn gravity back on for the previous object
+        //                        prevSelectedObject.GetComponent<Rigidbody>().useGravity = true;
+        //                        // make the current object hover
+        //                        selectedObject.useGravity = false;
+        //                        selectedObject.AddForce(Vector3.up * 75f);
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    // no object was previously selected, select the current one
+        //                    selectedObject = hit.rigidbody;
+        //                    selectedObject.useGravity = false;
+        //                    selectedObject.AddForce(Vector3.up * 75f);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
 
         /// <summary>
@@ -273,15 +284,25 @@ namespace Ferrous
                     /* Retiring this for multi axis movement
                 Vector3 pullDirection = objectDirection;
                 */
-
                     Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                     pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
+                    Debug.Log("dist to player: " + distToPlayer);
+                    Debug.Log("stop pulling dist: "+ stopPullingDist);
+                    if (distToPlayer <= stopPullingDist)
+                    {
+                        Debug.Log("stop block");
+                        selectedObject.velocity = Vector3.zero;
+                    } else
+                    {
+                        selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
+
+                    }
 
                     GetInteractDirectionNormalized(pullDirection);
-
-                    selectedObject.AddForce(pullDirection * pullForce * pullMultiplier);
+                    // Debug.Log("pulling");
                     if (linkedObj != null && objectDirection != Vector3.down)
                     {
+                        Debug.Log("linked object is moving");
                         linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                     }
 

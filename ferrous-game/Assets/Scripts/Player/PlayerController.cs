@@ -137,7 +137,6 @@ namespace Ferrous.Player
                 walkSfx.Play();
             }
         }
-
         // Limiting function for speed
         private void SpeedLimiter()
         {
