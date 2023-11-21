@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028353, g: 0.22571383, b: 0.30692253, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -141,6 +141,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 510312579}
     m_Modifications:
+    - target: {fileID: 1197902263564805140, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -126
+      objectReference: {fileID: 0}
+    - target: {fileID: 1197902263564805140, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572014532010572784, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572014532010572784, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572014532010572784, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_margin.w
+      value: 7.426733
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572014532010572784, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_margin.x
+      value: -79.27748
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572014532010572784, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_margin.z
+      value: -335.5738
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572014532010572784, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 36096135b99b2bf4091d51efd192c676, type: 2}
+    - target: {fileID: 2572014532010572784, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572014532010572784, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1961286248327244459, guid: 36096135b99b2bf4091d51efd192c676, type: 2}
+    - target: {fileID: 2572014532010572784, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2816954833532672221, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
       propertyPath: m_Name
       value: InGameCanvas
@@ -223,10 +267,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7673153338114640860, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667415358332875707, guid: a67e13a3941f75e4fac50a5d7ed2fd8e, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
