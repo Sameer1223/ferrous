@@ -2325,6 +2325,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1684290467}
     m_Modifications:
+    - target: {fileID: 1212012148711142985, guid: 45deca4c415e44b4f9dfea9ee6c605b1, type: 3}
+      propertyPath: GunActiveSFX
+      value: 
+      objectReference: {fileID: 113166031}
     - target: {fileID: 2433173748431286902, guid: 45deca4c415e44b4f9dfea9ee6c605b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 77.79794
