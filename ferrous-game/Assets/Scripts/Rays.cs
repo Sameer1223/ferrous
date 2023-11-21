@@ -120,19 +120,23 @@ namespace Ferrous
                 if (force == Force.Pull)
                 {
                     outline.OutlineColor = blueColour;
+                    outline.forceActedUpon = true; 
                     if (linkedObj)
                     {
                         Outline linkedOutline = linkedObj.GetComponent<Outline>();
                         linkedOutline.OutlineColor = blueColour;
+                        linkedOutline.forceActedUpon = true; 
                     }
                 }
                 else if (force == Force.Push)
                 {
                     outline.OutlineColor = redColour;
+                    outline.forceActedUpon = true; 
                     if (linkedObj)
                     {
                         Outline linkedOutline = linkedObj.GetComponent<Outline>();
                         linkedOutline.OutlineColor = redColour;
+                        linkedOutline.forceActedUpon = true; 
                     }
                 }
             }
@@ -150,11 +154,14 @@ namespace Ferrous
             GameObject linkedObj = LinkedObjectManager.GetLinkedObject(obj);
             if (outline.OutlineColor != purpleColour) 
             { 
+                outline.forceActedUpon = false; 
                 outline.OutlineColor = defaultOutlineColor; 
                 if (linkedObj)
                 {
                     Outline linkedOutline = linkedObj.GetComponent<Outline>();
                     linkedOutline.OutlineColor = defaultOutlineColor;
+                    linkedOutline.forceActedUpon = false; 
+
                 }
             }
         }

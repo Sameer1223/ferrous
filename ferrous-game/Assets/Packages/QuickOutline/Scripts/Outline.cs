@@ -24,6 +24,8 @@ public class Outline : MonoBehaviour {
     SilhouetteOnly
   }
 
+  public bool forceActedUpon;
+
   public Mode OutlineMode {
     get { return outlineMode; }
     set {

@@ -98,7 +98,7 @@ namespace Ferrous
                 }
             }
         }
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             ApplyMagnesis();
         }
