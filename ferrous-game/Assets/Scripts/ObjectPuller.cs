@@ -149,7 +149,7 @@ namespace Ferrous
                 if (hit.collider.CompareTag("Metal"))
                 {
                     selectedObject = hit.rigidbody;
-                    LinkedObjectManager.LightenLinkLine(selectedObject.gameObject);
+                    LinkedObjectManager.DisableLinkLine(selectedObject.gameObject);
                     PushOrPull();
                 }
             }

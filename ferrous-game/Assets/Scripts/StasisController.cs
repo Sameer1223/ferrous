@@ -77,7 +77,7 @@ namespace Ferrous
                             frozenObject = hit.rigidbody.gameObject;
 
                             // linked object
-                            LinkedObjectManager.LightenLinkLine(frozenObject);
+                            LinkedObjectManager.DisableLinkLine(frozenObject);
                             GameObject linkedObj = LinkedObjectManager.GetLinkedObject(frozenObject);
                             GameObject prevLinked = LinkedObjectManager.GetLinkedObject(prevFrozenObject);
 
