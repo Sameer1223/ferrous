@@ -99,7 +99,7 @@ namespace Ferrous
                 }
             }
         }
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             ApplyMagnesis();
         }
@@ -196,7 +196,6 @@ namespace Ferrous
         {
             distToPlayer = Vector3.Distance(_playerTransform.position, secondObject.position);
             distToPlayer = Mathf.Clamp(distToPlayer, minDist, maxDist);
-            Debug.Log(distToPlayer);
         }
 
 
@@ -286,11 +285,8 @@ namespace Ferrous
                 */
                     Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                     pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
-                    Debug.Log("dist to player: " + distToPlayer);
-                    Debug.Log("stop pulling dist: "+ stopPullingDist);
                     if (distToPlayer <= stopPullingDist)
                     {
-                        Debug.Log("stop block");
                         selectedObject.velocity = Vector3.zero;
                     } else
                     {

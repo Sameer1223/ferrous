@@ -111,8 +111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GunActiveSFX: {fileID: 0}
   useSelect: 0
-  maxDist: 25
-  pullForce: 50
+  stopPullingDist: 0
+  pullForce: 200
 --- !u!114 &28026668612300114
 MonoBehaviour:
   m_ObjectHideFlags: 0

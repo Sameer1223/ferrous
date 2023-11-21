@@ -539,12 +539,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 0}
   moveSpeed: 12
-  jumpForce: 22.5
+  jumpForce: 24
   jumpCooldown: 0.25
-  airMultiplier: 0.75
-  groundDrag: 12
-  _fallMultiplier: 13.5
-  _jumpVelocityFalloff: 1.4
+  airMultiplier: 0.9
+  groundDrag: 11
+  _fallMultiplier: 12
+  _jumpVelocityFalloff: 1.2
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
