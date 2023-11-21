@@ -32,6 +32,10 @@ public class Outline : MonoBehaviour {
     }
   }
 
+  [HideInInspector] 
+  public Color DefaultOutlineColor;
+  
+
   public Color OutlineColor {
     get { return outlineColor; }
     set {
@@ -57,7 +61,7 @@ public class Outline : MonoBehaviour {
   private Mode outlineMode;
 
   [SerializeField]
-  private Color outlineColor = Color.white;
+  private Color outlineColor;
 
   [SerializeField, Range(0f, 10f)]
   private float outlineWidth = 2f;
@@ -84,6 +88,9 @@ public class Outline : MonoBehaviour {
 
     // Cache renderers
     renderers = GetComponentsInChildren<Renderer>();
+
+    outlineColor = OutlineColor;
+    DefaultOutlineColor = OutlineColor;
 
     // Instantiate outline materials
     outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));

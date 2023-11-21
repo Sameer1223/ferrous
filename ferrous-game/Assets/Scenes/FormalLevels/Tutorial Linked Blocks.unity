@@ -5459,6 +5459,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2869184157500930877, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2869184157500930877, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2869184157500930877, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: outlineColor.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6114,6 +6126,18 @@ PrefabInstance:
     - target: {fileID: 591082402408891121, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2869184157500930877, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2869184157500930877, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2869184157500930877, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: outlineColor.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
