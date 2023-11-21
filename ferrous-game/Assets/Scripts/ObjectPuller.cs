@@ -155,7 +155,7 @@ namespace Ferrous
                     selectedObject = hit.rigidbody;
                     if (selectedObjectSize == Vector3.zero)
                     {
-                        selectedObjectSize = hit.rigidbody.GetComponent<BoxCollider>().bounds.size;
+                        selectedObjectSize = hit.rigidbody.GetComponent<Collider>().bounds.size;
                         stopPullingDist = selectedObjectSize.x >= selectedObjectSize.z
                             ? selectedObjectSize.x 
                             : selectedObjectSize.z;
