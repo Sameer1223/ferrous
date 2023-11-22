@@ -258,7 +258,7 @@ namespace Ferrous
             {
                 // calculate a multipler based on how far away the selected object is from the player
                 float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
-                float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
+                float pushMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
 
                 GameObject linkedObj = LinkedObjectManager.GetLinkedObject(selectedObject.gameObject);
 
@@ -280,11 +280,8 @@ namespace Ferrous
                 */
                     Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                     pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
-                    Debug.Log("dist to player: " + distToPlayer);
-                    Debug.Log("stop pulling dist: "+ stopPullingDist);
                     if (distToPlayer <= stopPullingDist)
                     {
-                        Debug.Log("stop block");
                         selectedObject.velocity = Vector3.zero;
                     } else
                     {
@@ -296,7 +293,6 @@ namespace Ferrous
                     // Debug.Log("pulling");
                     if (linkedObj != null && objectDirection != Vector3.down)
                     {
-                        Debug.Log("linked object is moving");
                         linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                     }
 

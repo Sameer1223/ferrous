@@ -73,7 +73,6 @@ namespace Ferrous.Blocks
         // Turn on magnetic ray
         public void Activate(Force force)
         {
-            Debug.Log("Activates");
 
             if (force == Force.None) return;
 
