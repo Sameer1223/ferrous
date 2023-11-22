@@ -56,10 +56,18 @@ namespace Ferrous
         {
             // make sure the object can be respawned
             string enteredName = toRespawn.name;
+            string cloneSubstring = "(Clone)";
+            if (enteredName.Contains(cloneSubstring))
+            {
+                enteredName = enteredName.Replace(cloneSubstring, "");
+            }
             if (spawnMapping.TryGetValue(enteredName, out Transform respawnLocation))
             {
-                // if player enters, move the player to the spawn point
                 toRespawn.transform.position = respawnLocation.position;
+            } else if (spawnMapping.TryGetValue(enteredName + "(Clone)", out Transform respawnCloneLocation))
+            {
+                toRespawn.transform.position = respawnCloneLocation.position;
+
             }
         }
         
