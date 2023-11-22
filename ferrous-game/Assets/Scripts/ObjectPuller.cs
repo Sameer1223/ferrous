@@ -299,7 +299,7 @@ namespace Ferrous
                     }
 
                     GetInteractDirectionNormalized(pullDirection);
-                    // Debug.Log("pulling");
+                    Debug.Log("pulling");
                     Debug.Log(objectDirection != Vector3.down);
                     if (linkedObj != null)
                     {
