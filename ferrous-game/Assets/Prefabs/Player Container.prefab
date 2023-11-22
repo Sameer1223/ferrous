@@ -550,6 +550,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   isGrounded: 0
+  maxSlopeAngle: 50
+  onSlope: 0
   jumpSfx: {fileID: 0}
   walkSfx: {fileID: 0}
 --- !u!136 &9079725633233866069
@@ -616,7 +618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnetRay: {fileID: 1193753587454654534}
   raySpawnPoint: {fileID: 3250582286306342809}
-  maxLength: 40
+  maxLength: 30
   blueMaterial: {fileID: 2100000, guid: c429d017ef1a6cd4bb9a0cbb7364fe50, type: 2}
   redMaterial: {fileID: 2100000, guid: dad1f30ad4beee244b5a48c00aa36dca, type: 2}
   purpleMaterial: {fileID: 2100000, guid: 44c4ce59a423f5943a00b8c506f4fe16, type: 2}
@@ -1568,6 +1570,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4307462587189730157}
+  - component: {fileID: 1507301439894789045}
   m_Layer: 0
   m_Name: Player Container
   m_TagString: Untagged
@@ -1592,6 +1595,18 @@ Transform:
   - {fileID: 6360073229406136144}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1507301439894789045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378887863682832231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f4020d79a6d38d49a98b7044f6e5d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5409405912531476626
 GameObject:
   m_ObjectHideFlags: 0
