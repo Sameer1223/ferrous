@@ -20,14 +20,14 @@ namespace Ferrous
 
 
         [Header("Select")]
-        public float rayDist;
+        private float rayDist;
         public bool useSelect = false; // bool that lets us choose which system we want to use when pushing / pulling
 
 
         [Header("Push/Pull")]
-        private float maxDist = 40f;
-        private float minDist = 1.0f;
-        public float stopPullingDist;
+        public float maxDist;
+        private float minDist = 0.5f;
+        private float stopPullingDist;
         public float pullForce = 50.0f;
         private Rigidbody selectedObject;
         private Vector3 selectedObjectSize;
@@ -138,6 +138,10 @@ namespace Ferrous
             if (!_pushInput)
             {
                 isPushing = false;
+                if (selectedObject)
+                {
+                    selectedObject.useGravity = true;
+                }
             }
         }
 
@@ -154,7 +158,7 @@ namespace Ferrous
                     selectedObject = hit.rigidbody;
                     if (selectedObjectSize == Vector3.zero)
                     {
-                        selectedObjectSize = hit.rigidbody.GetComponent<BoxCollider>().bounds.size;
+                        selectedObjectSize = hit.rigidbody.GetComponent<Collider>().bounds.size;
                         stopPullingDist = selectedObjectSize.x >= selectedObjectSize.z
                             ? selectedObjectSize.x 
                             : selectedObjectSize.z;
@@ -257,10 +261,11 @@ namespace Ferrous
             if (magnetismInput && selectedObject)
             {
                 // calculate a multipler based on how far away the selected object is from the player
-                float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
-                float pushMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
+                float pullMultiplier = Mathf.Lerp(0.3f, 2.5f, (maxDist - distToPlayer) / (maxDist - minDist));
+                float pushMultiplier = Mathf.Lerp(0.2f, 1.5f, (maxDist - distToPlayer) / (maxDist - minDist));
 
                 GameObject linkedObj = LinkedObjectManager.GetLinkedObject(selectedObject.gameObject);
+                Debug.Log(linkedObj);
 
                 /* One axis movement code
             float dotX = Vector3.Dot(_playerTransform.forward, Vector3.right);
@@ -273,7 +278,11 @@ namespace Ferrous
                 objectDirection = dotX > 0 ? Vector3.right : Vector3.left;
             */
 
-                if (isPulling)
+                // if (distToPlayer <= minDist && !isPushing)
+                // {
+                //     selectedObject.velocity = Vector3.zero;
+                // }
+                if (isPulling && distToPlayer < maxDist)
                 {
                     /* Retiring this for multi axis movement
                 Vector3 pullDirection = objectDirection;
@@ -290,15 +299,21 @@ namespace Ferrous
                     }
 
                     GetInteractDirectionNormalized(pullDirection);
+                    Debug.Log("pulling");
+                    Debug.Log(objectDirection != Vector3.down);
                     if (linkedObj != null)
                     {
+                        Debug.Log("linked object is moving");
                         linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                     }
 
                     SetModelColour(Color.cyan);
                 }
-                else if (isPushing)
+                else if (isPushing && distToPlayer < maxDist)
                 {
+                    // make the object not fall while pushing
+                    selectedObject.useGravity = false;
+                    
                     /* Retiring this for one axis movement
                 Vector3 pushDirection = -objectDirection;
                 */
@@ -309,7 +324,7 @@ namespace Ferrous
                     GetInteractDirectionNormalized(pushDirection);
 
                     selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
-                    if (linkedObj != null && objectDirection != Vector3.down)
+                    if (linkedObj != null)
                     {
                         linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pushMultiplier);
                     }

@@ -7613,6 +7613,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 376654925}
+    - target: {fileID: -975804348586893672, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+      propertyPath: whatIsGround.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 214221513142263804, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
       propertyPath: m_Name
       value: Metal Block
