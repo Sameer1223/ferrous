@@ -16,14 +16,15 @@ namespace Ferrous.Mechanics
         private Vector3 targetPositionLeft;
         private Vector3 targetPositionRight;
         [SerializeField] private float openSpeed = 1.0f;
+        [SerializeField] private float openDistance = 3.5f;
 
         // Start is called before the first frame update
         void Start()
         {
             initialPositionLeft = leftDoor.transform.position;
             initialPositionRight = rightDoor.transform.position;
-            targetPositionLeft = initialPositionLeft + leftDoor.transform.right * 3.5f;
-            targetPositionRight = initialPositionRight - rightDoor.transform.right * 3.5f;
+            targetPositionLeft = initialPositionLeft + leftDoor.transform.right * openDistance;
+            targetPositionRight = initialPositionRight - rightDoor.transform.right * openDistance;
         }
 
 

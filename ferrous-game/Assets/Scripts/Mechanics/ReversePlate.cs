@@ -1,26 +1,23 @@
-using System;
+using Ferrous.Mechanics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Ferrous.Mechanics
+namespace Ferrous
 {
-    public class PressurePlate : BaseSwitch
+    public class ReversePlate : BaseSwitch
     {
-
         public override void ActivateObject()
         {
             Activated = true;
         }
-
-        private void OnTriggerEnter(Collider collision)
+        void OnCollisionExit(Collision collision)
         {
-            if (collision.tag == "Metal")
-            {
-                ActivateObject();
-            }
-        }
 
+                ActivateObject();
+                Debug.Log("Activated");
+            
+
+        }
     }
 }
-
