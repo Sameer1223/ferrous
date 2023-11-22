@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6153304983683123804}
   - component: {fileID: 8033697637439891695}
   - component: {fileID: 3034075337865448516}
-  - component: {fileID: 5452828740670453715}
+  - component: {fileID: 28026668612300114}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GunActiveSFX: {fileID: 0}
-  rayDist: 40
   useSelect: 0
-  pullForce: 50
+  maxDist: 20
+  pullForce: 200
 --- !u!114 &6153304983683123804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
---- !u!114 &5452828740670453715
+--- !u!114 &28026668612300114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,5 +236,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974cefeba5ea8574dad97bbfb1da7017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSelectDist: 40
+  maxSelectDist: 25
   unfreezeDuration: 2

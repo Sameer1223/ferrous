@@ -87,6 +87,10 @@ namespace Ferrous.Blocks
             if (!_pushInput)
             {
                 isPushing = false;
+                if (selectedObject)
+                {
+                    selectedObject.useGravity = true;
+                }
             }
         }
 
@@ -150,8 +154,9 @@ namespace Ferrous.Blocks
                     selectedObject.AddForce(pullDirection * pullForce);
                 }
                 else if (isPushing)
-                { 
-                    Vector3 pushDirection = direction;
+                {
+                    selectedObject.useGravity = false;
+                    Vector3 pushDirection = ObjectPuller.objectDirection;
                     pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
                     selectedObject.AddForce(pushDirection * pullForce);

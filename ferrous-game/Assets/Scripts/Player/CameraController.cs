@@ -23,17 +23,9 @@ namespace Ferrous.Player
             {
                 CameraControl();
             }
+            transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y + 0.5f, playerTransform.position.z);
+
         }
-
-        private void LateUpdate()
-        {
-            if (!PauseMenu.IsPaused)
-            {
-                transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y + 0.5f, playerTransform.position.z);
-
-            }
-        }
-
         private void CameraControl()
         {
 

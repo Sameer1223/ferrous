@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 5761334858566802728}
   m_Layer: 0
   m_Name: Power Block
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,7 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53cc52bb73995ea469afda0b85a4f40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullForce: 100
+  inputMetal: {fileID: 0}
+  pullForce: 200
 --- !u!114 &4144980343749089325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +176,7 @@ MonoBehaviour:
   magnetRay: {fileID: 5761334858566802728}
   raySpawnPoint: {fileID: 8107180863560656939}
   maxLength: 40
+  inputMetal: {fileID: 0}
   blueMaterial: {fileID: 2100000, guid: c429d017ef1a6cd4bb9a0cbb7364fe50, type: 2}
   redMaterial: {fileID: 2100000, guid: dad1f30ad4beee244b5a48c00aa36dca, type: 2}
   purpleMaterial: {fileID: 2100000, guid: 44c4ce59a423f5943a00b8c506f4fe16, type: 2}
