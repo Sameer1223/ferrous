@@ -290,8 +290,7 @@ namespace Ferrous
                     }
 
                     GetInteractDirectionNormalized(pullDirection);
-                    // Debug.Log("pulling");
-                    if (linkedObj != null && objectDirection != Vector3.down)
+                    if (linkedObj != null)
                     {
                         linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                     }

@@ -11,14 +11,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FormalLevels/Tutorial.unity
     guid: 91d9967ef0b303c4399eadda77fe7ca3
-  - enabled: 0
-    path: Assets/Scenes/FormalLevels/Tutorial Linked Blocks NEW.unity
-    guid: 8075d257384666d47a61b04eb7473574
-  - enabled: 0
-    path: Assets/Scenes/FormalLevels/bIg room second level.unity
-    guid: 2ff8f4c6390a9411fafa95cea6589ec6
   - enabled: 1
-    path: Assets/Scenes/FormalLevels/Tutorial Power Blocks.unity
-    guid: f615f8b952e2d4209ae11159cb79b624
+    path: Assets/Scenes/LinkedBlockLevel.unity
+    guid: 2274069989177154bb094605eb92f193
+  - enabled: 1
+    path: Assets/Scenes/EasierFirstLevel.unity
+    guid: 5bff463e79c2da34aacd3358eb1c9fa7
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 482e38cafb1de4d45ab6aaa2ae5162fb, type: 2}
