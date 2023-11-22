@@ -21,6 +21,8 @@ namespace Ferrous
         private Color blueColour = new Color(0, 191, 156); 
         private Color redColour = new Color(191, 0, 0);
         private Color purpleColour = new Color(10, 0, 191);
+        private Color defaultOutlineColor;
+        private bool defaultSet = false;
 
         [Header("Materials")]
         public Material blueMaterial;
@@ -46,6 +48,8 @@ namespace Ferrous
         {
             magnetRay.enabled = false;
             cam = Camera.main;
+        
+            
         }
 
         private void PlayerInput()
@@ -100,6 +104,13 @@ namespace Ferrous
 
             outlinedGameObj = obj;
             Outline outline = obj.GetComponent<Outline>();
+            if (defaultSet == false){ 
+                defaultSet = true;
+                defaultOutlineColor = outline.DefaultOutlineColor;
+                }
+
+
+
             // get linked object
             GameObject linkedObj = LinkedObjectManager.GetLinkedObject(obj);
 
@@ -109,19 +120,23 @@ namespace Ferrous
                 if (force == Force.Pull)
                 {
                     outline.OutlineColor = blueColour;
+                    outline.forceActedUpon = true; 
                     if (linkedObj)
                     {
                         Outline linkedOutline = linkedObj.GetComponent<Outline>();
                         linkedOutline.OutlineColor = blueColour;
+                        linkedOutline.forceActedUpon = true; 
                     }
                 }
                 else if (force == Force.Push)
                 {
                     outline.OutlineColor = redColour;
+                    outline.forceActedUpon = true; 
                     if (linkedObj)
                     {
                         Outline linkedOutline = linkedObj.GetComponent<Outline>();
                         linkedOutline.OutlineColor = redColour;
+                        linkedOutline.forceActedUpon = true; 
                     }
                 }
             }
@@ -133,14 +148,20 @@ namespace Ferrous
             if (obj == null) return;
 
             Outline outline = obj.GetComponent<Outline>();
+            if (defaultSet == true){ 
+                defaultSet = false;
+                }
             GameObject linkedObj = LinkedObjectManager.GetLinkedObject(obj);
             if (outline.OutlineColor != purpleColour) 
             { 
-                outline.OutlineColor = Color.white; 
+                outline.forceActedUpon = false; 
+                outline.OutlineColor = defaultOutlineColor; 
                 if (linkedObj)
                 {
                     Outline linkedOutline = linkedObj.GetComponent<Outline>();
-                    linkedOutline.OutlineColor = Color.white;
+                    linkedOutline.OutlineColor = defaultOutlineColor;
+                    linkedOutline.forceActedUpon = false; 
+
                 }
             }
         }
