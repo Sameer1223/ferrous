@@ -15,7 +15,6 @@ namespace Ferrous
         // Update is called once per frame
         void Update()
         {
-            Debug.Log(_playerOnTop);
             if (_playerOnTop)
             {
                 ActivateObject();

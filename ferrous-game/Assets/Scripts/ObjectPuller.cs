@@ -25,9 +25,9 @@ namespace Ferrous
 
 
         [Header("Push/Pull")]
-        private float maxDist = 40f;
-        private float minDist = 1.0f;
-        public float stopPullingDist;
+        public float maxDist;
+        private float minDist = 0.5f;
+        private float stopPullingDist;
         public float pullForce = 50.0f;
         private Rigidbody selectedObject;
         private Vector3 selectedObjectSize;
@@ -139,6 +139,10 @@ namespace Ferrous
             if (!_pushInput)
             {
                 isPushing = false;
+                if (selectedObject)
+                {
+                    selectedObject.useGravity = true;
+                }
             }
         }
 
@@ -258,8 +262,8 @@ namespace Ferrous
             if (magnetismInput && selectedObject)
             {
                 // calculate a multipler based on how far away the selected object is from the player
-                float pullMultiplier = Mathf.Lerp(0.3f, 2.75f, (maxDist - distToPlayer) / (maxDist - minDist));
-                float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
+                float pullMultiplier = Mathf.Lerp(0.3f, 2.5f, (maxDist - distToPlayer) / (maxDist - minDist));
+                float pushMultiplier = Mathf.Lerp(0.2f, 1.5f, (maxDist - distToPlayer) / (maxDist - minDist));
 
                 GameObject linkedObj = LinkedObjectManager.GetLinkedObject(selectedObject.gameObject);
 
@@ -274,10 +278,10 @@ namespace Ferrous
                 objectDirection = dotX > 0 ? Vector3.right : Vector3.left;
             */
 
-                if (distToPlayer <= minDist && !isPushing)
-                {
-                    selectedObject.velocity = Vector3.zero;
-                }
+                // if (distToPlayer <= minDist && !isPushing)
+                // {
+                //     selectedObject.velocity = Vector3.zero;
+                // }
                 if (isPulling && distToPlayer < maxDist)
                 {
                     /* Retiring this for multi axis movement
@@ -287,6 +291,7 @@ namespace Ferrous
                     pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
                     if (distToPlayer <= stopPullingDist)
                     {
+                        Debug.Log("stop pulling");
                         selectedObject.velocity = Vector3.zero;
                     } else
                     {
@@ -306,6 +311,9 @@ namespace Ferrous
                 }
                 else if (isPushing && distToPlayer < maxDist)
                 {
+                    // make the object not fall while pushing
+                    selectedObject.useGravity = false;
+                    
                     /* Retiring this for one axis movement
                 Vector3 pushDirection = -objectDirection;
                 */

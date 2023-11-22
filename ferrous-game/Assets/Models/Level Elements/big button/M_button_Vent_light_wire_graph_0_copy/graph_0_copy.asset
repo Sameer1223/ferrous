@@ -142,7 +142,7 @@ MonoBehaviour:
   HasThumbnail: 1
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://M_doorAndWall\" label=\"\" >\n 
     <presetinput identifier=\"doorAndWall_LightColor\" uid=\"3334192776\" type=\"3\"
-    value=\"0.653168,0.758533,0.773585,1\" />\n </sbspreset>\n"
+    value=\"0.830189,0.830189,0.830189,1\" />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
@@ -188,7 +188,7 @@ MonoBehaviour:
           GuiDescription: The light color of door and walls.
           Type: 3
           WidgetType: 3
-        Data: {x: 0.6531684, y: 0.7585328, z: 0.7735849, w: 1}
+        Data: {x: 0.8301887, y: 0.8301887, z: 0.8301887, w: 1}
         NumericalDescription:
           DefaultValue: {x: 0.0235294, y: 0.890196, z: 1, w: 1}
           MinValue: {x: 0, y: 0, z: 0, w: 0}

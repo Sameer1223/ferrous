@@ -71,6 +71,10 @@ namespace Ferrous.Blocks
             if (!_pushInput)
             {
                 isPushing = false;
+                if (selectedObject)
+                {
+                    selectedObject.useGravity = true;
+                }
             }
         }
 
@@ -131,6 +135,8 @@ namespace Ferrous.Blocks
                 }
                 else if (isPushing)
                 {
+                    selectedObject.useGravity = false;
+                    
                     Debug.DrawRay(transform.position, ObjectPuller.objectDirection * 10, Color.red);
                     Vector3 pushDirection = ObjectPuller.objectDirection;
                     pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
