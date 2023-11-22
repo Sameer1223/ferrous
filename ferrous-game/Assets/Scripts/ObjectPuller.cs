@@ -261,6 +261,7 @@ namespace Ferrous
                 float pushMultiplier = Mathf.Lerp(0.2f, 1.2f, (maxDist - distToPlayer) / (maxDist - minDist));
 
                 GameObject linkedObj = LinkedObjectManager.GetLinkedObject(selectedObject.gameObject);
+                Debug.Log(linkedObj);
 
                 /* One axis movement code
             float dotX = Vector3.Dot(_playerTransform.forward, Vector3.right);
@@ -280,11 +281,8 @@ namespace Ferrous
                 */
                     Vector3 pullDirection = (_playerTransform.position - selectedObject.position).normalized;
                     pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
-                    Debug.Log("dist to player: " + distToPlayer);
-                    Debug.Log("stop pulling dist: "+ stopPullingDist);
                     if (distToPlayer <= stopPullingDist)
                     {
-                        Debug.Log("stop block");
                         selectedObject.velocity = Vector3.zero;
                     } else
                     {
@@ -294,7 +292,8 @@ namespace Ferrous
 
                     GetInteractDirectionNormalized(pullDirection);
                     // Debug.Log("pulling");
-                    if (linkedObj != null && objectDirection != Vector3.down)
+                    Debug.Log(objectDirection != Vector3.down);
+                    if (linkedObj != null)
                     {
                         Debug.Log("linked object is moving");
                         linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
@@ -314,7 +313,7 @@ namespace Ferrous
                     GetInteractDirectionNormalized(pushDirection);
 
                     selectedObject.AddForce(pushDirection * pullForce * pushMultiplier);
-                    if (linkedObj != null && objectDirection != Vector3.down)
+                    if (linkedObj != null)
                     {
                         linkedObj.GetComponent<Rigidbody>().AddForce(pushDirection * pullForce * pushMultiplier);
                     }
