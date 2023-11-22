@@ -13,7 +13,6 @@ namespace Ferrous.Mechanics
         public override void ActivateObject()
         {
             Activated = true;
-            Debug.Log("Trigger Plate Activated");
             onActivation.Invoke();
         }
 

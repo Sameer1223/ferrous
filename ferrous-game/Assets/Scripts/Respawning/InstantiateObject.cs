@@ -11,7 +11,11 @@ namespace Ferrous
 
         public void SpawnObject()
         {
-            Instantiate(toInstantiate, position: spawnPoint.position, rotation: spawnPoint.rotation);
+            var spawnedObject = GameObject.Find(toInstantiate.name +"(Clone)");
+            if (!spawnedObject)
+            {
+                Instantiate(toInstantiate, position: spawnPoint.position, rotation: spawnPoint.rotation);
+            }
         }
     }
 }

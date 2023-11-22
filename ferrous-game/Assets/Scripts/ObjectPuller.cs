@@ -77,7 +77,6 @@ namespace Ferrous
                 if (selectedObject)
                 {
                     CalculateDistFromPlayer(selectedObject);
-                    Debug.Log(selectedObject.name);
                 }
                 if (useSelect)
                 {
