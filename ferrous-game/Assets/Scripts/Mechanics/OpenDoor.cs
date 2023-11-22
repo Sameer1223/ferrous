@@ -31,7 +31,16 @@ namespace Ferrous.Mechanics
         {
             if (!doorOpen)
             {
+
                 StartCoroutine(SlideDoor());
+            }
+        }
+
+        public void OpenLargeDoors()
+        {
+            if (!doorOpen)
+            {
+                StartCoroutine(SlideLargeDoor());
             }
         }
 
@@ -39,7 +48,6 @@ namespace Ferrous.Mechanics
         IEnumerator SlideDoor()
         {
             doorOpen = true;
-
             initialPositionLeft = leftDoor.transform.position;
             initialPositionRight = rightDoor.transform.position;
             targetPositionLeft = initialPositionLeft + leftDoor.transform.right * 3.5f;
@@ -48,11 +56,31 @@ namespace Ferrous.Mechanics
 
             while (Time.time - startTime < slideDuration)
             {
+        
                 rightDoor.transform.position = Vector3.MoveTowards(rightDoor.transform.position, targetPositionRight, openSpeed * Time.deltaTime);
                 leftDoor.transform.position = Vector3.MoveTowards(leftDoor.transform.position, targetPositionLeft, openSpeed * Time.deltaTime);
                 yield return null;
             }
+            rightDoor.transform.position = targetPositionRight;
+            leftDoor.transform.position = targetPositionLeft;
+        }
 
+        IEnumerator SlideLargeDoor()
+        {
+            doorOpen = true;
+            initialPositionLeft = leftDoor.transform.position;
+            initialPositionRight = rightDoor.transform.position;
+            targetPositionLeft = initialPositionLeft + leftDoor.transform.right * 8f;
+            targetPositionRight = initialPositionRight - rightDoor.transform.right * 8f;
+            float startTime = Time.time;
+
+            while (Time.time - startTime < slideDuration)
+            {
+        
+                rightDoor.transform.position = Vector3.MoveTowards(rightDoor.transform.position, targetPositionRight, openSpeed * Time.deltaTime);
+                leftDoor.transform.position = Vector3.MoveTowards(leftDoor.transform.position, targetPositionLeft, openSpeed * Time.deltaTime);
+                yield return null;
+            }
             rightDoor.transform.position = targetPositionRight;
             leftDoor.transform.position = targetPositionLeft;
         }
