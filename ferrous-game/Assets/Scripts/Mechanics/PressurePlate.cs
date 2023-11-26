@@ -8,7 +8,6 @@ namespace Ferrous.Mechanics
 {
     public class PressurePlate : BaseSwitch
     {
-        
         [SerializeField] private UnityEvent onActivation;
         public override void ActivateObject()
         {

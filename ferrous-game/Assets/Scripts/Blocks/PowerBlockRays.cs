@@ -73,6 +73,7 @@ namespace Ferrous.Blocks
         // Turn on magnetic ray
         public void Activate(Force force)
         {
+
             if (force == Force.None) return;
 
             if (force == Force.Pull) magnetRay.material = blueMaterial;

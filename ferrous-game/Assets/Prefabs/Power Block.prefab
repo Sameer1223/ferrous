@@ -47,7 +47,9 @@ GameObject:
   - component: {fileID: 4144980343749089325}
   - component: {fileID: 8224906648604604207}
   - component: {fileID: 5761334858566802728}
-  m_Layer: 0
+  - component: {fileID: 6425097924167051544}
+  - component: {fileID: 4018480882187793440}
+  m_Layer: 3
   m_Name: Power Block
   m_TagString: Metal
   m_Icon: {fileID: 0}
@@ -98,7 +100,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4eda9d23db7924ab691de2cb97f65710, type: 2}
+  - {fileID: 2100000, guid: b1d450e7fc40a4148b0d0b05de74a369, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -160,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputMetal: {fileID: 0}
-  pullForce: 200
+  pullForce: 100
 --- !u!114 &4144980343749089325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,3 +308,41 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &6425097924167051544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7225088078254492314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b249530bd6194d51a42ed6a1a8b49a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isAbove: 0
+  isGrounded: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!65 &4018480882187793440
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7225088078254492314}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.100000024, y: 0.100000024, z: 0.1}
+  m_Center: {x: -0.000000007450581, y: -0.00000023841858, z: -0.000000014901161}
