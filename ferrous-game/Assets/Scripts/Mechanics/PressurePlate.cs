@@ -15,11 +15,24 @@ namespace Ferrous.Mechanics
             onActivation.Invoke();
         }
 
+        public override void DeactivateObject()
+        {
+            Activated = false;
+        }
+
         private void OnTriggerEnter(Collider collision)
         {
             if (collision.tag == "Metal")
             {
                 ActivateObject();
+            }
+        }
+
+        private void OnTriggerExit(Collider collision)
+        {
+            if (collision.tag == "Metal")
+            {
+                DeactivateObject();
             }
         }
 

@@ -19,12 +19,21 @@ namespace Ferrous
             {
                 ActivateObject();
             }
+            else
+            {
+                DeactivateObject();
+            }
         }
         
         public override void ActivateObject()
         {
             Activated = true;
             onActivation.Invoke();
+        }
+
+        public override void DeactivateObject()
+        {
+            Activated = false;
         }
 
         private void OnTriggerEnter(Collider collision)
