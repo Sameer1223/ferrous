@@ -8,7 +8,7 @@ namespace Ferrous.Mechanics
     {
         private bool activated = false;
 
-        public bool Activated             //¶¨ÒåÊôÐÔ£¬ÓÃÀ´²Ù×÷Ë½ÓÐ×Ö¶Îid
+        public bool Activated             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½ï¿½ï¿½Ö¶ï¿½id
         {
             get
             {
@@ -20,6 +20,11 @@ namespace Ferrous.Mechanics
             }
         }
         public abstract void ActivateObject();
+
+        public virtual void DeactivateObject()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 
