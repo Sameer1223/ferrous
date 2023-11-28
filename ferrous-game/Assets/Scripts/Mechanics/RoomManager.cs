@@ -22,15 +22,18 @@ namespace Ferrous.Mechanics
 
         public override void ActivateObject()
         {
-            foreach (BaseSwitch Switch in mustBeActivated)
+            if (!Activated)
             {
-                if (Switch.Activated == false)
+                foreach (BaseSwitch Switch in mustBeActivated)
                 {
-                    return;
+                    if (Switch.Activated == false)
+                    {
+                        return;
+                    }
                 }
+                onAllActivated.Invoke();
+                Activated = true;
             }
-            onAllActivated.Invoke();
-            Activated = true;
         }
 
     }
