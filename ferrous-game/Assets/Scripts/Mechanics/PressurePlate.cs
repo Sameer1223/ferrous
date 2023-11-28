@@ -9,6 +9,7 @@ namespace Ferrous.Mechanics
     public class PressurePlate : BaseSwitch
     {
         [SerializeField] private UnityEvent onActivation;
+        [SerializeField] private UnityEvent onDeactivation;
         public override void ActivateObject()
         {
             Activated = true;
@@ -18,6 +19,7 @@ namespace Ferrous.Mechanics
         public override void DeactivateObject()
         {
             Activated = false;
+            onDeactivation.Invoke();
         }
 
         private void OnTriggerEnter(Collider collision)
