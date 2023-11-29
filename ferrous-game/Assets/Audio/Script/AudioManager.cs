@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetVolume(float value)
     {
-        //MainVolume就是你刚才重命名的参数   
+        //Set Exposed Parameter in AudioMixer   
         AudioMixer.SetFloat("vMasterAudio", value);
 
     }

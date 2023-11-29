@@ -13,6 +13,7 @@ namespace Ferrous.UI
         [Header("Buttons")]
         [SerializeField] private GameObject _firstBtn;
         [SerializeField] private GameObject _controlsBtn;
+        [SerializeField] private GameObject _soundBtn;
         [SerializeField] private GameObject _quitBtn;
 
 
@@ -20,6 +21,7 @@ namespace Ferrous.UI
         [SerializeField] private GameObject _controlsCanvas;
         [SerializeField] private GameObject _controllerControls;
         [SerializeField] private GameObject _mnkControls;
+        [SerializeField] private GameObject _soundSetCanvas;
 
 
         // determine player input scheme
@@ -27,6 +29,7 @@ namespace Ferrous.UI
 
         [SerializeField] private float _closeDelay = 0.1f;
         private bool _controlsOpened;
+        private bool _soundSetOpened;
 
 
         private void Start()
@@ -37,7 +40,7 @@ namespace Ferrous.UI
 
         private void Update()
         {
-            if (EventSystem.current.currentSelectedGameObject == null && !_controlsCanvas.activeSelf)
+            if (EventSystem.current.currentSelectedGameObject == null && !_controlsCanvas.activeSelf && !_soundSetCanvas.activeSelf)
             {
                 // if keyboard / gamepad input, select the first thing in the list
                 if ((Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame) ||
@@ -51,6 +54,11 @@ namespace Ferrous.UI
             if (_controlsCanvas.activeSelf && Input.anyKeyDown && _controlsOpened)
             {
                 CloseControls();
+            }
+
+            if(_soundSetCanvas.activeSelf && (Input.GetKeyDown(KeyCode.B)||Gamepad.current.buttonEast.isPressed) && _soundSetOpened)
+            {
+                CloseSetSound();
             }
         }
 
@@ -72,6 +80,7 @@ namespace Ferrous.UI
                 // disable all other buttons
                 _firstBtn.GetComponent<Button>().interactable = false;
                 _controlsBtn.GetComponent<Button>().interactable = false;
+                _soundBtn.GetComponent<Button>().interactable= false;
                 _quitBtn.GetComponent<Button>().interactable = false;
 
                 // setup controls canvas
@@ -93,7 +102,7 @@ namespace Ferrous.UI
             }
         }
 
-
+        
 
         private IEnumerator setControlsOpened(bool b)
         {
@@ -113,11 +122,48 @@ namespace Ferrous.UI
             _controlsCanvas.SetActive(false);
         }
 
+        public void OpenSoundSet()
+        {
+            if (_soundSetOpened == false)
+            {
+                StartCoroutine(setSoundSetOpened(true));
+
+                // disable all other buttons
+                _firstBtn.GetComponent<Button>().interactable = false;
+                _controlsBtn.GetComponent<Button>().interactable = false;
+                _soundBtn.GetComponent<Button>().interactable = false;
+                _quitBtn.GetComponent<Button>().interactable = false;
+
+                // setup controls canvas
+                _soundSetCanvas.SetActive(true);
+            }
+        }
+
+        private IEnumerator setSoundSetOpened(bool b)
+        {
+            yield return new WaitForSeconds(0.1f);
+            _soundSetOpened = b;
+
+        }
+
+        public void CloseSetSound()
+        {
+            StartCoroutine(setSoundSetOpened(false));
+
+            EventSystem.current.SetSelectedGameObject(_soundBtn);
+
+            Invoke("reenableButtons", 0.025f);
+
+            _soundSetCanvas.SetActive(false);
+        }
+
+
         private void reenableButtons()
         {
             // reenable all other buttons
             _firstBtn.GetComponent<Button>().interactable = true;
             _controlsBtn.GetComponent<Button>().interactable = true;
+            _soundBtn.GetComponent<Button>().interactable = true;
             _quitBtn.GetComponent<Button>().interactable = true;
         }
 
