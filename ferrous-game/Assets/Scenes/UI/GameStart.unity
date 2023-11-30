@@ -822,17 +822,101 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 871570666}
     m_Modifications:
+    - target: {fileID: 333695110047609420, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 333695110047609420, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 402683421140939656, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 402683421140939656, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933005569477779019, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294412520134592626, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294412520134592626, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294412520134592626, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1458858431778258523, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1458858431778258523, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1458858431778258523, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675212244545133206, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1675212244545133206, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153273085770242386, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153273085770242386, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153273085770242386, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4045052712942021175, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_Name
+      value: MasterSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709560119418217883, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709560119418217883, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378885795022652722, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378885795022652722, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5544382774390917571, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5544382774390917571, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5544382774390917571, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6573012889601931990, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
       propertyPath: m_Pivot.x
@@ -938,7 +1022,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7255653332672255165, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7255653332672255165, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7255653332672255165, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6830276083698880733, guid: e3e249cc21cc44047b0de057b33dc1e1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1562,6 +1659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioMixer: {fileID: 24100000, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
+  _audioName: 
 --- !u!82 &1255370850
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1571,7 +1669,7 @@ AudioSource:
   m_GameObject: {fileID: 1255370845}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
+  OutputAudioMixerGroup: {fileID: 736973746833516708, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
   m_audioClip: {fileID: 8300000, guid: d4972b9f4fde1f14caa456e5334ccc09, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.35

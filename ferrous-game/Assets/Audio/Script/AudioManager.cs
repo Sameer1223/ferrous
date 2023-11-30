@@ -7,13 +7,14 @@ using UnityEngine.UI;
 public class AudioManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    public AudioMixer AudioMixer;
+    [SerializeField] private AudioMixer AudioMixer;
+    [SerializeField] private string _audioName = "vMasterAudio";
 
 
     public void SetVolume(float value)
     {
         //Set Exposed Parameter in AudioMixer   
-        AudioMixer.SetFloat("vMasterAudio", value);
+        AudioMixer.SetFloat(_audioName, value);
 
     }
 

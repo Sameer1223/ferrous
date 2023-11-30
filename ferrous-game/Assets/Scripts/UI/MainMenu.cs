@@ -51,15 +51,27 @@ namespace Ferrous.UI
                 }
             }
 
+
             if (_controlsCanvas.activeSelf && Input.anyKeyDown && _controlsOpened)
             {
                 CloseControls();
             }
 
-            if(_soundSetCanvas.activeSelf && (Input.GetKeyDown(KeyCode.B)||Gamepad.current.buttonEast.isPressed) && _soundSetOpened)
+            if(Gamepad.current == null)
             {
-                CloseSetSound();
+                if (_soundSetCanvas.activeSelf && Input.GetKeyDown(KeyCode.Escape) && _soundSetOpened)
+                {
+                    CloseSetSound();
+                }
             }
+            else
+            {
+                if (_soundSetCanvas.activeSelf && (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current.buttonEast.isPressed)&& _soundSetOpened)
+                {
+                    CloseSetSound();
+                }
+            }
+            
         }
 
         public void StartGame()
