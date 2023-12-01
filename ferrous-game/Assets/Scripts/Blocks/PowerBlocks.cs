@@ -57,7 +57,6 @@ namespace Ferrous.Blocks
                 if (magnetismInput && inputMetalHit)
                 {
                     LookMagnetism();
-                    ApplyMagnesis();
                 }
             }
         }
@@ -109,6 +108,7 @@ namespace Ferrous.Blocks
             distance = heading.magnitude;
             direction = heading / distance; // This is now the normalized direction.
             direction = GetInteractDirectionNormalized(direction);
+            Debug.DrawRay(transform.position, direction * 10, Color.red);
             if (Physics.Raycast(transform.position, direction, out hit))
             {   
                 if (hit.collider.CompareTag("Metal"))
@@ -116,6 +116,7 @@ namespace Ferrous.Blocks
                     selectedObject = hit.rigidbody;
                     CalculateDistFromPlayer(selectedObject);
                     PushOrPull();
+                    ApplyMagnesis();
                 } else {
                     selectedObject = null;
                 }
@@ -156,12 +157,13 @@ namespace Ferrous.Blocks
                 else if (isPushing)
                 {
                     selectedObject.useGravity = false;
-                    Vector3 pushDirection = ObjectPuller.objectDirection;
+                    Vector3 pushDirection = direction;
                     pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
                     selectedObject.AddForce(pushDirection * pullForce);
 
                 }
+                selectedObject = null;
             }
         }
 
