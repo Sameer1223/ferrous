@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ferrous.Blocks;
 using Ferrous.UI;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
@@ -12,6 +13,8 @@ namespace Ferrous
     {
         private bool isPulling = false;
         private bool isPushing = false;
+        public AudioSource GunActiveSFX;
+        [SerializeField] AudioMixerGroup audioMixerSFX;
 
         private Rigidbody rb;
         private Camera mainCamera;
@@ -80,6 +83,9 @@ namespace Ferrous
             pullSfx.volume = magnesisStartVol;
             pushSfx.volume = magnesisStartVol;
             volBeforePausing = 0f;
+
+            // add sounds to sfx group
+            GunActiveSFX.outputAudioMixerGroup = audioMixerSFX;//add sfx sound to SFX group
         }
 
         void Update()

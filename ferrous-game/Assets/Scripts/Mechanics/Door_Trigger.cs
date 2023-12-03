@@ -11,6 +11,8 @@ namespace Ferrous.Mechanics
         private Vector3 direction = Vector3.forward;
         private float speed = 1f;
         private bool EndCollide1 = false;
+        [SerializeField] private AudioSource doorOpenSfx;
+        private bool doorOpened;
         void Start()
         {
         
@@ -23,6 +25,7 @@ namespace Ferrous.Mechanics
             {
                 R1_Door_L.transform.position -= direction * speed * Time.deltaTime;
                 R1_Door_R.transform.position += direction * speed * Time.deltaTime;
+
             }
         }
 
@@ -30,7 +33,12 @@ namespace Ferrous.Mechanics
         {
             if(collision.gameObject.name == "Player")
             {
+                if (!doorOpened && !doorOpenSfx.isPlaying)
+                {
+                    doorOpenSfx.Play();
+                }
                 EndCollide1 = true;
+                doorOpened = true;
             }
         }
     }
