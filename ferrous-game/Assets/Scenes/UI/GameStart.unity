@@ -489,6 +489,7 @@ MonoBehaviour:
   _source: {fileID: 871570669}
   _selectClip: {fileID: 8300000, guid: 5234c7b95f22a594ebbc88cb65645f17, type: 3}
   _clickClip: {fileID: 8300000, guid: efb843c298d8cb6428385edcc02c5c28, type: 3}
+  _audioMixerSFX: {fileID: 7993185006692235958, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
 --- !u!114 &248266953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,6 +1101,7 @@ MonoBehaviour:
   _source: {fileID: 871570669}
   _selectClip: {fileID: 8300000, guid: 5234c7b95f22a594ebbc88cb65645f17, type: 3}
   _clickClip: {fileID: 8300000, guid: efb843c298d8cb6428385edcc02c5c28, type: 3}
+  _audioMixerSFX: {fileID: 7993185006692235958, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
 --- !u!114 &802017826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2470,6 +2472,7 @@ MonoBehaviour:
   _source: {fileID: 871570669}
   _selectClip: {fileID: 8300000, guid: 5234c7b95f22a594ebbc88cb65645f17, type: 3}
   _clickClip: {fileID: 8300000, guid: efb843c298d8cb6428385edcc02c5c28, type: 3}
+  _audioMixerSFX: {fileID: 7993185006692235958, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
 --- !u!1 &2014578753
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,6 +2802,7 @@ MonoBehaviour:
   _source: {fileID: 871570669}
   _selectClip: {fileID: 8300000, guid: 5234c7b95f22a594ebbc88cb65645f17, type: 3}
   _clickClip: {fileID: 8300000, guid: efb843c298d8cb6428385edcc02c5c28, type: 3}
+  _audioMixerSFX: {fileID: 7993185006692235958, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
 --- !u!114 &2110449645
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ namespace Ferrous
             if(other.tag == "MainCamera")
             {
                 _collision = true;
-                Debug.Log(_collision);
+                //Debug.Log(_collision);
                 
             }
         }

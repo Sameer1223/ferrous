@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace Ferrous
+namespace Ferrous.UI
 {
     public class SliderControl : MonoBehaviour
     {
@@ -16,7 +16,7 @@ namespace Ferrous
         private int _previousSliderSelect;
         private int _sliderSelect = 0;
 
-        [SerializeField] private float _sliderGap = 0.3f;
+        [SerializeField] private float _sliderGap = 0.03f;
         private bool wasDpadDownPressed = false;
         private bool wasDpadUpPressed = false;
         void Start()
@@ -27,9 +27,12 @@ namespace Ferrous
         // Update is called once per frame
         void Update()
         {
-            var controllers = Input.GetJoystickNames();
-            if (controllers.Length > 0)
+            string[] joystickNames = Input.GetJoystickNames();
+            //var controllers = Input.GetJoystickNames();
+            //Debug.Log(joystickNames[0]);
+            if (joystickNames[0] != "")
             {
+                Debug.Log(Input.GetJoystickNames());
                 SelectSlider();
                 ControlVolume();
             }
@@ -59,9 +62,9 @@ namespace Ferrous
 
             Debug.Log(_previousSliderSelect);
             _currentSoundSlider = _soundSliders[_sliderSelect];
-            for(int i =0; i<  _sliderAmounts; i++)
+            for (int i = 0; i < _sliderAmounts; i++)
             {
-                if(i == _sliderSelect)
+                if (i == _sliderSelect)
                 {
                     _handlers[i].color = Color.white;
                 }
@@ -69,7 +72,7 @@ namespace Ferrous
                 {
                     _handlers[i].color = Color.gray;
                 }
-            }           
+            }
         }
 
 
@@ -85,7 +88,7 @@ namespace Ferrous
             }
             if (Gamepad.current.buttonNorth.isPressed || Input.GetKeyDown(KeyCode.Y))
             {
-                _currentSoundSlider.value = -80;
+                _currentSoundSlider.value = 0;
             }
         }
     }

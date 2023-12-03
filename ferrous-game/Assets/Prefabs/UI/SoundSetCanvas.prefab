@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 1484681802081911554}
   - component: {fileID: 2743354947017299077}
   - component: {fileID: 6101255413122713276}
+  - component: {fileID: 2113194783694659399}
   m_Layer: 5
   m_Name: musicSlider
   m_TagString: Untagged
@@ -347,10 +348,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 333695110047609420}
   m_HandleRect: {fileID: 2153273085770242386}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 20
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -380,6 +381,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioMixer: {fileID: 24100000, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
   _audioName: vMusicAudio
+--- !u!114 &2113194783694659399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2333985326358101360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421803a7164dbca4db15cd2d5e7cba1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 2743354947017299077}
+  _audioMixer: {fileID: 24100000, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
+  _audioMixerGroup: vMusicAudio
 --- !u!1 &2433418063205134938
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,6 +754,7 @@ GameObject:
   - component: {fileID: 8389825545460035812}
   - component: {fileID: 5438418194015636930}
   - component: {fileID: 1805879380697801411}
+  - component: {fileID: 4977625032678184655}
   m_Layer: 5
   m_Name: masterSlider
   m_TagString: Untagged
@@ -813,10 +830,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1675212244545133206}
   m_HandleRect: {fileID: 1458858431778258523}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 20
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -846,6 +863,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioMixer: {fileID: 24100000, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
   _audioName: vMasterAudio
+--- !u!114 &4977625032678184655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4045052712942021175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421803a7164dbca4db15cd2d5e7cba1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 5438418194015636930}
+  _audioMixer: {fileID: 24100000, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
+  _audioMixerGroup: vMasterAudio
 --- !u!1 &4074029870915145130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sliderObj: {fileID: 3344807545801501842}
-  _sliderBias: 80
+  _sliderBias: 0
   _textMeshPro: {fileID: 7381243717096628428}
 --- !u!1 &4779159996995111252
 GameObject:
@@ -1349,6 +1381,7 @@ GameObject:
   - component: {fileID: 734962392285439482}
   - component: {fileID: 3344807545801501842}
   - component: {fileID: 6577940366975301967}
+  - component: {fileID: 6613372126070758789}
   m_Layer: 5
   m_Name: SFXSlider
   m_TagString: Untagged
@@ -1424,10 +1457,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 5378885795022652722}
   m_HandleRect: {fileID: 1294412520134592626}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 20
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1457,6 +1490,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioMixer: {fileID: 24100000, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
   _audioName: vSFXAudio
+--- !u!114 &6613372126070758789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424538594428717736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421803a7164dbca4db15cd2d5e7cba1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 3344807545801501842}
+  _audioMixer: {fileID: 24100000, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
+  _audioMixerGroup: vSFXAudio
 --- !u!1 &5524222625107606074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,7 +1730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sliderObj: {fileID: 5438418194015636930}
-  _sliderBias: 80
+  _sliderBias: 0
   _textMeshPro: {fileID: 6132410762308000220}
 --- !u!1 &6589505425528281798
 GameObject:
@@ -1906,7 +1954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sliderObj: {fileID: 2743354947017299077}
-  _sliderBias: 80
+  _sliderBias: 0
   _textMeshPro: {fileID: 4150318350498838361}
 --- !u!1 &6938391101648560085
 GameObject:
@@ -2423,4 +2471,4 @@ MonoBehaviour:
   - {fileID: 3682604056686381054}
   - {fileID: 2711292259145685022}
   - {fileID: 1702789349061688378}
-  _sliderGap: 0.3
+  _sliderGap: 0.003
