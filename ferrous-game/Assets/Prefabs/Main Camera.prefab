@@ -109,10 +109,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0e019f98ae1f64285f5c145838799b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GunActiveSFX: {fileID: 0}
   useSelect: 0
   maxDist: 20
   pullForce: 200
+  gunActiveSfx: {fileID: 0}
+  pullSfx: {fileID: 0}
+  pushSfx: {fileID: 0}
+  increaseVolDelay: 0.6
+  magnesisTargetVol: 0.2
+  magnesisStartVol: 0
+  increaseSpeed: 0.075
 --- !u!114 &6153304983683123804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,5 +242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974cefeba5ea8574dad97bbfb1da7017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSelectDist: 25
+  maxSelectDist: 20
   unfreezeDuration: 2
+  stasisSFX: {fileID: 0}

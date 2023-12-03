@@ -1,8 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using Ferrous.Blocks;
 using Ferrous.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Ferrous
 {
@@ -10,13 +12,11 @@ namespace Ferrous
     {
         private bool isPulling = false;
         private bool isPushing = false;
-        public AudioSource GunActiveSFX;
 
         private Rigidbody rb;
         private Camera mainCamera;
         private Transform _playerTransform;
         private Animator animator;
-        private bool soundPlayed;
 
 
         [Header("Select")]
@@ -41,6 +41,20 @@ namespace Ferrous
         private bool _pullInput;
         private Vector2 _mousePos;
         private bool _selectInput;
+        
+        [Header("SFX")]
+        [SerializeField] private AudioSource gunActiveSfx;
+        [SerializeField] private AudioSource pullSfx;
+        [SerializeField] private AudioSource pushSfx;
+        public float increaseVolDelay;
+        public float magnesisTargetVol;
+        public float magnesisStartVol;
+        private bool pushSfxPlayed;
+        private bool pullSfxPlayed;
+        public float increaseSpeed = 0.075f;
+        private IEnumerator runningCoroutine;
+        private float volBeforePausing;
+
      
         // Player model colour changing variables
         List<Renderer> modelRenderers = new List<Renderer>();
@@ -63,6 +77,9 @@ namespace Ferrous
             _playerTransform = player.transform;
             animator = player.GetComponentInChildren<Animator>();
             magnetismInput = false;
+            pullSfx.volume = magnesisStartVol;
+            pushSfx.volume = magnesisStartVol;
+            volBeforePausing = 0f;
         }
 
         void Update()
@@ -70,6 +87,10 @@ namespace Ferrous
             if (!PauseMenu.IsPaused)
             {
                 PlayerInput();
+                
+                // unpause any sfx
+                pullSfx.UnPause();
+                pushSfx.UnPause();
 
                 // determine if the player is inputting a push / pull
                 GetMagnetismInput();
@@ -97,10 +118,24 @@ namespace Ferrous
                     }
                 }
             }
+            else
+            {
+                // pause any sfx that might be playing
+                if (pullSfx.isPlaying)
+                {
+                    pullSfx.Pause();
+                } else if (pushSfx.isPlaying)
+                {
+                    pushSfx.Pause();
+                }
+            }
         }
         private void FixedUpdate()
         {
-            ApplyMagnesis();
+            if (!PauseMenu.IsPaused)
+            {
+                ApplyMagnesis();
+            }
         }
     
 
@@ -120,7 +155,6 @@ namespace Ferrous
             } else
             {
                 magnetismInput = false;
-                soundPlayed = false;
                 selectedObjectSize = Vector3.zero;
                 if (!StasisController.stasisColorOn)
                 {
@@ -133,15 +167,29 @@ namespace Ferrous
             // determine which input to turn off
             if (!_pullInput)
             {
+                StopCoroutine(PlayMagnesisSfx(pullSfx));
+                StopCoroutine(IncreaseVolumeOverTime(pullSfx));
                 isPulling = false;
+                // reset pull sfx
+                pullSfx.Stop();
+                pullSfx.volume = magnesisStartVol;
+                pullSfxPlayed = false;
             }
             if (!_pushInput)
             {
+                StopCoroutine(PlayMagnesisSfx(pushSfx));
+                StopCoroutine(IncreaseVolumeOverTime(pushSfx));
                 isPushing = false;
+                // reset push sfx
+                pushSfx.Stop();
+                pushSfx.volume = magnesisStartVol;
+
                 if (selectedObject)
                 {
                     selectedObject.useGravity = true;
                 }
+
+                pushSfxPlayed = false;
             }
         }
 
@@ -176,24 +224,56 @@ namespace Ferrous
             {
                 isPulling = true;
                 SetModelColour(Color.cyan);
-                if (!soundPlayed)
+                if (!pullSfxPlayed)
                 {
-                    soundPlayed = true;
-                    GunActiveSFX.Play();
+                    StopAllCoroutines();
+                    pullSfxPlayed = true;
+                    gunActiveSfx.Play();
+                    runningCoroutine = PlayMagnesisSfx(pullSfx);
+                    StartCoroutine(runningCoroutine) ;
                 }
+                
 
             }
             else if (_pushInput)
             {
                 isPushing = true;
                 SetModelColour(Color.red);
-                if (!soundPlayed)
+                if (!pushSfxPlayed)
                 {
-                    soundPlayed = true;
-                    GunActiveSFX.Play();
+                    StopAllCoroutines();
+                    pushSfxPlayed = true;
+                    gunActiveSfx.Play();
+                    runningCoroutine = PlayMagnesisSfx(pushSfx);
+                    StartCoroutine(runningCoroutine);
                 }
             }
         }
+
+        private IEnumerator PlayMagnesisSfx(AudioSource magnesisSfx)
+        {
+            // wait for the activate sound to play
+            yield return new WaitForSeconds(increaseVolDelay);
+            // start playing the audio source
+            magnesisSfx.Play();
+            runningCoroutine = IncreaseVolumeOverTime(magnesisSfx);
+            StartCoroutine(runningCoroutine);
+        }
+
+        private IEnumerator IncreaseVolumeOverTime(AudioSource magnesisSfx)
+        {
+            while (magnesisSfx.volume < magnesisTargetVol)
+            {
+                // increase volume
+                magnesisSfx.volume += increaseSpeed * Time.deltaTime;
+
+                yield return null;
+            }
+            // avoid rounding issues
+            magnesisSfx.volume = magnesisTargetVol;
+
+        }
+        
 
         private void CalculateDistFromPlayer(Rigidbody secondObject)
         {
@@ -265,7 +345,6 @@ namespace Ferrous
                 float pushMultiplier = Mathf.Lerp(0.2f, 1.5f, (maxDist - distToPlayer) / (maxDist - minDist));
 
                 GameObject linkedObj = LinkedObjectManager.GetLinkedObject(selectedObject.gameObject);
-                Debug.Log(linkedObj);
 
                 /* One axis movement code
             float dotX = Vector3.Dot(_playerTransform.forward, Vector3.right);
@@ -299,11 +378,8 @@ namespace Ferrous
                     }
 
                     GetInteractDirectionNormalized(pullDirection);
-                    Debug.Log("pulling");
-                    Debug.Log(objectDirection != Vector3.down);
                     if (linkedObj != null)
                     {
-                        Debug.Log("linked object is moving");
                         linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                     }
 
