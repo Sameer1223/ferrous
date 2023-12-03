@@ -21,10 +21,8 @@ namespace Ferrous
         {
             float moveDistance = _cameraSpeed * Time.deltaTime;
 
-            // 计算新的位置
             Vector3 newPosition = transform.position + moveDirection * moveDistance;
 
-            // 移动物体到新的位置
             transform.position = newPosition;
         }
     }
