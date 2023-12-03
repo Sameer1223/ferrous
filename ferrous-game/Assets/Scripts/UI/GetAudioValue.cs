@@ -27,7 +27,7 @@ namespace Ferrous.UI
         void Update()
         {
             _audioMixer.GetFloat(_audioMixerGroup, out valueDB);
-            Debug.Log(valueDB);
+            //Debug.Log(valueDB);
         }
 
 
