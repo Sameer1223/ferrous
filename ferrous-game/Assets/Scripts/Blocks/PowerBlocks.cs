@@ -156,7 +156,6 @@ namespace Ferrous.Blocks
                 }
                 else if (isPushing)
                 {
-                    selectedObject.useGravity = false;
                     Vector3 pushDirection = direction;
                     pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
