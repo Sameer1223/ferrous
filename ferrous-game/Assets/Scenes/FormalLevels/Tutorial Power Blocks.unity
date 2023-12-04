@@ -1155,7 +1155,7 @@ GameObject:
   - component: {fileID: 212288778}
   - component: {fileID: 212288777}
   m_Layer: 5
-  m_Name: Change Camera Hint
+  m_Name: Change Camera Hint Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10415,6 +10415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1593373349}
   - component: {fileID: 1593373350}
+  - component: {fileID: 1593373351}
   m_Layer: 0
   m_Name: Room 1 Zone
   m_TagString: Untagged
@@ -10457,8 +10458,21 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 81.033134, y: 60.050217, z: 100.01771}
-  m_Center: {x: 29.829975, y: -16.473263, z: -4.0580254}
+  m_Size: {x: 81.13403, y: 60.050217, z: 100.01771}
+  m_Center: {x: 29.779528, y: -16.473263, z: -4.0580254}
+--- !u!114 &1593373351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593373348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147ae3fb582ff4fe1871b7e7f0437313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCollided: 0
 --- !u!1 &1609094685 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e0d45ab2df316c54e859d3acce4c9e68, type: 3}
@@ -11087,7 +11101,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1703262010}
-  - component: {fileID: 1703262013}
   - component: {fileID: 1703262012}
   - component: {fileID: 1703262011}
   m_Layer: 3
@@ -11164,20 +11177,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1703262013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703262009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2792901128877548b458f2678020992, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  R1_Door_L: {fileID: 0}
-  R1_Door_R: {fileID: 0}
 --- !u!1 &1714590748 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 06b74d283c1ba0943ae613ec0ad9de1a, type: 3}
@@ -12075,7 +12074,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fb0e95bc1fd04bcca4194daae026d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraList:
+  - {fileID: 248473973}
+  - {fileID: 1362680844}
   CenterCross: {fileID: 228660827}
+  inRoomCamera: 0
+  ChangeCameraHintText: {fileID: 212288775}
+  ChangeCameraHintImage: {fileID: 97549595}
+  cameraChange: 0
 --- !u!1 &1847820274 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e0d45ab2df316c54e859d3acce4c9e68, type: 3}
@@ -12729,6 +12735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1973780444}
   - component: {fileID: 1973780445}
+  - component: {fileID: 1973780446}
   m_Layer: 0
   m_Name: Room 2 Zone
   m_TagString: Untagged
@@ -12773,6 +12780,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 55.58442, y: 60.050217, z: 100.01771}
   m_Center: {x: 16.686558, y: -16.473263, z: -4.0580254}
+--- !u!114 &1973780446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973780443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147ae3fb582ff4fe1871b7e7f0437313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCollided: 0
 --- !u!1001 &2013691559
 PrefabInstance:
   m_ObjectHideFlags: 0

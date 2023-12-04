@@ -9,19 +9,18 @@ namespace Ferrous
     {
         private GameObject PlayerCamera;
 
-        private GameObject Room1Camera;
-    
-        private  GameObject Room2Camera;
-
-        private GameObject[] CameraList;
+        public GameObject[] CameraList;
 
         private Transform PlayerTransform;
 
         public GameObject CenterCross;
 
-        private bool inRoomCamera = false;
+        public bool inRoomCamera = false;
 
-        private int cameraTransformX = -61;
+        public GameObject ChangeCameraHintText;
+        public GameObject ChangeCameraHintImage;
+        public bool cameraChange;
+        private GameObject switchableCamera;
         // Start is called before the first frame update
     
         [Header("InputChecks")]
@@ -30,52 +29,52 @@ namespace Ferrous
 
         void Start()
         {
-            CameraList = new GameObject[2];
-            Room1Camera = GameObject.Find("Room 1 Cam");
-            CameraList[0] = Room1Camera;
-            Room2Camera = GameObject.Find("Room 2 Cam");
-            CameraList[1] = Room2Camera;
             PlayerTransform = GameObject.Find("Player").GetComponent<Transform>();
+
             SwitchToCamera(null);
         }
 
         // Update is called once per frame
         void Update()
-        {
-            PlayerInput();
-            if (_cameraSwitchInput && !inRoomCamera)
-            {
-                DisablePlayer();
-                if (PlayerTransform.position.x <= cameraTransformX)
-                {
-                    SwitchToCamera(Room2Camera);
+        {   
+            cameraChange = false;
+            switchableCamera = null;
+            foreach (GameObject camera in CameraList){
+                    if (camera.transform.parent.gameObject.GetComponent<CameraZoneCollision>().isCollided){
+                        cameraChange = true;
+                        switchableCamera = camera;
+                    }
                 }
-                else
+            if (cameraChange){
+                EnableChangeCameraHint();
+                PlayerInput();
+                if (_cameraSwitchInput && !inRoomCamera)
                 {
-                    SwitchToCamera(Room1Camera); 
+                    DisableCross();
+                    SwitchToCamera(switchableCamera);
+                    inRoomCamera = true;
                 }
-                inRoomCamera = true;
-           
-            }
-             else if (_cameraSwitchInput && inRoomCamera)
-            {
-                EnablePlayer();
+            
+                else if (_cameraSwitchInput && inRoomCamera)
+                {
+                    EnableCross();
+                    SwitchToCamera(null);
+                    inRoomCamera = false;
+                    
+                }
+                else if (!_cameraSwitchInput && inRoomCamera) {
+                    // in camera view but if player moves to other room, we need to switch to other room
+                SwitchToCamera(switchableCamera);
+                }
+            } else {
+                DisableChangeCameraHint();
+                if (inRoomCamera){
+                EnableCross();
                 SwitchToCamera(null);
                 inRoomCamera = false;
-                
+                }
             }
-            else if (!_cameraSwitchInput && inRoomCamera) {
-                // in camera view but if player moves to other room, we need to switch to other room
-                if (PlayerTransform.position.x <= cameraTransformX)
-                    {
-                        SwitchToCamera(Room2Camera);
-                    }
-                    else
-                    {
-                        SwitchToCamera(Room1Camera); 
-                    }
-            }
-     
+            
         }
 
         private void SwitchToCamera(GameObject targetCamera)
@@ -98,13 +97,25 @@ namespace Ferrous
             _mousePos = Mouse.current.position.ReadValue();
         }
 
-        private void EnablePlayer(){
+        private void EnableCross(){
             CenterCross.SetActive(true);
             
         }
 
-        private void DisablePlayer(){
+        private void DisableCross(){
             CenterCross.SetActive(false);
+            
+        }
+
+        private void EnableChangeCameraHint(){
+            ChangeCameraHintText.SetActive(true);
+            ChangeCameraHintImage.SetActive(true);
+            
+        }
+
+        private void DisableChangeCameraHint(){
+            ChangeCameraHintText.SetActive(false);
+            ChangeCameraHintImage.SetActive(false);
             
         }
     }
