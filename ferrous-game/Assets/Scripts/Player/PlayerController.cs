@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 
 namespace Ferrous.Player
@@ -15,24 +16,28 @@ namespace Ferrous.Player
         [SerializeField] private Camera gameCamera;
         private Animator animator;
 
-    // Movement variables
-    [Header("Movement")]
-    public float moveSpeed;
-    public float jumpForce;
-    public float jumpCooldown;
-    public float airMultiplier;
-    public float groundDrag;
-    private bool canJump;
-    private Vector3 moveDirection;
-    [SerializeField] private float _fallMultiplier = 1.25f;
-    [SerializeField] private float _jumpVelocityFalloff = 1.4f;
-
+        // Movement variables
+        [Header("Movement")]
+        public float moveSpeed;
+        public float jumpForce;
+        public float jumpCooldown;
+        public float airMultiplier;
+        public float groundDrag;
+        public bool canJump;
+        private Vector3 moveDirection;
+        [SerializeField] private float _fallMultiplier = 1.25f;
+        [SerializeField] private float _jumpVelocityFalloff = 1.4f;
+        
 
         // Ground check variables
         [Header("Ground Check")]
         public float playerHeight;
         public LayerMask whatIsGround;
         public bool isGrounded;
+        
+        [Header("Coyote Time")]
+        [SerializeField] private float _coyoteTime = 0.15f;
+        private float _coyoteTimeCounter;
 
         [Header("Slope Handling")] [SerializeField]
         private float maxSlopeAngle;
@@ -50,7 +55,6 @@ namespace Ferrous.Player
         // [TESTING]
         Vector3 lastPosition;
 
-
         void Start()
         {
             Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the center of the screen
@@ -61,6 +65,7 @@ namespace Ferrous.Player
 
             canJump = true;
             lastPosition = transform.position;
+            
         }
 
         void Update()
@@ -69,11 +74,20 @@ namespace Ferrous.Player
             SpeedLimiter();
             IsGrounded();
 
-            // Drag
+
+            // Drag & coyote time
             if (isGrounded)
+            {
                 rb.drag = groundDrag;
+                _coyoteTimeCounter = _coyoteTime;
+            }
             else
+            {
                 rb.drag = groundDrag * 0.9f;
+                _coyoteTimeCounter -= Time.deltaTime;
+            }
+            
+
         }
 
         void FixedUpdate()
@@ -92,8 +106,9 @@ namespace Ferrous.Player
             animator.SetFloat("horizontalMovement", moveVector.x);
             animator.SetFloat("verticalMovement", moveVector.y);
 
-            if (jumpInput && canJump && isGrounded)
+            if (jumpInput && canJump && _coyoteTimeCounter > 0f)
             {
+                _coyoteTimeCounter = 0f;
                 canJump = false;
                 Jump();
                 Invoke(nameof(ResetJump), jumpCooldown);
@@ -170,7 +185,7 @@ namespace Ferrous.Player
         private void Jump()
         {
             exitingSlope = true;
-
+        
             // Set rb y velocity to 0 so jump remains consistent
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
