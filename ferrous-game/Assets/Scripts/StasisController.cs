@@ -25,6 +25,8 @@ namespace Ferrous
         private Vector2 _mousePos;
         private bool _stasisInput;
 
+        [Header("SFX")] [SerializeField] private AudioSource stasisSFX;
+
         // Player model colour changing variables
         List<Renderer> modelRenderers = new List<Renderer>();
 
@@ -66,6 +68,11 @@ namespace Ferrous
                 {
                     if (hit.collider.CompareTag("Metal"))
                     {
+
+                        if (!stasisSFX.isPlaying)
+                        {
+                            stasisSFX.Play();
+                        }
                         GameObject prevFrozenObject;
                         // turn the player model to purple
                         StartCoroutine(SetPlayerStasisColour());

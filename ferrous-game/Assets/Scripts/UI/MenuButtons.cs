@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 
 namespace Ferrous.UI
@@ -14,7 +15,12 @@ namespace Ferrous.UI
         [Header("Sounds")]
         [SerializeField] private AudioSource _source;
         [SerializeField] private AudioClip _selectClip, _clickClip;
+        [SerializeField] private AudioMixerGroup _audioMixerSFX;
 
+        void Start()
+        {
+            _source.outputAudioMixerGroup = _audioMixerSFX;
+        }
 
         public void OnPointerDown(PointerEventData eventData)
         {
