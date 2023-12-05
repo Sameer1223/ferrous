@@ -19,20 +19,25 @@ namespace Ferrous.UI
         [SerializeField] private float _sliderGap = 0.03f;
         private bool wasDpadDownPressed = false;
         private bool wasDpadUpPressed = false;
+
+        [SerializeField]private PlayerInput _playerInput;
         void Start()
         {
             _sliderAmounts = _soundSliders.Count;
+
+            Debug.Log(_playerInput);
         }
 
         // Update is called once per frame
         void Update()
         {
-            string[] joystickNames = Input.GetJoystickNames();
+            string _currentControlScheme = _playerInput.currentControlScheme;
+            //string[] joystickNames = Input.GetJoystickNames();
             //var controllers = Input.GetJoystickNames();
             //Debug.Log(joystickNames[0]);
-            if (joystickNames[0] != "")
+            if (/*joystickNames.Length>0&&joystickNames[0] != ""*/_currentControlScheme == "Gamepad"&& Gamepad.current != null)
             {
-                Debug.Log(Input.GetJoystickNames());
+                //Debug.Log(Input.GetJoystickNames());
                 SelectSlider();
                 ControlVolume();
             }

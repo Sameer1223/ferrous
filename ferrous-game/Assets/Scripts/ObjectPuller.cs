@@ -56,7 +56,6 @@ namespace Ferrous
         private bool pushSfxPlayed;
         private bool pullSfxPlayed;
         public float increaseSpeed = 0.075f;
-        private IEnumerator runningCoroutine;
         private float volBeforePausing;
         
 
@@ -175,7 +174,6 @@ namespace Ferrous
             // determine which input to turn off
             if (!_pullInput)
             {
-                StopCoroutine(PlayMagnesisSfx(pullSfx));
                 StopCoroutine(IncreaseVolumeOverTime(pullSfx));
                 isPulling = false;
                 // reset pull sfx
@@ -185,7 +183,6 @@ namespace Ferrous
             }
             if (!_pushInput)
             {
-                StopCoroutine(PlayMagnesisSfx(pushSfx));
                 StopCoroutine(IncreaseVolumeOverTime(pushSfx));
                 isPushing = false;
                 // reset push sfx
@@ -250,8 +247,7 @@ namespace Ferrous
                     StopAllCoroutines();
                     pullSfxPlayed = true;
                     gunActiveSfx.Play();
-                    runningCoroutine = PlayMagnesisSfx(pullSfx);
-                    StartCoroutine(runningCoroutine) ;
+                    StartCoroutine(IncreaseVolumeOverTime(pullSfx));
                 }
                 
 
@@ -265,24 +261,16 @@ namespace Ferrous
                     StopAllCoroutines();
                     pushSfxPlayed = true;
                     gunActiveSfx.Play();
-                    runningCoroutine = PlayMagnesisSfx(pushSfx);
-                    StartCoroutine(runningCoroutine);
+                    StartCoroutine(IncreaseVolumeOverTime(pushSfx));
                 }
             }
         }
-
-        private IEnumerator PlayMagnesisSfx(AudioSource magnesisSfx)
-        {
-            // wait for the activate sound to play
-            yield return new WaitForSeconds(increaseVolDelay);
-            // start playing the audio source
-            magnesisSfx.Play();
-            runningCoroutine = IncreaseVolumeOverTime(magnesisSfx);
-            StartCoroutine(runningCoroutine);
-        }
+        
 
         private IEnumerator IncreaseVolumeOverTime(AudioSource magnesisSfx)
         {
+            yield return new WaitForSeconds(increaseVolDelay);
+            magnesisSfx.Play();
             while (magnesisSfx.volume < magnesisTargetVol)
             {
                 // increase volume
