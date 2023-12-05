@@ -47,7 +47,6 @@ namespace Ferrous.Player
 
         // Audio
         [Header("Sound Effects")]
-        [SerializeField] AudioMixerGroup audioMixerSFX;
         [SerializeField] private AudioSource jumpSfx;
         [SerializeField] private AudioSource walkSfx;
 
@@ -66,9 +65,7 @@ namespace Ferrous.Player
 
             canJump = true;
             lastPosition = transform.position;
-
-            jumpSfx.outputAudioMixerGroup = audioMixerSFX;//add sfx sound to SFX group
-            walkSfx.outputAudioMixerGroup = audioMixerSFX;
+            
         }
 
         void Update()
