@@ -11,6 +11,7 @@ namespace Ferrous
 
         private GameObject frozenObject;
         private Camera mainCamera;
+        [SerializeField] private GameObject initialFrozenObject;
 
         public float maxSelectDist;
         public float unfreezeDuration;
@@ -35,6 +36,10 @@ namespace Ferrous
         {
             mainCamera = Camera.main;
             scene = SceneManager.GetActiveScene();
+            if (initialFrozenObject)
+            {
+                frozenObject = initialFrozenObject;
+            }
 
             GameObject model = GameObject.Find("Robot");
             foreach (Renderer renderer in model.GetComponentsInChildren<Renderer>())
@@ -148,7 +153,13 @@ namespace Ferrous
         private IEnumerator UnFreeze(GameObject toUnfreeze)
         {
             yield return new WaitForSeconds(unfreezeDuration);
-            toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            Rigidbody toUnfreezeRb = toUnfreeze.GetComponent<Rigidbody>();
+            toUnfreezeRb.constraints = RigidbodyConstraints.FreezeRotation;
+            if (toUnfreeze.name == "platforming block 1" || toUnfreeze.name == "platforming block 2")
+            {
+                toUnfreezeRb.constraints = RigidbodyConstraints.FreezeRotation |
+                                           RigidbodyConstraints.FreezePositionZ;
+            }
 
             // set colour back to white TODO: make this flash / some effect
             SetOutlineColor(toUnfreeze, toUnfreeze.GetComponent<Outline>().DefaultOutlineColor);

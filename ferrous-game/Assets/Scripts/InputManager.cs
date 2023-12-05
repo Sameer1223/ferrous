@@ -14,6 +14,7 @@ namespace Ferrous
         public Vector2 MovementInput { get; private set; }
         public Vector2 LookInput { get; private set; }
         public bool PushInput { get; private set; }
+        public bool PushReleased { get; private set; }
         public bool PullInput { get; private set; }
         public bool StasisInput { get; private set; }
         public bool PauseMenuOpenCloseInput { get; private set; }
@@ -72,6 +73,7 @@ namespace Ferrous
                 MovementInput = _movementAction.ReadValue<Vector2>();
                 LookInput = _lookAction.ReadValue<Vector2>();
                 PushInput = _pushAction.IsPressed();
+                PushReleased = _pushAction.WasReleasedThisFrame();
                 PullInput = _pullAction.IsPressed();
                 StasisInput = _stasisAction.WasPressedThisFrame();
                 SelectInput = _selectAction.WasPressedThisFrame();
