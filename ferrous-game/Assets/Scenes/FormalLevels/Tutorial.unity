@@ -6822,6 +6822,10 @@ PrefabInstance:
       value: Player Container
       objectReference: {fileID: 0}
     - target: {fileID: 7108294382885076824, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b4eab2b50c6d6d044af8c6dc3423fae6, type: 3}
+    - target: {fileID: 7108294382885076824, guid: 7f0c275bc5062014f9294b166c8ac87b, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 736973746833516708, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
