@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 
 namespace Ferrous.Player
 {
@@ -14,16 +16,17 @@ namespace Ferrous.Player
         [SerializeField] private Camera gameCamera;
         private Animator animator;
 
-        // Movement variables
-        [Header("Movement")]
-        public float moveSpeed;
-        public float jumpForce;
-        public float jumpCooldown;
-        public float airMultiplier;
-        public float groundDrag;
-        private bool canJump;
-        [SerializeField] private float _fallMultiplier = 1.25f;
-        [SerializeField] private float _jumpVelocityFalloff = 1.4f;
+    // Movement variables
+    [Header("Movement")]
+    public float moveSpeed;
+    public float jumpForce;
+    public float jumpCooldown;
+    public float airMultiplier;
+    public float groundDrag;
+    private bool canJump;
+    private Vector3 moveDirection;
+    [SerializeField] private float _fallMultiplier = 1.25f;
+    [SerializeField] private float _jumpVelocityFalloff = 1.4f;
 
 
         // Ground check variables
@@ -32,8 +35,15 @@ namespace Ferrous.Player
         public LayerMask whatIsGround;
         public bool isGrounded;
 
+        [Header("Slope Handling")] [SerializeField]
+        private float maxSlopeAngle;
+        public bool onSlope;
+        private RaycastHit slopeHit;
+        private bool exitingSlope;
+
         // Audio
         [Header("Sound Effects")]
+        [SerializeField] AudioMixerGroup audioMixerSFX;
         [SerializeField] private AudioSource jumpSfx;
         [SerializeField] private AudioSource walkSfx;
 
@@ -53,6 +63,9 @@ namespace Ferrous.Player
 
             canJump = true;
             lastPosition = transform.position;
+
+            jumpSfx.outputAudioMixerGroup = audioMixerSFX;//add sfx sound to SFX group
+            walkSfx.outputAudioMixerGroup = audioMixerSFX;
         }
 
         void Update()
@@ -102,11 +115,26 @@ namespace Ferrous.Player
 
             moveDirection.Normalize();
 
+            onSlope = OnSlope();
+            if (onSlope && !exitingSlope)
+            {
+                rb.AddForce(GetSlopeMoveDirection() * (moveSpeed * 20f), ForceMode.Force);
+                // keep player on slope
+                if (rb.velocity.y > 0)
+                {
+                    rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+                }
+            }
+
             if (isGrounded)
                 rb.AddForce(moveDirection * moveSpeed * 10f, ForceMode.Force);
 
             else if (!isGrounded)
                 rb.AddForce(moveDirection * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+
+
+            // turn off gravity when the player is on a slope
+            rb.useGravity = !onSlope;
 
             // walkSfx
             if (moveDirection != Vector3.zero && !walkSfx.isPlaying && isGrounded)
@@ -114,11 +142,17 @@ namespace Ferrous.Player
                 walkSfx.Play();
             }
         }
-
         // Limiting function for speed
         private void SpeedLimiter()
         {
-            if (isGrounded)
+            if (onSlope && !exitingSlope)
+            {
+                if (rb.velocity.magnitude > moveSpeed)
+                {
+                    rb.velocity = rb.velocity.normalized * moveSpeed;
+                }
+            }
+            else if (isGrounded)
             {
                 Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
@@ -130,7 +164,7 @@ namespace Ferrous.Player
             }
 
             // fall faster
-            if (rb.velocity.y < _jumpVelocityFalloff)
+            if (rb.velocity.y < _jumpVelocityFalloff && !onSlope)
             {
                 rb.velocity += (Vector3.up * Physics.gravity.y * _fallMultiplier * Time.deltaTime);
             }
@@ -140,6 +174,8 @@ namespace Ferrous.Player
         // Jump handler
         private void Jump()
         {
+            exitingSlope = true;
+
             // Set rb y velocity to 0 so jump remains consistent
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
@@ -150,6 +186,7 @@ namespace Ferrous.Player
         private void ResetJump()
         {
             canJump = true;
+            exitingSlope = true;
         }
 
         // Ground check
@@ -157,6 +194,22 @@ namespace Ferrous.Player
         {
             isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
         }
-    
+
+        private bool OnSlope()
+        {
+            if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.2f))
+            {
+                float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+                return angle < maxSlopeAngle && angle != 0;
+            }
+
+            return false;
+        }
+
+        private Vector3 GetSlopeMoveDirection()
+        {
+            return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
+        }
+        
     }
 }

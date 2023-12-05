@@ -19,6 +19,7 @@ namespace Ferrous
         public bool PauseMenuOpenCloseInput { get; private set; }
         public bool SelectInput { get; private set; }
         public string CurrControlScheme { get; private set; }
+        public bool InteractInput { get; private set; }
 
 
         private PlayerInput _playerInput;
@@ -32,6 +33,7 @@ namespace Ferrous
         private InputAction _stasisAction;
         private InputAction _pauseMenuOpenCloseAction;
         private InputAction _selectAction;
+        private InputAction _interactAction;
 
 
         private void Awake()
@@ -52,6 +54,7 @@ namespace Ferrous
             _stasisAction = _playerInput.actions["Stasis"];
             _pauseMenuOpenCloseAction = _playerInput.actions["PauseMenuOpenClose"];
             _selectAction = _playerInput.actions["Select"];
+            _interactAction = _playerInput.actions["Interact"];
 
         }
 
@@ -72,9 +75,8 @@ namespace Ferrous
                 PullInput = _pullAction.IsPressed();
                 StasisInput = _stasisAction.WasPressedThisFrame();
                 SelectInput = _selectAction.WasPressedThisFrame();
+                InteractInput = _interactAction.WasPressedThisFrame();
             }
-
-
         }
     }
 }

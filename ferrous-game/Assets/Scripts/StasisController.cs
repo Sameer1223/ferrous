@@ -77,7 +77,7 @@ namespace Ferrous
                             frozenObject = hit.rigidbody.gameObject;
 
                             // linked object
-                            LinkedObjectManager.LightenLinkLine(frozenObject);
+                            LinkedObjectManager.DisableLinkLine(frozenObject);
                             GameObject linkedObj = LinkedObjectManager.GetLinkedObject(frozenObject);
                             GameObject prevLinked = LinkedObjectManager.GetLinkedObject(prevFrozenObject);
 
@@ -104,7 +104,9 @@ namespace Ferrous
                                 {
                                     StartCoroutine("UnFreeze", prevLinked);
                                 }
+
                                 // freeze the current object & linked
+
                                 frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                                 SetOutlineColor(frozenObject, purpleColour);
                                 if (linkedObj)
@@ -140,13 +142,9 @@ namespace Ferrous
         {
             yield return new WaitForSeconds(unfreezeDuration);
             toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-            if (scene.name == "Varun Level"  || scene.name == "puzzle-structure-complete")
-            {
-                toUnfreeze.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
-            }
 
             // set colour back to white TODO: make this flash / some effect
-            SetOutlineColor(toUnfreeze, Color.white);
+            SetOutlineColor(toUnfreeze, toUnfreeze.GetComponent<Outline>().DefaultOutlineColor);
 
         }
 
