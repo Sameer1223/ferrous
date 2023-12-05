@@ -26,9 +26,7 @@ namespace Ferrous.Player
         private Vector3 moveDirection;
         [SerializeField] private float _fallMultiplier = 1.25f;
         [SerializeField] private float _jumpVelocityFalloff = 1.4f;
-
-        public bool asdf;
-
+        
 
         // Ground check variables
         [Header("Ground Check")]
@@ -87,7 +85,6 @@ namespace Ferrous.Player
                 _coyoteTimeCounter -= Time.deltaTime;
             }
             
-            asdf = _coyoteTimeCounter > 0f;
 
         }
 
