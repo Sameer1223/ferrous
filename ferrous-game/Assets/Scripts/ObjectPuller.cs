@@ -265,7 +265,6 @@ namespace Ferrous
                 float pushMultiplier = Mathf.Lerp(0.2f, 1.5f, (maxDist - distToPlayer) / (maxDist - minDist));
 
                 GameObject linkedObj = LinkedObjectManager.GetLinkedObject(selectedObject.gameObject);
-                Debug.Log(linkedObj);
 
                 /* One axis movement code
             float dotX = Vector3.Dot(_playerTransform.forward, Vector3.right);
@@ -299,11 +298,8 @@ namespace Ferrous
                     }
 
                     GetInteractDirectionNormalized(pullDirection);
-                    Debug.Log("pulling");
-                    Debug.Log(objectDirection != Vector3.down);
                     if (linkedObj != null)
                     {
-                        Debug.Log("linked object is moving");
                         linkedObj.GetComponent<Rigidbody>().AddForce(pullDirection * pullForce * pullMultiplier);
                     }
 
