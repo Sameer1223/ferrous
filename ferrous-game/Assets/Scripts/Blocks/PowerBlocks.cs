@@ -156,7 +156,7 @@ namespace Ferrous.Blocks
                 else if (isPushing)
                 {
                     selectedObject.useGravity = false;
-                    Vector3 pushDirection = ObjectPuller.objectDirection;
+                    Vector3 pushDirection = direction;
                     pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
                     selectedObject.AddForce(pushDirection * pullForce);
@@ -169,10 +169,13 @@ namespace Ferrous.Blocks
         {
             float dotX = Vector3.Dot(direction, Vector3.right);
             float dotZ = Vector3.Dot(direction, Vector3.forward);
+            float dotY = Vector3.Dot(direction, Vector3.up);
 
             Vector3 nearestAxisDirection;
 
-            if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
+            if (Mathf.Abs(dotY) > Mathf.Abs(dotX) && Mathf.Abs(dotY) > Mathf.Abs(dotZ))
+                nearestAxisDirection = dotY > 0 ? Vector3.up : Vector3.down;
+            else if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
                 nearestAxisDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
             else
                 nearestAxisDirection = dotX > 0 ? Vector3.right : Vector3.left;
@@ -189,7 +192,7 @@ namespace Ferrous.Blocks
             }
             return nearestAxisDirection;
         }
-
+        
          private void CalculateDistFromPlayer(Rigidbody secondObject)
         {
             distToPowerBlock = Vector3.Distance(transform.position, secondObject.position);
