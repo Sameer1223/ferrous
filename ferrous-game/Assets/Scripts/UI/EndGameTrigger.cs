@@ -31,12 +31,15 @@ namespace Ferrous.UI
 
         public void OnTriggerEnter(Collider other)
         {
-            BackPanel.SetActive(true) ;
-            PlayerContainer.GetComponentInChildren<CameraController>().enabled = false;
-            PlayerContainer.GetComponentInChildren<PlayerController>().enabled = false;
-            Time.timeScale = 0f;
-            Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the screen
-            Cursor.visible = true; //
+            if (other.CompareTag("Player"))
+            {
+                BackPanel.SetActive(true);
+                PlayerContainer.GetComponentInChildren<CameraController>().enabled = false;
+                PlayerContainer.GetComponentInChildren<PlayerController>().enabled = false;
+                Time.timeScale = 0f;
+                Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the screen
+                Cursor.visible = true; //
+            }
         }
     
 
