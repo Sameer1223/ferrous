@@ -149,7 +149,6 @@ namespace Ferrous
 
         void UnfreezeBlock()
         {
-            Debug.Log("un freeze");
             if (gameObject.GetComponent<Outline>().OutlineColor != stasisColor)
             {
                 _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;

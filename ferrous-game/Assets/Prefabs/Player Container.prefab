@@ -552,6 +552,7 @@ MonoBehaviour:
     m_Bits: 8
   isGrounded: 0
   _coyoteTime: 0.2
+  _jumpBufferTime: 0.1
   maxSlopeAngle: 50
   onSlope: 0
   jumpSfx: {fileID: 0}
