@@ -26,7 +26,7 @@ namespace Ferrous.UI
         void Update()
         {
             string _currentControlScheme = _playerInput.currentControlScheme;
-            if (Input.GetKeyUp(KeyCode.Escape))
+            if (Input.GetKeyUp(KeyCode.B))
             {
                 LoadTutorial();
             }
