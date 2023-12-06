@@ -76,7 +76,7 @@ namespace Ferrous.UI
 
         public void StartGame()
         {
-            SceneManager.LoadScene("Tutorial");
+            SceneManager.LoadScene("CutScene");
             Time.timeScale = 1.0f;
         }
 
