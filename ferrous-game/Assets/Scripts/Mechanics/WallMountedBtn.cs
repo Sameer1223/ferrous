@@ -10,16 +10,14 @@ namespace Ferrous.Mechanics
 
         private bool _canPress;
         private bool _interactInput;
-        private bool _pressed = false;
 
         private void Update()
         {
             PlayerInput();
 
-            if (_canPress && _interactInput && !_pressed)
+            if (_canPress && _interactInput)
             {
                 ActivateObject();
-                _pressed = true;
             }
         }
         

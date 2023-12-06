@@ -57,7 +57,6 @@ namespace Ferrous.Blocks
                 if (magnetismInput && inputMetalHit)
                 {
                     LookMagnetism();
-                    ApplyMagnesis();
                 }
             }
         }
@@ -109,6 +108,7 @@ namespace Ferrous.Blocks
             distance = heading.magnitude;
             direction = heading / distance; // This is now the normalized direction.
             direction = GetInteractDirectionNormalized(direction);
+            Debug.DrawRay(transform.position, direction * 10, Color.red);
             if (Physics.Raycast(transform.position, direction, out hit))
             {   
                 if (hit.collider.CompareTag("Metal"))
@@ -116,6 +116,7 @@ namespace Ferrous.Blocks
                     selectedObject = hit.rigidbody;
                     CalculateDistFromPlayer(selectedObject);
                     PushOrPull();
+                    ApplyMagnesis();
                 } else {
                     selectedObject = null;
                 }
@@ -155,13 +156,13 @@ namespace Ferrous.Blocks
                 }
                 else if (isPushing)
                 {
-                    selectedObject.useGravity = false;
-                    Vector3 pushDirection = ObjectPuller.objectDirection;
+                    Vector3 pushDirection = direction;
                     pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
                     selectedObject.AddForce(pushDirection * pullForce);
 
                 }
+                selectedObject = null;
             }
         }
 
@@ -169,24 +170,27 @@ namespace Ferrous.Blocks
         {
             float dotX = Vector3.Dot(direction, Vector3.right);
             float dotZ = Vector3.Dot(direction, Vector3.forward);
+            float dotY = Vector3.Dot(direction, Vector3.up);
 
             Vector3 nearestAxisDirection;
 
-            if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
+            if (Mathf.Abs(dotY) > Mathf.Abs(dotX) && Mathf.Abs(dotY) > Mathf.Abs(dotZ))
+                nearestAxisDirection = dotY > 0 ? Vector3.up : Vector3.down;
+            else if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
                 nearestAxisDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
             else
                 nearestAxisDirection = dotX > 0 ? Vector3.right : Vector3.left;
 
-            RaycastHit hit;
-            Ray ray = new Ray(playerTransform.position, Vector3.down);
-            if (Physics.Raycast(ray, out hit, 2 * 0.5f + 0.2f))
-            {
-                if (hit.collider.CompareTag("Metal"))
-                {
-                    nearestAxisDirection = Vector3.down;
-                }
-
-            }
+            // RaycastHit hit;
+            // Ray ray = new Ray(playerTransform.position, Vector3.down);
+            // if (Physics.Raycast(ray, out hit, 2 * 0.5f + 0.2f))
+            //
+            // {
+            //     if (hit.collider.CompareTag("Metal"))
+            //     {
+            //         nearestAxisDirection = Vector3.down;
+            //     }
+            // }
             return nearestAxisDirection;
         }
 
