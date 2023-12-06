@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.EventSystems;
@@ -20,10 +21,8 @@ namespace Ferrous.Player
         [Header("Movement")]
         public float moveSpeed;
         public float jumpForce;
-        public float jumpCooldown;
         public float airMultiplier;
         public float groundDrag;
-        public bool canJump;
         private Vector3 moveDirection;
         [SerializeField] private float _fallMultiplier = 1.25f;
         [SerializeField] private float _jumpVelocityFalloff = 1.4f;
@@ -36,8 +35,12 @@ namespace Ferrous.Player
         public bool isGrounded;
         
         [Header("Coyote Time")]
-        [SerializeField] private float _coyoteTime = 0.15f;
+        [SerializeField] private float _coyoteTime = 0.2f;
         private float _coyoteTimeCounter;
+
+        [Header("Jump Buffering")]
+        [SerializeField] private float _jumpBufferTime = 0.2f;
+        private float _jumpBufferCounter;
 
         [Header("Slope Handling")] [SerializeField]
         private float maxSlopeAngle;
@@ -63,7 +66,6 @@ namespace Ferrous.Player
             rb = gameObject.GetComponent<Rigidbody>();
             animator = gameObject.GetComponentInChildren<Animator>();
 
-            canJump = true;
             lastPosition = transform.position;
             
         }
@@ -106,15 +108,21 @@ namespace Ferrous.Player
             animator.SetFloat("horizontalMovement", moveVector.x);
             animator.SetFloat("verticalMovement", moveVector.y);
 
-            if (jumpInput && canJump && _coyoteTimeCounter > 0f)
+            if (jumpInput)
             {
-                _coyoteTimeCounter = 0f;
-                canJump = false;
+                _jumpBufferCounter = _jumpBufferTime;
+            }
+            else
+            {
+                _jumpBufferCounter -= Time.deltaTime;
+            }
+            if (_jumpBufferCounter > 0 && _coyoteTimeCounter > 0f)
+            {
                 Jump();
-                Invoke(nameof(ResetJump), jumpCooldown);
+                _coyoteTimeCounter = 0f;
+                _jumpBufferCounter = 0f;
             }
 
-            animator.SetBool("isJumping", !canJump);
         }
 
         // Player movement
@@ -185,18 +193,13 @@ namespace Ferrous.Player
         private void Jump()
         {
             exitingSlope = true;
+            Debug.Log("jump");
         
             // Set rb y velocity to 0 so jump remains consistent
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             jumpSfx.Play();
-        }
-
-        private void ResetJump()
-        {
-            canJump = true;
-            exitingSlope = true;
         }
 
         // Ground check

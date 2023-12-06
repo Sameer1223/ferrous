@@ -69,7 +69,7 @@ namespace Ferrous
 
             if (!PauseMenu.IsPaused)
             {
-                JumpInput = _jumpAction.IsPressed();
+                JumpInput = _jumpAction.WasPressedThisFrame();
                 MovementInput = _movementAction.ReadValue<Vector2>();
                 LookInput = _lookAction.ReadValue<Vector2>();
                 PushInput = _pushAction.IsPressed();
