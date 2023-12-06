@@ -23770,7 +23770,7 @@ GameObject:
   - component: {fileID: 2009915981}
   - component: {fileID: 2009915980}
   - component: {fileID: 2009915979}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24859,7 +24859,7 @@ GameObject:
   - component: {fileID: 2126589623}
   - component: {fileID: 2126589622}
   - component: {fileID: 2126589621}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

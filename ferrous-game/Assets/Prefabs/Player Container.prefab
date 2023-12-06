@@ -540,8 +540,10 @@ MonoBehaviour:
   gameCamera: {fileID: 0}
   moveSpeed: 12
   jumpForce: 26
+  jumpCooldown: 0.25
   airMultiplier: 1
   groundDrag: 13.5
+  canJump: 0
   _fallMultiplier: 16.25
   _jumpVelocityFalloff: -0.2
   playerHeight: 2
@@ -550,7 +552,6 @@ MonoBehaviour:
     m_Bits: 8
   isGrounded: 0
   _coyoteTime: 0.2
-  _jumpBufferTime: 0.2
   maxSlopeAngle: 50
   onSlope: 0
   jumpSfx: {fileID: 0}

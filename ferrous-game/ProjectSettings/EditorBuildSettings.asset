@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/UI/GameStart.unity
     guid: fd53cb00ec7d2ee4197af8ab53890da0
   - enabled: 1
+    path: Assets/Scenes/UI/CutScene.unity
+    guid: 72cb9d70e4a0de0498aa79b7cc291ee4
+  - enabled: 1
     path: Assets/Scenes/FormalLevels/Tutorial.unity
     guid: 91d9967ef0b303c4399eadda77fe7ca3
   - enabled: 1
