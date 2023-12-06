@@ -464,12 +464,12 @@ MonoBehaviour:
   isRespawnTrigger: 1
   canRespawn:
   - {fileID: 1611896260}
-  - {fileID: 1342513746}
-  - {fileID: 1906624785}
+  - {fileID: 1893835209}
+  - {fileID: 83043007}
   spawnLocations:
-  - {fileID: 1507278780}
-  - {fileID: 293716594}
-  - {fileID: 1992223998}
+  - {fileID: 1217123503}
+  - {fileID: 952809315}
+  - {fileID: 742254051}
 --- !u!64 &44377824
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18123,6 +18123,11 @@ MonoBehaviour:
 --- !u!4 &1892947744 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 591082402408891121, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
+  m_PrefabInstance: {fileID: 1172366757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1893835209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 214221513142263804, guid: 2817cff4a53fea74189b6bbcf89596f0, type: 3}
   m_PrefabInstance: {fileID: 1172366757}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1896672406
