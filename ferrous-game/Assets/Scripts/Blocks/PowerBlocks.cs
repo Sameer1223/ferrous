@@ -170,24 +170,27 @@ namespace Ferrous.Blocks
         {
             float dotX = Vector3.Dot(direction, Vector3.right);
             float dotZ = Vector3.Dot(direction, Vector3.forward);
+            float dotY = Vector3.Dot(direction, Vector3.up);
 
             Vector3 nearestAxisDirection;
 
-            if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
+            if (Mathf.Abs(dotY) > Mathf.Abs(dotX) && Mathf.Abs(dotY) > Mathf.Abs(dotZ))
+                nearestAxisDirection = dotY > 0 ? Vector3.up : Vector3.down;
+            else if (Mathf.Abs(dotZ) > Mathf.Abs(dotX))
                 nearestAxisDirection = dotZ > 0 ? Vector3.forward : Vector3.back;
             else
                 nearestAxisDirection = dotX > 0 ? Vector3.right : Vector3.left;
 
-            RaycastHit hit;
-            Ray ray = new Ray(playerTransform.position, Vector3.down);
-            if (Physics.Raycast(ray, out hit, 2 * 0.5f + 0.2f))
-            {
-                if (hit.collider.CompareTag("Metal"))
-                {
-                    nearestAxisDirection = Vector3.down;
-                }
-
-            }
+            // RaycastHit hit;
+            // Ray ray = new Ray(playerTransform.position, Vector3.down);
+            // if (Physics.Raycast(ray, out hit, 2 * 0.5f + 0.2f))
+            //
+            // {
+            //     if (hit.collider.CompareTag("Metal"))
+            //     {
+            //         nearestAxisDirection = Vector3.down;
+            //     }
+            // }
             return nearestAxisDirection;
         }
 

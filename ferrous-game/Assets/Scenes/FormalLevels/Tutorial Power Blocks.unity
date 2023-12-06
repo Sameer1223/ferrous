@@ -791,7 +791,7 @@ GameObject:
   - component: {fileID: 180864588}
   - component: {fileID: 180864587}
   - component: {fileID: 180864586}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1455,7 +1455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 248473974}
   - component: {fileID: 248473975}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Room 1 Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1836,7 +1836,7 @@ GameObject:
   - component: {fileID: 292144487}
   - component: {fileID: 292144486}
   - component: {fileID: 292144485}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13164,7 +13164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1362680845}
   - component: {fileID: 1362680846}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Room 2 Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14622,7 +14622,7 @@ GameObject:
   - component: {fileID: 1593373349}
   - component: {fileID: 1593373350}
   - component: {fileID: 1593373351}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Room 1 Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16941,7 +16941,7 @@ GameObject:
   - component: {fileID: 1973780444}
   - component: {fileID: 1973780445}
   - component: {fileID: 1973780446}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Room 2 Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
