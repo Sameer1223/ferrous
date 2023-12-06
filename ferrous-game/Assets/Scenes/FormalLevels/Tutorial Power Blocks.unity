@@ -454,7 +454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: pullForce
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: inputMetal
@@ -3897,7 +3897,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: pullForce
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: inputMetal
@@ -4445,7 +4445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: pullForce
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: inputMetal
@@ -17378,7 +17378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: pullForce
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: inputMetal
@@ -18201,7 +18201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: pullForce
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: inputMetal
@@ -20210,7 +20210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: pullForce
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: inputMetal
@@ -21297,7 +21297,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: pullForce
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7474045180852549406, guid: a64e8230c6fb2104db895829de467677, type: 3}
       propertyPath: inputMetal
