@@ -81,7 +81,12 @@ namespace Ferrous.Player
             if (isGrounded)
             {
                 rb.drag = groundDrag;
-                _coyoteTimeCounter = _coyoteTime;
+
+                if (_coyoteTimeCounter != 0f)
+                {
+                    _coyoteTimeCounter = _coyoteTime;
+                }
+            
             }
             else
             {
@@ -116,11 +121,11 @@ namespace Ferrous.Player
             {
                 _jumpBufferCounter -= Time.deltaTime;
             }
-            if (_jumpBufferCounter > 0 && _coyoteTimeCounter > 0f)
+            if (_jumpBufferCounter > 0f && _coyoteTimeCounter > 0f)
             {
-                Jump();
                 _coyoteTimeCounter = 0f;
                 _jumpBufferCounter = 0f;
+                Jump();
             }
 
         }
@@ -193,7 +198,6 @@ namespace Ferrous.Player
         private void Jump()
         {
             exitingSlope = true;
-            Debug.Log("jump");
         
             // Set rb y velocity to 0 so jump remains consistent
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -206,6 +210,7 @@ namespace Ferrous.Player
         private void IsGrounded()
         {
             isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+            Debug.DrawLine(transform.position, transform.position + Vector3.down * (playerHeight * 0.5f + 0.2f), Color.red);
         }
 
         private bool OnSlope()
