@@ -17,7 +17,7 @@ namespace Ferrous.Mechanics
         private Vector3 targetPositionRight;
         [SerializeField] private float openSpeed = 1.0f;
 
-        private float slideDuration = 4f;
+        private float slideDuration = 8f;
         private bool doorOpen = false;
 
         // Start is called before the first frame update

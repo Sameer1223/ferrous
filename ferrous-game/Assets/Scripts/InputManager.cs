@@ -21,6 +21,7 @@ namespace Ferrous
         public bool SelectInput { get; private set; }
         public string CurrControlScheme { get; private set; }
         public bool InteractInput { get; private set; }
+        public bool CameraSwitchInput { get; private set; }
 
 
         private PlayerInput _playerInput;
@@ -35,6 +36,7 @@ namespace Ferrous
         private InputAction _pauseMenuOpenCloseAction;
         private InputAction _selectAction;
         private InputAction _interactAction;
+        private InputAction _cameraSwitchAction;
 
 
         private void Awake()
@@ -56,6 +58,7 @@ namespace Ferrous
             _pauseMenuOpenCloseAction = _playerInput.actions["PauseMenuOpenClose"];
             _selectAction = _playerInput.actions["Select"];
             _interactAction = _playerInput.actions["Interact"];
+             _cameraSwitchAction = _playerInput.actions["CameraSwitch"];
 
         }
 
@@ -78,6 +81,7 @@ namespace Ferrous
                 StasisInput = _stasisAction.WasPressedThisFrame();
                 SelectInput = _selectAction.WasPressedThisFrame();
                 InteractInput = _interactAction.WasPressedThisFrame();
+                CameraSwitchInput = _cameraSwitchAction.WasPressedThisFrame();
             }
         }
     }

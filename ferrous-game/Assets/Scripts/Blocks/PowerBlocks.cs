@@ -57,7 +57,6 @@ namespace Ferrous.Blocks
                 if (magnetismInput && inputMetalHit)
                 {
                     LookMagnetism();
-                    ApplyMagnesis();
                 }
             }
         }
@@ -109,22 +108,19 @@ namespace Ferrous.Blocks
             distance = heading.magnitude;
             direction = heading / distance; // This is now the normalized direction.
             direction = GetInteractDirectionNormalized(direction);
+            Debug.DrawRay(transform.position, direction * 10, Color.red);
             if (Physics.Raycast(transform.position, direction, out hit))
             {   
-                Debug.DrawLine(transform.position, transform.position + direction * 10000, Color.red);
-                Debug.Log("raycast hit");
-                Debug.Log(hit.collider.tag);
                 if (hit.collider.CompareTag("Metal"))
                 {
                     selectedObject = hit.rigidbody;
                     CalculateDistFromPlayer(selectedObject);
                     PushOrPull();
+                    ApplyMagnesis();
                 } else {
-                    Debug.Log("setting to null");
                     selectedObject = null;
                 }
             }
-            
         }
 
         private void PushOrPull()
@@ -141,9 +137,6 @@ namespace Ferrous.Blocks
 
         private void ApplyMagnesis()
         {
-            Debug.Log("apply magnesis");
-            Debug.Log("mag input: " + magnetismInput);
-            Debug.Log("selected object: " + selectedObject);
             if (magnetismInput && selectedObject)
             {
                 // calculate a multipler based on how far away the selected object is from the player
@@ -156,7 +149,6 @@ namespace Ferrous.Blocks
                 }
                 if (isPulling)
                 {
-                    Debug.Log("power block pulling");
                     Vector3 pullDirection = -direction;
                     pullDirection = new Vector3(pullDirection.x, pullDirection.y, pullDirection.z);
 
@@ -164,14 +156,13 @@ namespace Ferrous.Blocks
                 }
                 else if (isPushing)
                 {
-                    Debug.Log("power block pushing");
-                    selectedObject.useGravity = false;
                     Vector3 pushDirection = direction;
                     pushDirection = new Vector3(pushDirection.x, pushDirection.y, pushDirection.z);
 
                     selectedObject.AddForce(pushDirection * pullForce);
 
                 }
+                selectedObject = null;
             }
         }
 
@@ -202,7 +193,7 @@ namespace Ferrous.Blocks
             // }
             return nearestAxisDirection;
         }
-        
+
          private void CalculateDistFromPlayer(Rigidbody secondObject)
         {
             distToPowerBlock = Vector3.Distance(transform.position, secondObject.position);
