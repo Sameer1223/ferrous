@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 1522182159}
   - component: {fileID: 1522182158}
   - component: {fileID: 1522182157}
+  - component: {fileID: 1522182162}
   m_Layer: 5
   m_Name: CutScene
   m_TagString: Untagged
@@ -418,6 +419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _video: {fileID: 1691194128}
   _music: {fileID: 736973746833516708, guid: 0c2ab1140b7c7d74f96bfcd5e1395816, type: 2}
+  _playerInput: {fileID: 1522182162}
 --- !u!114 &1522182158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +505,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1522182162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522182156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 67d2e84e68789ce40975369999f95ec8, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1691194126
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +775,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 810, y: -490}
+  m_AnchoredPosition: {x: 751, y: -490}
   m_SizeDelta: {x: 384.91, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2085685094
@@ -766,7 +798,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press ESC to skip video
+  m_text: Press ESC(keyboard)/B(controller) to skip video
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36096135b99b2bf4091d51efd192c676, type: 2}
   m_sharedMaterial: {fileID: 1961286248327244459, guid: 36096135b99b2bf4091d51efd192c676, type: 2}
@@ -829,7 +861,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -171.48987, y: 0, z: 0, w: 0}
+  m_margin: {x: -613.8563, y: 0, z: -8.189453, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
