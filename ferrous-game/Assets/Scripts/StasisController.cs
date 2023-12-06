@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ferrous.Blocks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -71,7 +72,7 @@ namespace Ferrous
                 // instead of origin -> destination, use the defined ray
                 if (Physics.Raycast(ray, out hit, maxSelectDist))
                 {
-                    if (hit.collider.CompareTag("Metal"))
+                    if (hit.collider.CompareTag("Metal") && !hit.transform.gameObject.GetComponent<PowerBlocks>())
                     {
 
                         if (!stasisSFX.isPlaying)

@@ -33,7 +33,7 @@ namespace Ferrous
         {
             _rigidbody = gameObject.GetComponent<Rigidbody>();
             mainCamera = Camera.main;
-            height = gameObject.GetComponent<BoxCollider>().bounds.size.y;
+            height = gameObject.GetComponent<Collider>().bounds.size.y;
 
         }
 
