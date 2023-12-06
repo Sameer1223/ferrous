@@ -194,14 +194,16 @@ namespace Ferrous
 
             if (_pushReleased)
             {
-                Color selectedObjColor = selectedObject.GetComponent<Outline>().OutlineColor;
-                // reset rb constraints to what they originally were
-                if (selectedObject && selectedObjColor != new Color(10, 0, 191))
+                if (selectedObject)
                 {
-                    selectedObject.constraints = selectedObjectConstraints;
-                    selectedObjectConstraints = RigidbodyConstraints.None;
+                    Color selectedObjColor = selectedObject.GetComponent<Outline>().OutlineColor;
+                    // reset rb constraints to what they originally were
+                    if (selectedObject && selectedObjColor != new Color(10, 0, 191))
+                    {
+                        selectedObject.constraints = selectedObjectConstraints;
+                        selectedObjectConstraints = RigidbodyConstraints.None;
+                    }
                 }
-
             }
         }
 

@@ -198,7 +198,6 @@ namespace Ferrous
 
                 // Line renderer set positions
                 magnetRay.SetPosition(0, raySpawnPoint.position);
-                Debug.Log(hit.collider.gameObject.name);
                 magnetRay.SetPosition(1, hitPosition);
             }
             // TODO: MAKE THE STASIS RAY LAST LONGER INSTEAD OF DOING DOWN
