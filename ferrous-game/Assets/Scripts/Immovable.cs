@@ -32,9 +32,8 @@ namespace Ferrous
         void Start()
         {
             _rigidbody = gameObject.GetComponent<Rigidbody>();
-            _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             mainCamera = Camera.main;
-            height = gameObject.GetComponent<BoxCollider>().bounds.size.y;
+            height = gameObject.GetComponent<Collider>().bounds.size.y;
 
         }
 
@@ -59,6 +58,11 @@ namespace Ferrous
                         if (gameObject.GetComponent<Outline>().OutlineColor != stasisColor)
                         {
                             _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                            if (gameObject.name == "platforming block 1" || gameObject.name == "platforming block 2")
+                            {
+                                _rigidbody.constraints = RigidbodyConstraints.FreezeRotation |
+                                                         RigidbodyConstraints.FreezePositionZ;
+                            }
                         }
                     }
                 }
@@ -148,6 +152,11 @@ namespace Ferrous
             if (gameObject.GetComponent<Outline>().OutlineColor != stasisColor)
             {
                 _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                if (gameObject.name == "platforming block 1" || gameObject.name == "platforming block 2")
+                {
+                    _rigidbody.constraints = RigidbodyConstraints.FreezeRotation |
+                                             RigidbodyConstraints.FreezePositionZ;
+                }
             }
         }
     }

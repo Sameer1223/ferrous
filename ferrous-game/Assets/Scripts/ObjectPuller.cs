@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Ferrous.Blocks;
 using Ferrous.UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
@@ -31,6 +32,7 @@ namespace Ferrous
         private float stopPullingDist;
         public float pullForce = 50.0f;
         private Rigidbody selectedObject;
+        private RigidbodyConstraints selectedObjectConstraints; // somethign to store the original constraints
         private Vector3 selectedObjectSize;
         private float distToPlayer;
         private bool magnetismInput;
@@ -42,6 +44,7 @@ namespace Ferrous
         private bool _pullInput;
         private Vector2 _mousePos;
         private bool _selectInput;
+        private bool _pushReleased;
         
         [Header("SFX")]
         [SerializeField] private AudioSource gunActiveSfx;
@@ -54,6 +57,7 @@ namespace Ferrous
         private bool pullSfxPlayed;
         public float increaseSpeed = 0.075f;
         private float volBeforePausing;
+        
 
      
         // Player model colour changing variables
@@ -73,6 +77,7 @@ namespace Ferrous
         {
             rb = GetComponent<Rigidbody>();
             mainCamera = Camera.main;
+            selectedObjectConstraints = RigidbodyConstraints.None;
             GameObject player = GameObject.Find("Player");
             _playerTransform = player.transform;
             animator = player.GetComponentInChildren<Animator>();
@@ -143,6 +148,7 @@ namespace Ferrous
         {
             _pushInput = InputManager.instance.PushInput;
             _pullInput = InputManager.instance.PullInput;
+            _pushReleased = InputManager.instance.PushReleased;
             _mousePos = Mouse.current.position.ReadValue();
             if (useSelect) { _selectInput = InputManager.instance.SelectInput; }
         }
@@ -160,6 +166,7 @@ namespace Ferrous
                 {
                     SetModelColour(Color.white);
                 }
+                
             }
 
             animator.SetBool("isInteracting", magnetismInput);
@@ -181,13 +188,22 @@ namespace Ferrous
                 // reset push sfx
                 pushSfx.Stop();
                 pushSfx.volume = magnesisStartVol;
+                
+                pushSfxPlayed = false;
+            }
 
+            if (_pushReleased)
+            {
                 if (selectedObject)
                 {
-                    selectedObject.useGravity = true;
+                    Color selectedObjColor = selectedObject.GetComponent<Outline>().OutlineColor;
+                    // reset rb constraints to what they originally were
+                    if (selectedObject && selectedObjColor != new Color(10, 0, 191))
+                    {
+                        selectedObject.constraints = selectedObjectConstraints;
+                        selectedObjectConstraints = RigidbodyConstraints.None;
+                    }
                 }
-
-                pushSfxPlayed = false;
             }
         }
 
@@ -202,6 +218,12 @@ namespace Ferrous
                 if (hit.collider.CompareTag("Metal"))
                 {
                     selectedObject = hit.rigidbody;
+                    if (selectedObjectConstraints == RigidbodyConstraints.None && selectedObject.constraints != RigidbodyConstraints.FreezeAll)
+                    {   
+                        selectedObjectConstraints = selectedObject.constraints;
+
+                    }
+
                     if (selectedObjectSize == Vector3.zero)
                     {
                         selectedObjectSize = hit.rigidbody.GetComponent<Collider>().bounds.size;
@@ -377,7 +399,10 @@ namespace Ferrous
                 else if (isPushing && distToPlayer < maxDist)
                 {
                     // make the object not fall while pushing
-                    selectedObject.useGravity = false;
+                    if (selectedObject.constraints != RigidbodyConstraints.FreezeAll && selectedObjectConstraints != RigidbodyConstraints.None)
+                    {
+                        selectedObject.constraints = selectedObjectConstraints | RigidbodyConstraints.FreezePositionY;
+                    }
                     
                     /* Retiring this for one axis movement
                 Vector3 pushDirection = -objectDirection;

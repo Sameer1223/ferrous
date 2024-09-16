@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 
 namespace Ferrous.Player
@@ -39,6 +38,11 @@ namespace Ferrous.Player
         [SerializeField] private float _coyoteTime = 0.15f;
         private float _coyoteTimeCounter;
 
+        [Header("Jump Buffering")] [SerializeField]
+        private float _jumpBufferTime = 0.2f;
+
+        private float jumpBufferCounter;
+        
         [Header("Slope Handling")] [SerializeField]
         private float maxSlopeAngle;
         public bool onSlope;
@@ -65,7 +69,6 @@ namespace Ferrous.Player
 
             canJump = true;
             lastPosition = transform.position;
-            
         }
 
         void Update()
@@ -73,6 +76,7 @@ namespace Ferrous.Player
             PlayerInput();
             SpeedLimiter();
             IsGrounded();
+            JumpCheck();
 
 
             // Drag & coyote time
@@ -106,12 +110,13 @@ namespace Ferrous.Player
             animator.SetFloat("horizontalMovement", moveVector.x);
             animator.SetFloat("verticalMovement", moveVector.y);
 
-            if (jumpInput && canJump && _coyoteTimeCounter > 0f)
+            if (jumpInput)
             {
-                _coyoteTimeCounter = 0f;
-                canJump = false;
-                Jump();
-                Invoke(nameof(ResetJump), jumpCooldown);
+                jumpBufferCounter = _jumpBufferTime;
+            }
+            else
+            {
+                jumpBufferCounter -= Time.deltaTime;
             }
 
             animator.SetBool("isJumping", !canJump);
@@ -150,6 +155,19 @@ namespace Ferrous.Player
             if (moveDirection != Vector3.zero && !walkSfx.isPlaying && isGrounded)
             {
                 walkSfx.Play();
+            }
+        }
+
+        private void JumpCheck()
+        {
+            
+            if (jumpInput && canJump && _coyoteTimeCounter > 0f)
+            {
+                _coyoteTimeCounter = 0f;
+                jumpBufferCounter = 0f;
+                canJump = false;
+                Jump();
+                Invoke(nameof(ResetJump), jumpCooldown);
             }
         }
         // Limiting function for speed

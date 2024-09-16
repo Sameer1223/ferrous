@@ -546,13 +546,13 @@ MonoBehaviour:
   canJump: 0
   _fallMultiplier: 16.25
   _jumpVelocityFalloff: -0.2
-  asdf: 0
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
   isGrounded: 0
   _coyoteTime: 0.15
+  _jumpBufferTime: 0.1
   maxSlopeAngle: 50
   onSlope: 0
   jumpSfx: {fileID: 0}
